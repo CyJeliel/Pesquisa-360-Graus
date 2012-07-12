@@ -7,7 +7,7 @@ public class GerenciadorAutenticacao {
 	private static final String APPS_FEEDS_URL_BASE = "https://apps-apis.google.com/a/feeds/";
 
 	/**
-	 * M√©todo que seta alguns par√¢metros da conta do usu√°rio.
+	 * Método que seta alguns parâmetros da conta do usuário.
 	 * 
 	 * @param adminEmail
 	 * @param adminPassword
@@ -18,19 +18,4 @@ public class GerenciadorAutenticacao {
 		String domainUrlBase = APPS_FEEDS_URL_BASE + domain + "/";
 		session.setAttribute("domainUrlBase", domainUrlBase);
 	}
-
-//	/**
-//	 * M√©todo que busca a url de Autorizacao.
-//	 * 
-//	 * @param session
-//	 * @return {@link String} que representa a urlAutorizacao
-//	 * @author Cindy
-//	 */
-//	public String getUrlAutorizacao(HttpSession session) {
-//		EscopoAutorizacao escopoAutorizacao = new EscopoAutorizacao(session);
-//		String url = escopoAutorizacao.getUrlEscopoAutorizacao();
-//		Autorizacao autorizacao = new Autorizacao();
-//		String urlAutorizacao = autorizacao.getUrlAutorizacao(url, session);
-//		return urlAutorizacao;
-//	}
 }
