@@ -1,0 +1,2 @@
+serviceClass: br.com.idecaph.client.GreetingService
+path: 03048F1C4993147E5120236A2B7F2AD6.gwt.rpc
