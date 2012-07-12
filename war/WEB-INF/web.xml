@@ -38,9 +38,18 @@
     <url-pattern>/idecaph/greet</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>colaboradoresServlet</servlet-name>
+    <servlet-class>br.com.idecaph.server.ColaboradoresServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>colaboradoresServlet</servlet-name>
+    <url-pattern>/idecaph/colaboradores</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
-    <!-- <welcome-file>Idecaph.html</welcome-file> -->
     <welcome-file>Login</welcome-file>
   </welcome-file-list>
 
