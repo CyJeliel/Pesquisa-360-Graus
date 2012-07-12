@@ -4,6 +4,28 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+  <!-- INICIO: Servlets de Autenticação -->
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>br.com.idecaph.login.LoginServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Index</servlet-name>
+    <servlet-class>br.com.idecaph.login.IndexServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/Index</url-pattern>
+  </servlet-mapping>
+  <!-- FIM: Servlets de Autenticação -->
+  
   
   <!-- Servlets -->
   <servlet>
@@ -18,7 +40,8 @@
   
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>Idecaph.html</welcome-file>
+    <!-- <welcome-file>Idecaph.html</welcome-file> -->
+    <welcome-file>Login</welcome-file>
   </welcome-file-list>
 
 </web-app>
