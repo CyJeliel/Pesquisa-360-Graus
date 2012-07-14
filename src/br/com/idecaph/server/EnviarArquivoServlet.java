@@ -1,20 +1,17 @@
 package br.com.idecaph.server;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import br.com.idecaph.utils.ArquivosUtil;
 
 public class EnviarArquivoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,45 +22,92 @@ public class EnviarArquivoServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) {
-
-		// TODO Ler os dados
-
-		boolean isMultipartContent = ServletFileUpload
-				.isMultipartContent(request);
-		if (isMultipartContent) {
-			FileItemFactory factory = new DiskFileItemFactory();
-			ServletFileUpload upload = new ServletFileUpload(factory);
+		XSSFWorkbook workbook = ArquivosUtil.getExcel(request);
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		XSSFRow row;
+		int i = 1;
+		do {
 			try {
-				List<FileItem> fields = upload.parseRequest(request);
-				Iterator<FileItem> it = fields.iterator();
-				if (!it.hasNext()) {
-					return;
-				}
-				InputStream uploadedFileStream = null;
-				String uploadedFileName = null;
-				while (it.hasNext()) {
-					FileItem fileItem = it.next();
-					boolean isFormField = fileItem.isFormField();
-					if (isFormField) {
-
-					} else {
-						uploadedFileName = fileItem.getName();
-						uploadedFileStream = fileItem.getInputStream();
-					}
-				}
-			} catch (FileUploadException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+				row = sheet.getRow(i);
+			} catch (NullPointerException e) {
+				break;
 			}
-		}
-//		  Workbook workbook = Workbook.getWorkbook(uploadedFileStream);
+			String cargo = null;
+			String nome = null;
+			String email = null;
+			try {
+				cargo = row.getCell(2).getStringCellValue();
+				nome = row.getCell(3).getStringCellValue();
+				email = row.getCell(4).getStringCellValue();
+			} catch (NullPointerException e) {
+				continue;
+			} 
+			
+			String area = null;
+			try { 
+				area = row.getCell(0).getStringCellValue();
+			} catch (Exception e) {
+			}
+			
+			String departamento = null;
+			try {
+				departamento = row.getCell(1).getStringCellValue();
+			} catch (Exception e) {
+			}
+			
+			String escolaridade = null;
+			try {
+				escolaridade = row.getCell(5).getStringCellValue();
+			} catch (Exception e) {
+			}
+			
+			String sexo = null;
+			try {
+				sexo = row.getCell(6).getStringCellValue();
+			} catch (Exception e) {
+			}
 
+			String telefone = null;
+			try {
+				row.getCell(7).getStringCellValue();
+			} catch (Exception e) {
+			}
+			
+			String celular = null;
+			try{
+				celular = row.getCell(8).getStringCellValue();
+			} catch (Exception e) {
+			}
+			
+			String cpf = null;
+			try {
+				cpf = row.getCell(9).getStringCellValue();
+			} catch (Exception e) {
+			}
+
+			Double dataAdmissao = null;
+			try {
+				dataAdmissao = row.getCell(10).getNumericCellValue();
+			} catch (Exception e) {
+			}
+
+			Double dataDemissao = null;
+			try {
+				dataDemissao = row.getCell(11).getNumericCellValue();
+			} catch (Exception e) {
+			}
+			System.out.println("area = " + area + "; depto = " + departamento + "; cargo = " + cargo 
+					+ "; nome = " + nome + "; email = " + email + "; escolaridade = " + escolaridade 
+					+ "; sexo = " + sexo + "; telefone = " + telefone + "; celular = " + celular 
+					+ "; cpf = " + cpf + "; dataAdmissao = " + dataAdmissao
+					+ "; dataDemissao = " + dataDemissao
+					);
+			++i;
+		} while (row != null);
 		try {
 			response.sendRedirect("/teste.jsp");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
 }
