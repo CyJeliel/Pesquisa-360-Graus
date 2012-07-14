@@ -58,7 +58,7 @@ public class ColaboradoresPresenter implements Presenter {
 				String filename = display.getFileUpload().getFilename();
 				if (filename == null || filename.equals("")){
 					cancelaEvento(event, "Por favor, selecione um arquivo.");
-				} else if (!filename.endsWith(".xls")){
+				} else if (!filename.endsWith(".xlsx")){
 					cancelaEvento(event, "Formato de arquivo incorreto. Por favor, o arquivo deve ser do tipo xls");
 				}
 			}
