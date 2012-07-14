@@ -26,8 +26,19 @@
   </servlet-mapping>
   <!-- FIM: Servlets de Autenticação -->
   
+  <!-- INICIO: Outras Servlets -->
+  <servlet>
+    <servlet-name>enviarArquivo</servlet-name>
+    <servlet-class>br.com.idecaph.server.EnviarArquivoServlet</servlet-class>
+  </servlet>
   
-  <!-- Servlets -->
+  <servlet-mapping>
+    <servlet-name>enviarArquivo</servlet-name>
+    <url-pattern>/enviarArquivo</url-pattern>
+  </servlet-mapping>
+  <!-- FIM: Outras Servlets -->
+  
+  <!-- INICIO: Servlets RPC-->
   <servlet>
     <servlet-name>greetServlet</servlet-name>
     <servlet-class>br.com.idecaph.server.GreetingServiceImpl</servlet-class>
@@ -47,6 +58,7 @@
     <servlet-name>colaboradoresServlet</servlet-name>
     <url-pattern>/idecaph/colaboradores</url-pattern>
   </servlet-mapping>
+  <!-- FIM: Servlets RPC-->
   
   <!-- Default page to serve -->
   <welcome-file-list>

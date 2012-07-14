@@ -9,11 +9,16 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FileUpload;
+import com.google.gwt.user.client.ui.FormPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ColaboradoresView extends Composite implements
 		ColaboradoresDisplay {
-
+	
+	private FormPanel form;
+	private FileUpload upload;
+	
 	private static ColaboradoresViewUiBinder uiBinder = GWT
 			.create(ColaboradoresViewUiBinder.class);
 
@@ -23,7 +28,7 @@ public class ColaboradoresView extends Composite implements
 
 	public ColaboradoresView() {
 		initWidget(uiBinder.createAndBindUi(this));
-//		botaoEnviarArquivo.setText("Enviar arquivo");
+		iniciaCampoUpload();
 	}
 
 	@UiField
@@ -35,9 +40,27 @@ public class ColaboradoresView extends Composite implements
 	}
 
 	@Override
+	public FormPanel getFormUpload() {
+		return form;
+	}
+
+	private void iniciaCampoUpload() {
+		form = new FormPanel();
+		form.setEncoding(FormPanel.ENCODING_MULTIPART);
+		form.setMethod(FormPanel.METHOD_POST);
+		form.setWidth("275px");
+
+		VerticalPanel holder = new VerticalPanel();
+		upload = new FileUpload();
+		upload.setName("upload");
+		holder.add(upload);
+		holder.add(botaoEnviarArquivo);
+		form.add(holder);
+	}
+
+	@Override
 	public FileUpload getFileUpload() {
-		// TODO Auto-generated method stub
-		return null;
+		return upload;
 	}
 
 }
