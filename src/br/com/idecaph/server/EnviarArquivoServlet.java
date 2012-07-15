@@ -1,6 +1,8 @@
 package br.com.idecaph.server;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import br.com.idecaph.model.ColaboradorTemp;
 import br.com.idecaph.utils.ArquivosUtil;
 
 public class EnviarArquivoServlet extends HttpServlet {
@@ -25,6 +28,7 @@ public class EnviarArquivoServlet extends HttpServlet {
 		XSSFWorkbook workbook = ArquivosUtil.getExcel(request);
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		XSSFRow row;
+		List<ColaboradorTemp> colaboradores = new ArrayList<ColaboradorTemp>();
 		int i = 1;
 		do {
 			try {
@@ -69,7 +73,7 @@ public class EnviarArquivoServlet extends HttpServlet {
 
 			String telefone = null;
 			try {
-				row.getCell(7).getStringCellValue();
+				telefone = row.getCell(7).getStringCellValue();
 			} catch (Exception e) {
 			}
 			
@@ -96,14 +100,11 @@ public class EnviarArquivoServlet extends HttpServlet {
 				dataDemissao = row.getCell(11).getNumericCellValue();
 			} catch (Exception e) {
 			}
-			System.out.println("area = " + area + "; depto = " + departamento + "; cargo = " + cargo 
-					+ "; nome = " + nome + "; email = " + email + "; escolaridade = " + escolaridade 
-					+ "; sexo = " + sexo + "; telefone = " + telefone + "; celular = " + celular 
-					+ "; cpf = " + cpf + "; dataAdmissao = " + dataAdmissao
-					+ "; dataDemissao = " + dataDemissao
-					);
+			ColaboradorTemp colaborador =  new ColaboradorTemp("empresaTeste", cargo, nome, email, area, departamento, escolaridade, sexo, telefone, celular, cpf, dataAdmissao, dataDemissao);
+			colaboradores.add(colaborador);
 			++i;
 		} while (row != null);
+		ColaboradorTemp.saveAll(colaboradores);
 		try {
 			response.sendRedirect("/teste.jsp");
 		} catch (IOException e) {
