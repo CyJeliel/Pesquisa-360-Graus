@@ -1,2 +1,0 @@
-serviceClass: br.com.idecaph.client.interfaces.ColaboradoresService
-path: AC864F0DD4DA11FF896DE11033A2BECD.gwt.rpc

@@ -1,9 +1,10 @@
 package br.com.idecaph.client.presenter;
 
-import br.com.idecaph.client.display.Display;
+import br.com.idecaph.client.display.ColaboradoresDisplay;
+import br.com.idecaph.client.interfaces.ColaboradoresService;
 import br.com.idecaph.client.interfaces.ColaboradoresServiceAsync;
-import br.com.idecaph.client.view.ColaboradoresView;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -15,23 +16,18 @@ import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-public class ColaboradoresPresenter implements Presenter {
+public class ColaboradoresPresenter extends Presenter<ColaboradoresDisplay> {
+	ColaboradoresServiceAsync rpcService = GWT
+			.create(ColaboradoresService.class);
 
-	ColaboradoresView display;
-	private HasWidgets container;
-
-	public ColaboradoresPresenter(ColaboradoresServiceAsync rpcService,
-			HandlerManager eventBus, Display display) {
-		if (display instanceof ColaboradoresView) {
-			this.display = (ColaboradoresView) display;
-		} else {
-			throw new UnsupportedOperationException(
-					"Display não é do tipo ColaboradoresView");
-		}
-		bind();
+	public ColaboradoresPresenter(ColaboradoresDisplay display,
+			HandlerManager eventBus) {
+		super(display, eventBus);
 	}
 
-	private void bind() {
+	@Override
+	public void bind() {
+		final ColaboradoresDisplay display = super.getDisplay();
 		HasClickHandlers enviarArquivo = display.getBotaoEnviarArquivo();
 		enviarArquivo.addClickHandler(new ClickHandler() {
 
@@ -47,7 +43,7 @@ public class ColaboradoresPresenter implements Presenter {
 
 			@Override
 			public void onSubmitComplete(SubmitCompleteEvent event) {
-				// TODO Em construção
+				// TODO Em construÔøΩÔøΩo
 				Window.alert("Enviou");
 			}
 		});
@@ -56,10 +52,11 @@ public class ColaboradoresPresenter implements Presenter {
 			@Override
 			public void onSubmit(SubmitEvent event) {
 				String filename = display.getFileUpload().getFilename();
-				if (filename == null || filename.equals("")){
+				if (filename == null || filename.equals("")) {
 					cancelaEvento(event, "Por favor, selecione um arquivo.");
-				} else if (!filename.endsWith(".xlsx")){
-					cancelaEvento(event, "Formato de arquivo incorreto. Por favor, o arquivo deve ser do tipo xls");
+				} else if (!filename.endsWith(".xlsx")) {
+					cancelaEvento(event,
+							"Formato de arquivo incorreto. Por favor, o arquivo deve ser do tipo xls");
 				}
 			}
 
@@ -71,9 +68,12 @@ public class ColaboradoresPresenter implements Presenter {
 
 	}
 
+	@Override
 	public void go(final HasWidgets container) {
-		this.container = container;
-		this.container.add(display.getFormUpload());
-		this.container.add((Widget) display.getBotaoEnviarArquivo());
+		bind();
+		super.container = container;
+		super.container.add(super.getDisplay().getFormUpload());
+		super.container
+				.add((Widget) super.getDisplay().getBotaoEnviarArquivo());
 	}
 }

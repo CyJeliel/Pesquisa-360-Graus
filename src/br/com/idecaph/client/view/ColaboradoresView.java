@@ -63,4 +63,8 @@ public class ColaboradoresView extends Composite implements
 		return upload;
 	}
 
+	@Override
+	public Widget asWidget() {
+		return super.asWidget();
+	}
 }

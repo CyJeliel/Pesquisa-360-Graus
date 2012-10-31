@@ -1,8 +1,11 @@
 package br.com.idecaph.model;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -10,10 +13,15 @@ import javax.jdo.annotations.PrimaryKey;
 import br.com.idecaph.dao.PMF;
 
 @PersistenceCapable
-public class ColaboradorTemp implements Model {
+public class ColaboradorTemp extends Model<ColaboradorTemp, ColaboradorTemp> {
+	@NotPersistent
+	private static final Logger log = Logger.getLogger(ColaboradorTemp.class
+			.getName());
+
+	@SuppressWarnings("unused")
 	@Persistent
 	private String idEmpresa;
-	
+
 	@Persistent
 	private String cargo;
 
@@ -51,10 +59,10 @@ public class ColaboradorTemp implements Model {
 	@Persistent
 	private Double dataDemissao;
 
-	public ColaboradorTemp(String idEmpresa, String cargo, String nome, String email,
-			String area, String departamento, String escolaridade, String sexo,
-			String telefone, String celular, String cpf, Double dataAdmissao,
-			Double dataDemissao) {
+	public ColaboradorTemp(String idEmpresa, String cargo, String nome,
+			String email, String area, String departamento,
+			String escolaridade, String sexo, String telefone, String celular,
+			String cpf, Double dataAdmissao, Double dataDemissao) {
 		this.idEmpresa = idEmpresa;
 		this.cargo = cargo;
 		this.nome = nome;
@@ -118,12 +126,6 @@ public class ColaboradorTemp implements Model {
 		return dataDemissao;
 	}
 
-	@Override
-	public boolean save() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	public static boolean saveAll(List<ColaboradorTemp> colaboradores) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		boolean retorno = true;
@@ -131,8 +133,32 @@ public class ColaboradorTemp implements Model {
 			pm.makePersistentAll(colaboradores);
 		} catch (Exception e) {
 			retorno = false;
+		} finally {
+			pm.close();
 		}
 		return retorno;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static List<ColaboradorTemp> getAllByIdEmpresa(String idEmpresa) {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Query query = pm.newQuery(ColaboradorTemp.class);
+		query.setFilter("idEmpresa == " + idEmpresa);
+		List<ColaboradorTemp> colaboradores = null;
+		try {
+			colaboradores = (List<ColaboradorTemp>) query.execute();
+			colaboradores.size();
+		} catch (Exception e) {
+			log.severe(e.toString());
+		} finally {
+			pm.close();
+		}
+		return colaboradores;
+	}
+
+	@Override
+	public boolean update(ColaboradorTemp t) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

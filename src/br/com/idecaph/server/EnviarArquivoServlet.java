@@ -15,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import br.com.idecaph.model.ColaboradorTemp;
 import br.com.idecaph.utils.ArquivosUtil;
+import br.com.idecaph.utils.FilasUtil;
 
 public class EnviarArquivoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,6 +30,7 @@ public class EnviarArquivoServlet extends HttpServlet {
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		XSSFRow row;
 		List<ColaboradorTemp> colaboradores = new ArrayList<ColaboradorTemp>();
+		String idEmpresa = "empresaTeste";
 		int i = 1;
 		do {
 			try {
@@ -45,26 +47,26 @@ public class EnviarArquivoServlet extends HttpServlet {
 				email = row.getCell(4).getStringCellValue();
 			} catch (NullPointerException e) {
 				continue;
-			} 
-			
+			}
+
 			String area = null;
-			try { 
+			try {
 				area = row.getCell(0).getStringCellValue();
 			} catch (Exception e) {
 			}
-			
+
 			String departamento = null;
 			try {
 				departamento = row.getCell(1).getStringCellValue();
 			} catch (Exception e) {
 			}
-			
+
 			String escolaridade = null;
 			try {
 				escolaridade = row.getCell(5).getStringCellValue();
 			} catch (Exception e) {
 			}
-			
+
 			String sexo = null;
 			try {
 				sexo = row.getCell(6).getStringCellValue();
@@ -76,13 +78,13 @@ public class EnviarArquivoServlet extends HttpServlet {
 				telefone = row.getCell(7).getStringCellValue();
 			} catch (Exception e) {
 			}
-			
+
 			String celular = null;
-			try{
+			try {
 				celular = row.getCell(8).getStringCellValue();
 			} catch (Exception e) {
 			}
-			
+
 			String cpf = null;
 			try {
 				cpf = row.getCell(9).getStringCellValue();
@@ -100,11 +102,14 @@ public class EnviarArquivoServlet extends HttpServlet {
 				dataDemissao = row.getCell(11).getNumericCellValue();
 			} catch (Exception e) {
 			}
-			ColaboradorTemp colaborador =  new ColaboradorTemp("empresaTeste", cargo, nome, email, area, departamento, escolaridade, sexo, telefone, celular, cpf, dataAdmissao, dataDemissao);
+			ColaboradorTemp colaborador = new ColaboradorTemp(idEmpresa,
+					cargo, nome, email, area, departamento, escolaridade, sexo,
+					telefone, celular, cpf, dataAdmissao, dataDemissao);
 			colaboradores.add(colaborador);
 			++i;
 		} while (row != null);
 		ColaboradorTemp.saveAll(colaboradores);
+		FilasUtil.adicionaNaFila("/tasks/validacao?idEmpresa=" + idEmpresa);
 		try {
 			response.sendRedirect("/teste.jsp");
 		} catch (IOException e) {
