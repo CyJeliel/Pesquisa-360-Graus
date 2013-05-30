@@ -1,0 +1,14 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:HTMLPanel>
+        <g:VerticalPanel ui:field="body" addStyleNames="centralizaBody">
+        	<g:Label ui:field="titulo" addStyleNames="tituloWizard"></g:Label>
+			<g:FlexTable addStyleNames="lista" ui:field="tabelaAvaliados"></g:FlexTable>
+			<g:Label ui:field="porcentagemTotal" text="Total respondido: 62,5%"></g:Label>
+        </g:VerticalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

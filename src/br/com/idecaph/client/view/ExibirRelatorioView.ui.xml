@@ -1,0 +1,73 @@
+
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:HTMLPanel>
+        <g:VerticalPanel ui:field="body" addStyleNames="centralizaBody">
+        	<g:Label ui:field="nomeFuncionario" addStyleNames="tituloWizard"></g:Label>
+        	<g:Label addStyleNames="perguntaRelatorio" text="Como você avalia a habilidade de comunicação oral desse profissional?"></g:Label>
+			<g:Label addStyleNames="resposta" text="1 a 2 :  7%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="3 a 4 : 15%"></g:Label>
+        	<g:Label addStyleNames="resposta" text="5 a 6 : 22%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="7 a 8 : 30%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="9 a 10: 26%"></g:Label>
+        	<g:Label addStyleNames="perguntaRelatorio" text="Como você avalia a habilidade de comunicação escrita desse profissional?"></g:Label>
+			<g:Label addStyleNames="resposta" text="1 a 2 :  3%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="3 a 4 : 19%"></g:Label>
+        	<g:Label addStyleNames="resposta" text="5 a 6 : 29%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="7 a 8 : 22%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="9 a 10: 27%"></g:Label>
+        	<g:Label addStyleNames="perguntaRelatorio" text="O profissional consegue realizar as atividades que lhe são atribuídas?"></g:Label>
+			<g:Label addStyleNames="resposta" text="1 a 2 : 29%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="3 a 4 : 39%"></g:Label>
+        	<g:Label addStyleNames="resposta" text="5 a 6 : 22%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="7 a 8 : 7%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="9 a 10: 3%"></g:Label>
+        	<g:Label addStyleNames="perguntaRelatorio" text="O profissional realiza suas atividades com eficácia e eficiência?"></g:Label>
+			<g:Label addStyleNames="resposta" text="1 a 2 :  4%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="3 a 4 :  5%"></g:Label>
+        	<g:Label addStyleNames="resposta" text="5 a 6 :  7%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="7 a 8 : 52%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="9 a 10: 32%"></g:Label>
+        	<g:Label addStyleNames="perguntaRelatorio" text="O profissional tem um bom relacionamento com seus clientes (internos ou externos)?"></g:Label>
+			<g:Label addStyleNames="resposta" text="1 a 2 :  2%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="3 a 4 : 3%"></g:Label>
+        	<g:Label addStyleNames="resposta" text="5 a 6 : 0%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="7 a 8 : 77%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="9 a 10: 18%"></g:Label>
+        	<g:Label addStyleNames="perguntaRelatorio" text="O profissional é organizado?"></g:Label>
+			<g:Label addStyleNames="resposta" text="1 a 2 : 32%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="3 a 4 : 52%"></g:Label>
+        	<g:Label addStyleNames="resposta" text="5 a 6 : 4%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="7 a 8 : 5%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="9 a 10: 7%"></g:Label>
+        	<g:Label addStyleNames="perguntaRelatorio" text="Pergunta 1"></g:Label>
+			<g:Label addStyleNames="resposta" text="1 a 2 : 24%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="3 a 4 : 31%"></g:Label>
+        	<g:Label addStyleNames="resposta" text="5 a 6 : 21%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="7 a 8 : 14%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="9 a 10: 10%"></g:Label>
+        	<g:Label addStyleNames="perguntaRelatorio" text="Pergunta 1"></g:Label>
+			<g:Label addStyleNames="resposta" text="1 a 2 : 26%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="3 a 4 : 30%"></g:Label>
+        	<g:Label addStyleNames="resposta" text="5 a 6 : 22%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="7 a 8 : 15%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="9 a 10: 7%"></g:Label>
+        	<g:Label addStyleNames="perguntaRelatorio" text="Pergunta 1"></g:Label>
+			<g:Label addStyleNames="resposta" text="1 a 2 : 15%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="3 a 4 : 26%"></g:Label>
+        	<g:Label addStyleNames="resposta" text="5 a 6 : 30%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="7 a 8 : 22%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="9 a 10: 7%"></g:Label>
+        	<g:Label addStyleNames="perguntaRelatorio" text="Pergunta 1"></g:Label>
+			<g:Label addStyleNames="resposta" text="1 a 2 : 10%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="3 a 4 : 14%"></g:Label>
+        	<g:Label addStyleNames="resposta" text="5 a 6 : 21%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="7 a 8 : 31%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="9 a 10: 24%"></g:Label>
+        </g:VerticalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

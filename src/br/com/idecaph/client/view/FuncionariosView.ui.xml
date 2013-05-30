@@ -1,0 +1,17 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+ xmlns:g="urn:import:com.google.gwt.user.client.ui">
+    <ui:style>
+    </ui:style>
+    <g:HTMLPanel>
+        <g:VerticalPanel ui:field="body" addStyleNames="centralizaBody">
+        	<!--<g:HorizontalPanel>-->
+				<g:Image ui:field="novoFuncionario" url="/img/novo.png" addStyleNames="novo" title="Novo Funcionário"></g:Image>
+				<!--<g:SuggestBox ui:field="buscaFuncionario"></g:SuggestBox>-->
+			<!--</g:HorizontalPanel>-->
+            <g:FlexTable addStyleNames="lista" ui:field="tabelaFuncionarios">
+            </g:FlexTable>
+			<g:Button ui:field="novaPesquisa" text="Nova pesquisa"></g:Button>
+        </g:VerticalPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

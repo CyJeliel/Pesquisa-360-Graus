@@ -1,0 +1,19 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:HTMLPanel>
+        <g:VerticalPanel ui:field="body" addStyleNames="centralizaBody">
+        	<g:Label ui:field="nomeFuncionario" addStyleNames="tituloWizard"></g:Label>
+        	<g:Label ui:field="pergunta" addStyleNames="label"></g:Label>
+			<g:RadioButton ui:field="resposta1" name="resposta1" text="1 a 2"></g:RadioButton>
+			<g:RadioButton ui:field="resposta2" name="resposta2" text="3 a 4"></g:RadioButton>
+			<g:RadioButton ui:field="resposta3" name="resposta3" text="5 a 6"></g:RadioButton>
+			<g:RadioButton ui:field="resposta4" name="resposta4" text="7 a 8"></g:RadioButton>
+			<g:RadioButton ui:field="resposta5" name="resposta5" text="9 a 10"></g:RadioButton>
+			<g:Image ui:field="proximaPagina" url="/img/proximo.png" addStyleNames="paginacao"></g:Image>
+        </g:VerticalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 
