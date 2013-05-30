@@ -1,0 +1,82 @@
+.centralizaCabecalho {
+	width: 965px;
+	height: auto;
+	margin-left: 310px;
+}
+
+.topo {
+	width: 965px;
+	height: 70px;
+	float: left;
+}
+
+.logo {
+	margin: 2px 0 0 5px;
+}
+
+.menu {
+	width:530px;
+	height: auto;
+	float: left;
+	font-size: 14px;
+	margin: 40px 0 0 0;
+	color: #06F;
+	font-weight: bolder;
+}
+
+.label {
+	margin-bottom: 16px;
+	
+}
+
+.centralizaBody {
+	margin-left: 310px;
+}
+
+.lista {
+	border: 1px solid #CCCCFF;
+	background-color: #FFFFFF;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	width: 100%;
+}
+
+.tituloLista {
+	background-color: #00CCFF;
+}
+
+.linhaParLista {
+	background-color: #CCFFFF;
+}
+
+.novo {
+	margin: 2px 0 0 5px;
+	width: 5%;
+	cursor: pointer;
+	float: left; 
+}
+
+.tituloWizard {
+	font-weight: bold;
+	font-size: 25px;
+	color: #06F;
+	margin-bottom: 20px;
+}
+
+.paginacao {
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+.novaPesquisa {
+	margin-left: 10px;
+	width: 35px;
+	cursor: pointer;
+}
+
+.perguntaRelatorio {
+	font-weight: bold;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
