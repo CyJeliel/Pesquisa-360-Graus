@@ -66,7 +66,7 @@
   
   <servlet-mapping>
     <servlet-name>pesquisasServlet</servlet-name>
-    <url-pattern>/idecaph/pesquisas</url-pattern>
+    <url-pattern>/idecaph/pesquisa</url-pattern>
   </servlet-mapping>
   
   <servlet>
