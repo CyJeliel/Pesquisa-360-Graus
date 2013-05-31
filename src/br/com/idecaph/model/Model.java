@@ -10,6 +10,7 @@ public abstract class Model<T, U> {
 	public boolean save() {
 		boolean retorno = true;
 		try {
+			pm = getPM();
 			pm.makePersistent(this);
 		} catch (Exception e) {
 			retorno = false;
@@ -24,6 +25,7 @@ public abstract class Model<T, U> {
 	public boolean delete(T t) {
 		boolean retorno = true;
 		try {
+			pm = getPM();
 			pm.deletePersistent(this);
 		} catch (Exception e) {
 			retorno = false;
@@ -31,5 +33,12 @@ public abstract class Model<T, U> {
 			pm.close();
 		}
 		return retorno;
+	}
+	
+	private PersistenceManager getPM() {
+		if (pm.isClosed()){
+			pm = PMF.get().getPersistenceManager();
+		}
+		return pm;
 	}
 }
