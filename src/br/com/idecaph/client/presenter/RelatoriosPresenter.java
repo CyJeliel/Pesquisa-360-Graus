@@ -53,9 +53,13 @@ public class RelatoriosPresenter extends Presenter<RelatoriosDisplay> {
 					public void onSuccess(List<PesquisaClient> result) {
 						pesquisas = result;
 						List<String> pesquisasExistentes = new ArrayList<String>();
-						for (PesquisaClient pesquisa : result) {
-							String titulo = pesquisa.getDisplayTitulo();
-							pesquisasExistentes.add(titulo);
+						if (result != null && !result.isEmpty()) {
+							for (PesquisaClient pesquisa : result) {
+								String titulo = pesquisa.getDisplayTitulo();
+								pesquisasExistentes.add(titulo);
+							}
+						} else {
+							Window.alert("Não há pesquisas cadastradas no sistema.");
 						}
 						display.setPesquisasExistentes(pesquisasExistentes);
 					}
@@ -115,7 +119,7 @@ public class RelatoriosPresenter extends Presenter<RelatoriosDisplay> {
 		AvaliadoColunas colunas = new AvaliadoColunas();
 		display.setColunas(colunas.getColunas());
 		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(null,
-				"<b>FUNCIONÁRIOS AVALIADOS</b>", "<b>IDENTIFICAÇÃO</b>",
+				"<b>FUNCIONÃ�RIOS AVALIADOS</b>", "<b>IDENTIFICAÃ‡ÃƒO</b>",
 				"<b>CARGO</b>", "<b>DEPARTAMENTO</b>", false);
 		Widget listaVazia = new AvaliadoColunas().getColunaListaVazia();
 		List<FuncionarioSelecionavel> funcionariosSelecionaveis = new ArrayList<FuncionarioSelecionavel>();

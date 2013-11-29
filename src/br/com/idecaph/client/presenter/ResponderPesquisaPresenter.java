@@ -37,10 +37,15 @@ public class ResponderPesquisaPresenter extends
 			@Override
 			public void onSuccess(PesquisaClient result) {
 				pesquisa = result;
-				atualizaTitulo();
-				atualizaTabela();
-				atualizaTotalRespondido();
-				addHandlers();
+				
+				if (result!= null){
+					atualizaTitulo();
+					atualizaTabela();
+					atualizaTotalRespondido();
+					addHandlers();
+				} else {
+					Window.alert("Não há pesquisas cadastradas no sistema.");
+				}
 			}
 
 			@Override
@@ -66,7 +71,7 @@ public class ResponderPesquisaPresenter extends
 		AvaliadoPorcentagemColunas colunas = new AvaliadoPorcentagemColunas();
 		display.setColunas(colunas.getColunas());
 		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(null,
-				"<b>FUNCIONÁRIOS AVALIADOS</b>", "<b>IDENTIFICAÇÃO</b>",
+				"<b>FUNCIONÃ�RIOS AVALIADOS</b>", "<b>IDENTIFICAÃ‡ÃƒO</b>",
 				"<b>CARGO</b>", "<b>DEPARTAMENTO</b>", false);
 		Widget listaVazia = new AvaliadoPorcentagemColunas()
 				.getColunaListaVazia();
@@ -105,7 +110,7 @@ public class ResponderPesquisaPresenter extends
 			@Override
 			public void onSuccess(Long result) {
 				if (result == null || result < 0){
-					Window.alert("Não há mais perguntas a responder para esse avaliado.");
+					Window.alert("NÃ£o hÃ¡ mais perguntas a responder para esse avaliado.");
 				} else {
 					pesquisa.setIdUltimaPerguntaRespondida(result);
 					eventBus.fireEvent(new EventoResponderPesquisaFuncionario(

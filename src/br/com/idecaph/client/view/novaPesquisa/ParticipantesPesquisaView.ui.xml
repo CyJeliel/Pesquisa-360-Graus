@@ -7,7 +7,7 @@
 	<g:HTMLPanel>
         <g:VerticalPanel ui:field="body" addStyleNames="centralizaBody">
         	<g:Label addStyleNames="tituloWizard" text="Etapa 2 de 4"></g:Label>
-			<g:Label addStyleNames="label" text="* Funcionários que participarão da pesquisa: "></g:Label>
+			<g:Label addStyleNames="label" text="* Funcionários que farão avaliações: "></g:Label>
 			<g:FlexTable addStyleNames="lista" ui:field="tabelaParticipantes"></g:FlexTable>
 			<g:Image ui:field="proximaPagina" url="/img/proximo.png" addStyleNames="paginacao"></g:Image>
         </g:VerticalPanel>

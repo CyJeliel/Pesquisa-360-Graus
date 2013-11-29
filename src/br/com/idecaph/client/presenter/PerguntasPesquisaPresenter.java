@@ -103,14 +103,6 @@ public class PerguntasPesquisaPresenter extends
 			}
 		});
 
-		display.getAcaoSelecionarTodos().addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				selecionarTudo();
-			}
-		});
-
 		display.getAcaoNovaPergunta().addClickHandler(new ClickHandler() {
 
 			@Override
@@ -120,10 +112,21 @@ public class PerguntasPesquisaPresenter extends
 				if (validaPergunta(pergunta)) {
 					PerguntaClient novaPergunta = new PerguntaClient(null, pergunta);
 					addPergunta(novaPergunta);
-//					selectionModel.addSelection(novaPergunta);
+					selectionModel.addSelection(novaPergunta);
 					atualizaTabela();
+					addAcaoSelecionrTodos(display);
 				}
 				hasText.setText("");
+			}
+		});
+	}
+
+	private void addAcaoSelecionrTodos(final PerguntasPesquisaDisplay display) {
+		display.getAcaoSelecionarTodos().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				selecionarTudo();
 			}
 		});
 	}
