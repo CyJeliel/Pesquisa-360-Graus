@@ -1,0 +1,2 @@
+serviceClass: br.com.idecaph.client.interfaces.NovoFuncionarioService
+path: 5C66C4406161667DADDAE73A6D0E13C7.gwt.rpc

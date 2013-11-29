@@ -1,0 +1,12 @@
+br.com.idecaph.client.interfaces.NovoFuncionarioService, false, false, false, false, _, 548549701
+br.com.idecaph.client.view.colunas.InformacaoTabela, false, false, true, false, br.com.idecaph.client.view.colunas.InformacaoTabela/3326747457, 3326747457
+br.com.idecaph.shared.Funcionario, false, false, true, true, br.com.idecaph.shared.Funcionario/3498032104, 3498032104
+br.com.idecaph.shared.FuncionarioSelecionavel, false, false, true, true, br.com.idecaph.shared.FuncionarioSelecionavel/3030202602, 3030202602
+com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true, true, true, true, com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException/3936916533, 3936916533
+com.google.gwt.user.client.rpc.RpcTokenException, true, true, false, false, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
+com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
+java.lang.Boolean, true, true, false, false, java.lang.Boolean/476441737, 476441737
+java.lang.Exception, true, false, true, false, java.lang.Exception/1920171873, 1920171873
+java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException/515124647, 515124647
+java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611
+java.lang.Throwable, true, false, true, false, java.lang.Throwable/2953622131, 2953622131

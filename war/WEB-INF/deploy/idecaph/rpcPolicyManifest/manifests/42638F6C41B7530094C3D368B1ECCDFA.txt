@@ -1,0 +1,2 @@
+serviceClass: br.com.idecaph.client.interfaces.PesquisaService
+path: 1112A5C7972F9CA2AD43B2E8B90A4192.gwt.rpc
