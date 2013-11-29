@@ -7,21 +7,22 @@ import br.com.idecaph.client.eventos.EventoResponderPesquisaFuncionario;
 import br.com.idecaph.client.interfaces.PesquisaService;
 import br.com.idecaph.client.interfaces.PesquisaServiceAsync;
 import br.com.idecaph.client.view.colunas.AvaliadoPorcentagemColunas;
-import br.com.idecaph.shared.Funcionario;
+import br.com.idecaph.shared.FuncionarioClient;
 import br.com.idecaph.shared.FuncionarioSelecionavel;
-import br.com.idecaph.shared.Pesquisa;
+import br.com.idecaph.shared.PesquisaClient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ResponderPesquisaPresenter extends
 		Presenter<ResponderPesquisaDisplay> {
 	private PesquisaServiceAsync rpcService = GWT.create(PesquisaService.class);
-	private Pesquisa pesquisa;
+	private PesquisaClient pesquisa;
 
 	public ResponderPesquisaPresenter(ResponderPesquisaDisplay display,
 			HandlerManager eventBus) {
@@ -31,13 +32,14 @@ public class ResponderPesquisaPresenter extends
 	@Override
 	public void bind() {
 
-		rpcService.getPesquisa(new AsyncCallback<Pesquisa>() {
+		rpcService.getPesquisaAtual(new AsyncCallback<PesquisaClient>() {
 
 			@Override
-			public void onSuccess(Pesquisa result) {
+			public void onSuccess(PesquisaClient result) {
 				pesquisa = result;
 				atualizaTitulo();
 				atualizaTabela();
+				atualizaTotalRespondido();
 				addHandlers();
 			}
 
@@ -49,19 +51,25 @@ public class ResponderPesquisaPresenter extends
 		});
 	}
 
-	protected void atualizaTitulo() {
+	private void atualizaTotalRespondido() {
+		final ResponderPesquisaDisplay display = getResponderPesquisaDisplay();
+		display.getTotalRespondido().setText("Total Respondido: " + pesquisa.getPorcentagemPesquisaRespondida() + "%");
+	}
+
+	private void atualizaTitulo() {
 		final ResponderPesquisaDisplay display = getResponderPesquisaDisplay();
 		display.getTituloPesquisa().setText(pesquisa.getDisplayTitulo());
 	}
 
-	protected void atualizaTabela() {
+	private void atualizaTabela() {
 		final ResponderPesquisaDisplay display = getResponderPesquisaDisplay();
 		AvaliadoPorcentagemColunas colunas = new AvaliadoPorcentagemColunas();
 		display.setColunas(colunas.getColunas());
-		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(
+		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(null,
 				"<b>FUNCIONÁRIOS AVALIADOS</b>", "<b>IDENTIFICAÇÃO</b>",
 				"<b>CARGO</b>", "<b>DEPARTAMENTO</b>", false);
-		Widget listaVazia = new AvaliadoPorcentagemColunas().getColunaListaVazia();
+		Widget listaVazia = new AvaliadoPorcentagemColunas()
+				.getColunaListaVazia();
 		List<FuncionarioSelecionavel> avaliados = pesquisa.getAvaliados();
 		display.atualizaTabela(avaliados, titulo, listaVazia);
 	}
@@ -79,8 +87,27 @@ public class ResponderPesquisaPresenter extends
 				if (linhaSelecionada > 0) {
 					List<FuncionarioSelecionavel> avaliados = pesquisa
 							.getAvaliados();
-					Funcionario funcionario = avaliados
-							.get(linhaSelecionada - 1);
+					FuncionarioClient funcionario = avaliados.get(
+							linhaSelecionada - 1).getFuncionario();
+					carregarUltimaPerguntaRespondida(funcionario);
+				}
+			}
+		});
+	}
+
+	private void carregarUltimaPerguntaRespondida(final FuncionarioClient funcionario) {
+		rpcService.getIdUltimaPerguntaRespondida(pesquisa.getId(), funcionario.getId(), new AsyncCallback<Long>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+			}
+
+			@Override
+			public void onSuccess(Long result) {
+				if (result == null || result < 0){
+					Window.alert("Não há mais perguntas a responder para esse avaliado.");
+				} else {
+					pesquisa.setIdUltimaPerguntaRespondida(result);
 					eventBus.fireEvent(new EventoResponderPesquisaFuncionario(
 							funcionario, pesquisa));
 				}

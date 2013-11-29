@@ -1,0 +1,2 @@
+serviceClass: br.com.idecaph.client.interfaces.RelatorioService
+path: F3717766086DC6C1F842567F20A8E089.gwt.rpc

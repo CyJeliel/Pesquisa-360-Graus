@@ -6,7 +6,8 @@ import br.com.idecaph.shared.FuncionarioSelecionavel;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 
-public interface AvaliadosPesquisaDisplay extends TableDisplay<FuncionarioSelecionavel>{
+public interface AvaliadosPesquisaDisplay extends
+		TableDisplay<FuncionarioSelecionavel> {
 
 	HasClickHandlers getAcaoProximaEtapa();
 

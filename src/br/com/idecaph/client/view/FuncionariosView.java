@@ -53,6 +53,12 @@ public class FuncionariosView extends TableView<FuncionarioSelecionavel>
 		case LISTA_FUNCIONARIOS:
 			mensagemErro = "Erro ao buscar os funcionários.";
 			break;
+		case EXCLUIR_FUNCIONARIO:
+			mensagemErro = "Funcionário excluído com sucesso.";
+			break;
+		case ERRO_EXCLUIR_FUNCIONARIO:
+			mensagemErro = "Erro ao excluir o funcionário.";
+			break;
 		default:
 			break;
 		}

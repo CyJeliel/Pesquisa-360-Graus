@@ -1,6 +1,6 @@
 package br.com.idecaph.client.display;
 
-import br.com.idecaph.shared.Pesquisa;
+import br.com.idecaph.shared.PesquisaClient;
 
 import com.google.gwt.event.dom.client.ClickHandler;
 
@@ -13,7 +13,7 @@ public interface PesquisasDisplay extends Display {
 
 	void getAcaoSalvar(ClickHandler clickHandler);
 
-	Pesquisa getDadosNovaPesquisa();
+	PesquisaClient getDadosNovaPesquisa();
 
 	void exibeErro(int nomeFuncionario);
 

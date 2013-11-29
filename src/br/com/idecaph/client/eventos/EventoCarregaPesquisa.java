@@ -2,16 +2,17 @@ package br.com.idecaph.client.eventos;
 
 import java.util.List;
 
-import br.com.idecaph.shared.Funcionario;
+import br.com.idecaph.client.eventos.handlers.EventoCarregaPesquisaHandler;
+import br.com.idecaph.shared.FuncionarioClient;
 
 import com.google.gwt.event.shared.GwtEvent;
 
 public class EventoCarregaPesquisa extends
 		GwtEvent<EventoCarregaPesquisaHandler> {
 	public static Type<EventoCarregaPesquisaHandler> TYPE = new Type<EventoCarregaPesquisaHandler>();
-	private List<Funcionario> funcionarios;
+	private List<FuncionarioClient> funcionarios;
 
-	public EventoCarregaPesquisa(List<Funcionario> funcionarios) {
+	public EventoCarregaPesquisa(List<FuncionarioClient> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
 
@@ -25,7 +26,7 @@ public class EventoCarregaPesquisa extends
 		handler.onEventoCarregaPesquisa(this);
 	}
 
-	public List<Funcionario> getFuncionarios() {
+	public List<FuncionarioClient> getFuncionarios() {
 		return funcionarios;
 	}
 

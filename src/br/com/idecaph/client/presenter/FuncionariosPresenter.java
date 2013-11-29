@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.idecaph.client.display.FuncionariosDisplay;
-import br.com.idecaph.client.display.NovoFuncionarioDisplay;
+import br.com.idecaph.client.eventos.EventoCarregaFuncionarios;
 import br.com.idecaph.client.eventos.EventoEditarFuncionario;
 import br.com.idecaph.client.eventos.EventoNovaPesquisa;
 import br.com.idecaph.client.eventos.EventoNovoFuncionario;
@@ -12,7 +12,7 @@ import br.com.idecaph.client.interfaces.FuncionariosService;
 import br.com.idecaph.client.interfaces.FuncionariosServiceAsync;
 import br.com.idecaph.client.utils.SelectionModel;
 import br.com.idecaph.client.view.colunas.FuncionarioEditavelColunas;
-import br.com.idecaph.shared.Funcionario;
+import br.com.idecaph.shared.FuncionarioClient;
 import br.com.idecaph.shared.FuncionarioSelecionavel;
 
 import com.google.gwt.core.client.GWT;
@@ -31,11 +31,11 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 
 	private FuncionariosServiceAsync rpcService = GWT
 			.create(FuncionariosService.class);
-	private List<Funcionario> funcionarios;
-	private SelectionModel<Funcionario> selectionModel;
+	private List<FuncionarioClient> funcionarios;
+	private SelectionModel<FuncionarioClient> selectionModel;
 
 	public FuncionariosPresenter(FuncionariosDisplay display,
-			HandlerManager eventBus, List<Funcionario> funcionarios) {
+			HandlerManager eventBus, List<FuncionarioClient> funcionarios) {
 		super(display, eventBus);
 		this.funcionarios = funcionarios;
 	}
@@ -57,7 +57,8 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 					Window.alert("Selecione dois ou mais funcionários para iniciar uma nova pesquisa");
 				} else {
 					List<FuncionarioSelecionavel> funcionariosSelecionados = new ArrayList<FuncionarioSelecionavel>();
-					for (Funcionario funcionario : selectionModel.todosItens()) {
+					for (FuncionarioClient funcionario : selectionModel
+							.todosItens()) {
 						FuncionarioSelecionavel funcionarioSelecionado = new FuncionarioSelecionavel(
 								funcionario);
 						if (selectionModel.isSelected(funcionario)) {
@@ -76,7 +77,7 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 				int linhaSelecionada = display.getLinhaSelecionada(event);
 				int colunaSelecionada = display.getColunaSelecionada(event);
 				if (linhaSelecionada > 0) {
-					Funcionario funcionario = funcionarios
+					FuncionarioClient funcionario = funcionarios
 							.get(linhaSelecionada - 1);
 					if (colunaSelecionada == COLUNA_EDITAR) {
 						eventBus.fireEvent(new EventoEditarFuncionario(
@@ -92,20 +93,20 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 
 		FuncionarioEditavelColunas funcionarioColunas = new FuncionarioEditavelColunas();
 		display.setColunas(funcionarioColunas.getColunas());
-		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(
+		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(null,
 				"<b>FUNCIONÁRIOS</b>", "<b>IDENTIFICAÇÃO</b>", "<b>CARGO</b>",
 				"<b>DEPARTAMENTO</b>", false);
 		Widget listaVazia = new FuncionarioEditavelColunas()
 				.getColunaListaVazia();
 		List<FuncionarioSelecionavel> funcionariosSelecionaveis = new ArrayList<FuncionarioSelecionavel>();
-		for (Funcionario funcionario : funcionarios) {
+		for (FuncionarioClient funcionario : funcionarios) {
 			FuncionarioSelecionavel funcionarioSelecionavel = new FuncionarioSelecionavel(
 					funcionario);
 			funcionariosSelecionaveis.add(funcionarioSelecionavel);
 		}
 		display.atualizaTabela(funcionariosSelecionaveis, titulo, listaVazia);
-		selectionModel = new SelectionModel<Funcionario>(funcionarios);
-		
+		selectionModel = new SelectionModel<FuncionarioClient>(funcionarios);
+
 		display.getAcaoSelecionarTodos().addClickHandler(new ClickHandler() {
 
 			@Override
@@ -115,23 +116,39 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 		});
 	}
 
-	private void excluiFuncionario(Funcionario funcionario) {
+	private void excluiFuncionario(FuncionarioClient funcionario) {
 		final FuncionariosDisplay display = super.getDisplay();
-		rpcService.excluiFuncionario(funcionario, new AsyncCallback<Boolean>() {
+		rpcService.excluiFuncionario(funcionario.getId(),
+				new AsyncCallback<Boolean>() {
 
-			@Override
-			public void onSuccess(Boolean result) {
-				display.exibeFeedback(NovoFuncionarioDisplay.EXCLUIR_FUNCIONARIO);
-			}
+					@Override
+					public void onSuccess(Boolean result) {
+						atualizaListaFuncionarios();
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						display.exibeFeedback(FuncionariosDisplay.ERRO_EXCLUIR_FUNCIONARIO);
+					}
+				});
+	}
+
+	private void atualizaListaFuncionarios() {
+		rpcService.getFuncionarios(new AsyncCallback<List<FuncionarioClient>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				display.exibeFeedback(NovoFuncionarioDisplay.ERRO_EXCLUIR_FUNCIONARIO);
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onSuccess(List<FuncionarioClient> result) {
+				eventBus.fireEvent(new EventoCarregaFuncionarios(result));
 			}
 		});
 	}
 
-	private void itemSelecionado(Funcionario funcionario) {
+	private void itemSelecionado(FuncionarioClient funcionario) {
 		if (selectionModel.isSelected(funcionario)) {
 			selectionModel.removeSelection(funcionario);
 		} else {
@@ -154,7 +171,7 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 		display.setSelecao(selecao);
 	}
 
-	public List<Funcionario> getFuncionarios() {
+	public List<FuncionarioClient> getFuncionarios() {
 		return funcionarios;
 	}
 }

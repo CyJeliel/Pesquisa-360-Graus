@@ -68,12 +68,13 @@ public class RelatoriosView extends TableView<FuncionarioSelecionavel>
 	public HasText getBoxTituloPesquisa() {
 		return escolhePesquisa;
 	}
+
 	@Override
 	public Widget asWidget() {
 		// TODO Auto-generated method stub
 		return super.asWidget();
 	}
-	
+
 	@Override
 	public void atualizaTabela(List<FuncionarioSelecionavel> lista,
 			FuncionarioSelecionavel titulo, Widget listaVazia) {

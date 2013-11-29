@@ -6,7 +6,7 @@ import java.util.List;
 public class SelectionModel<T> {
 	List<T> selectedItems = new ArrayList<T>();
 	List<T> todosItens;
-	
+
 	public SelectionModel(List<T> todosItens) {
 		this.todosItens = todosItens;
 	}
@@ -16,7 +16,10 @@ public class SelectionModel<T> {
 	}
 
 	public void addSelection(T item) {
-		if (!selectedItems.contains(item)){
+		if(selectedItems == null){
+			selectedItems = new ArrayList<T>();
+		}
+		if (!selectedItems.contains(item)) {
 			selectedItems.add(item);
 		}
 	}
@@ -44,7 +47,7 @@ public class SelectionModel<T> {
 	public int size() {
 		return selectedItems.size();
 	}
-	
+
 	public List<T> todosItens() {
 		return todosItens;
 	}

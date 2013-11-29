@@ -8,14 +8,15 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ExibirRelatorioView extends Composite implements ExibirRelatorioDisplay{
 
 	@UiField
 	Label nomeFuncionario;
-//	@UiField
-	Label pergunta;
+	@UiField
+	VerticalPanel body;
 	
 	private static ExibirRelatorioViewUiBinder uiBinder = GWT
 			.create(ExibirRelatorioViewUiBinder.class);
@@ -34,8 +35,30 @@ public class ExibirRelatorioView extends Composite implements ExibirRelatorioDis
 	}
 	
 	@Override
-	public HasText getLabelPergunta(){
-		return pergunta;
+	public VerticalPanel getPainelResultados() {
+		return body;
 	}
 
+	@Override
+	public void addResultado(VerticalPanel resultado) {
+		body.add(resultado);
+	}
+
+	@Override
+	public VerticalPanel getNovoPainelResultado() {
+		return new VerticalPanel();
+	}
+
+	@Override
+	public void add(String label, VerticalPanel resultado, String style) {
+		Label child = new Label(label);
+		child.addStyleName(style);
+		resultado.add(child);
+	}
+
+	@Override
+	public void setMensagemRelatorioVazio() {
+		body.add(new Label("Ainda não há resultados dessa pesquisa para esse avaliado."));
+	}
+	
 }

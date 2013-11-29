@@ -1,0 +1,15 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:HTMLPanel>
+        <g:VerticalPanel ui:field="body" addStyleNames="centralizaBody">
+        	<g:Label addStyleNames="tituloWizard" text="Etapa 2 de 4"></g:Label>
+			<g:Label addStyleNames="label" text="* Funcionários que participarão da pesquisa: "></g:Label>
+			<g:FlexTable addStyleNames="lista" ui:field="tabelaParticipantes"></g:FlexTable>
+			<g:Image ui:field="proximaPagina" url="/img/proximo.png" addStyleNames="paginacao"></g:Image>
+        </g:VerticalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

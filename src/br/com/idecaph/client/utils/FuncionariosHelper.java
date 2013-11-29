@@ -6,7 +6,7 @@ import br.com.idecaph.client.eventos.EventoCarregaFuncionarios;
 import br.com.idecaph.client.eventos.EventoExibeFuncionarios;
 import br.com.idecaph.client.interfaces.FuncionariosService;
 import br.com.idecaph.client.interfaces.FuncionariosServiceAsync;
-import br.com.idecaph.shared.Funcionario;
+import br.com.idecaph.shared.FuncionarioClient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
@@ -25,22 +25,23 @@ public class FuncionariosHelper {
 	}
 
 	public void getFuncionarios() {
-		rpcService.getFuncionarios(new AsyncCallback<List<Funcionario>>() {
+		rpcService
+				.getFuncionarios(new AsyncCallback<List<FuncionarioClient>>() {
 
-			@Override
-			public void onSuccess(List<Funcionario> result) {
-				disparaEvento(result);
-			}
+					@Override
+					public void onSuccess(List<FuncionarioClient> result) {
+						disparaEvento(result);
+					}
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
 
-			}
-		});
+					}
+				});
 	}
 
-	private void disparaEvento(List<Funcionario> result) {
+	private void disparaEvento(List<FuncionarioClient> result) {
 		if (carregaTelaFuncionarios) {
 			eventBus.fireEvent(new EventoExibeFuncionarios(result));
 		} else {

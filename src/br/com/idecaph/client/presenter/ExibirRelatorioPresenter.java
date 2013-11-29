@@ -1,29 +1,54 @@
 package br.com.idecaph.client.presenter;
 
+import java.util.List;
+import java.util.Map;
+
 import br.com.idecaph.client.display.ExibirRelatorioDisplay;
-import br.com.idecaph.shared.Funcionario;
-import br.com.idecaph.shared.Pesquisa;
+import br.com.idecaph.shared.FuncionarioClient;
+import br.com.idecaph.shared.RelatorioClient;
 
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ExibirRelatorioPresenter extends Presenter<ExibirRelatorioDisplay> {
 
-	private Funcionario funcionario;
-	private Pesquisa pesquisa;
-	private int perguntaAtual = 0;
+	private FuncionarioClient funcionario;
+	private List<RelatorioClient> relatorios;
 
 	public ExibirRelatorioPresenter(ExibirRelatorioDisplay display,
-			HandlerManager eventBus, Funcionario funcionario, Pesquisa pesquisa) {
+			HandlerManager eventBus, FuncionarioClient funcionario,
+			List<RelatorioClient> relatorios) {
 		super(display, eventBus);
 		this.funcionario = funcionario;
-		this.pesquisa = pesquisa;
+		this.relatorios = relatorios;
 	}
 
 	@Override
 	public void bind() {
 		final ExibirRelatorioDisplay display = super.getDisplay();
 		display.getNomeFuncionario().setText(funcionario.getDisplayNome());
-//		String pergunta = pesquisa.getPerguntas().get(perguntaAtual).getPergunta();
-//		display.getLabelPergunta().setText(pergunta);
+		exibirDadosRelatorio();
+	}
+
+	private void exibirDadosRelatorio() {
+		ExibirRelatorioDisplay display = super.getDisplay();
+		if (relatorios != null && !relatorios.isEmpty()) {
+			for (RelatorioClient relatorioClient : relatorios) {
+				VerticalPanel resultado = display.getNovoPainelResultado();
+				display.add(relatorioClient.getPerguntaClient().getPergunta(),
+						resultado, "perguntaRelatorio");
+				Map<String, Integer> porcentagensRespostas = relatorioClient
+						.getPorcentagensRespostas();
+				for (String resposta : porcentagensRespostas.keySet()) {
+					String valor = resposta + ": "
+							+ porcentagensRespostas.get(resposta) + "%";
+					display.add(valor, resultado, "resposta");
+				}
+				display.addResultado(resultado);
+			}
+		} else {
+			display.setMensagemRelatorioVazio();
+		}
+
 	}
 }

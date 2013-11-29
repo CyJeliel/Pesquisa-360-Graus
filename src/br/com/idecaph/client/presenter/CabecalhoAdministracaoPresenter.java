@@ -21,14 +21,6 @@ public class CabecalhoAdministracaoPresenter extends
 	@Override
 	public void bind() {
 		CabecalhoAdministracaoDisplay display = super.getDisplay();
-//		HasClickHandlers logo = display.getLogoIdecaph();
-//		logo.addClickHandler(new ClickHandler() {
-//
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				carregaTelaFuncionarios();
-//			}
-//		});
 
 		HasClickHandlers funcionarios = display.getLinkFuncionarios();
 		funcionarios.addClickHandler(new ClickHandler() {

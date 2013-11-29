@@ -9,7 +9,7 @@ import br.com.idecaph.client.utils.SelectionModel;
 import br.com.idecaph.client.view.colunas.FuncionarioEditavelColunas;
 import br.com.idecaph.client.view.colunas.FuncionarioSelecionavelColunas;
 import br.com.idecaph.shared.FuncionarioSelecionavel;
-import br.com.idecaph.shared.Pesquisa;
+import br.com.idecaph.shared.PesquisaClient;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -20,13 +20,13 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class ParticipantesPesquisaPresenter extends
 		Presenter<ParticipantesPesquisaDisplay> {
-	private Pesquisa pesquisa;
+	private PesquisaClient pesquisa;
 	private List<FuncionarioSelecionavel> funcionarios;
 	private SelectionModel<FuncionarioSelecionavel> selectionModel;
 	private static final int COLUNA_SELECIONAR = 0;
 
 	public ParticipantesPesquisaPresenter(ParticipantesPesquisaDisplay display,
-			HandlerManager eventBus, Pesquisa pesquisa) {
+			HandlerManager eventBus, PesquisaClient pesquisa) {
 		super(display, eventBus);
 		this.pesquisa = pesquisa;
 	}
@@ -37,7 +37,7 @@ public class ParticipantesPesquisaPresenter extends
 		FuncionarioSelecionavelColunas funcionarioColunas = new FuncionarioSelecionavelColunas();
 		display.setColunas(funcionarioColunas.getDefinicoesColunas());
 		funcionarios = pesquisa.getParticipantes();
-		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(
+		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(null,
 				"<b>FUNCIONÁRIOS</b>", "<b>IDENTIFICAÇÃO</b>", "<b>CARGO</b>",
 				"<b>DEPARTAMENTO</b>", false);
 		Widget listaVazia = new FuncionarioEditavelColunas()
@@ -70,12 +70,10 @@ public class ParticipantesPesquisaPresenter extends
 					List<FuncionarioSelecionavel> funcionariosSelecionados = new ArrayList<FuncionarioSelecionavel>();
 					for (FuncionarioSelecionavel funcionario : selectionModel
 							.todosItens()) {
-						FuncionarioSelecionavel funcionarioSelecionado = new FuncionarioSelecionavel(
-								funcionario);
 						if (selectionModel.isSelected(funcionario)) {
-							funcionarioSelecionado.seleciona();
+							funcionario.seleciona();
 						}
-						funcionariosSelecionados.add(funcionarioSelecionado);
+						funcionariosSelecionados.add(funcionario);
 					}
 					pesquisa.setParticipantes(funcionariosSelecionados);
 					eventBus.fireEvent(new EventoPaginaAvaliados(pesquisa));

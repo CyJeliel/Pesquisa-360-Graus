@@ -7,12 +7,15 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable
 public class Colaborador {
 	@Persistent
+	@PrimaryKey
+	private Integer id;
+	
+	@Persistent
 	private String cargo;
 
 	@Persistent
 	private String nome;
 
-	@PrimaryKey
 	@Persistent
 	private String email;
 	
@@ -89,6 +92,14 @@ public class Colaborador {
 
 	public Double getDataDemissao() {
 		return dataDemissao;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }

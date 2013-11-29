@@ -35,8 +35,8 @@ public abstract class FuncionarioColunas extends ListaColunas {
 		});
 		addColunasDisplay();
 	}
-	
-	protected FuncionarioColunas(String mensagemListaVazia){
+
+	protected FuncionarioColunas(String mensagemListaVazia) {
 		super(mensagemListaVazia);
 		addColunasDisplay();
 	}

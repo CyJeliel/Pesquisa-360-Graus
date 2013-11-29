@@ -1,0 +1,17 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:HTMLPanel>
+        <g:VerticalPanel ui:field="body" addStyleNames="centralizaBody">
+        	<g:Label addStyleNames="label" text="Escolha uma pesquisa pelo título:"></g:Label>
+			<g:HorizontalPanel>
+				<g:SuggestBox ui:field="escolhePesquisa" addStyleNames="escolhePesquisa"></g:SuggestBox>
+				<g:Button ui:field="exibeRelatorio" text="Buscar"></g:Button>
+			</g:HorizontalPanel>
+			<g:FlexTable ui:field="tabelaAvaliados"></g:FlexTable>
+        </g:VerticalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

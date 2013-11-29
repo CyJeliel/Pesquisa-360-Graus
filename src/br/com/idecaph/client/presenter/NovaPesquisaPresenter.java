@@ -2,17 +2,17 @@ package br.com.idecaph.client.presenter;
 
 import br.com.idecaph.client.display.NovaPesquisaDisplay;
 import br.com.idecaph.client.eventos.EventoPaginaParticipantes;
-import br.com.idecaph.shared.Pesquisa;
+import br.com.idecaph.shared.PesquisaClient;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerManager;
 
 public class NovaPesquisaPresenter extends Presenter<NovaPesquisaDisplay> {
-	private Pesquisa pesquisa;
+	private PesquisaClient pesquisa;
 
 	public NovaPesquisaPresenter(NovaPesquisaDisplay display,
-			HandlerManager eventBus, Pesquisa pesquisa) {
+			HandlerManager eventBus, PesquisaClient pesquisa) {
 		super(display, eventBus);
 		this.pesquisa = pesquisa;
 	}

@@ -1,6 +1,6 @@
 package br.com.idecaph.client.display;
 
-import br.com.idecaph.shared.Funcionario;
+import br.com.idecaph.shared.FuncionarioClient;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasText;
@@ -22,13 +22,9 @@ public interface NovoFuncionarioDisplay extends Display {
 
 	public static final int ATUALIZA_FUNCIONARIO = 6;
 
-	public static final int EXCLUIR_FUNCIONARIO = 7;
+	public static final int ERRO_ATUALIZA_FUNCIONARIO = 7;
 
-	public static final int ERRO_EXCLUIR_FUNCIONARIO = 8;
-
-	public static final int ERRO_ATUALIZA_FUNCIONARIO = 9;
-
-	Funcionario getDadosNovoFuncionario();
+	FuncionarioClient getDadosNovoFuncionario();
 
 	HasClickHandlers getAcaoSalvar();
 
@@ -45,5 +41,7 @@ public interface NovoFuncionarioDisplay extends Display {
 	HasText getCargo();
 
 	HasText getDepartamento();
+
+	TextBox getId();
 
 }
