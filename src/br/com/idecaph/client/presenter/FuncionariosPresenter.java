@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.idecaph.client.display.FuncionariosDisplay;
 import br.com.idecaph.client.eventos.EventoCarregaFuncionarios;
 import br.com.idecaph.client.eventos.EventoEditarFuncionario;
+import br.com.idecaph.client.eventos.EventoExibeFuncionarios;
 import br.com.idecaph.client.eventos.EventoNovaPesquisa;
 import br.com.idecaph.client.eventos.EventoNovoFuncionario;
 import br.com.idecaph.client.interfaces.FuncionariosService;
@@ -143,7 +144,7 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 
 			@Override
 			public void onSuccess(List<FuncionarioClient> result) {
-				eventBus.fireEvent(new EventoCarregaFuncionarios(result));
+				eventBus.fireEvent(new EventoExibeFuncionarios(result));
 			}
 		});
 	}
