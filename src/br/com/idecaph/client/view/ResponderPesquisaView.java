@@ -18,6 +18,8 @@ public class ResponderPesquisaView extends TableView<FuncionarioSelecionavel>
 	FlexTable tabelaAvaliados;
 	@UiField
 	Label titulo;
+	@UiField
+	Label porcentagemTotal;
 
 	private static ResponderPesquisaViewUiBinder uiBinder = GWT
 			.create(ResponderPesquisaViewUiBinder.class);
@@ -34,6 +36,11 @@ public class ResponderPesquisaView extends TableView<FuncionarioSelecionavel>
 	@Override
 	public HasText getTituloPesquisa() {
 		return titulo;
+	}
+
+	@Override
+	public HasText getTotalRespondido() {
+		return porcentagemTotal;
 	}
 
 }

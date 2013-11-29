@@ -1,5 +1,7 @@
 package br.com.idecaph.client.eventos;
 
+import br.com.idecaph.client.eventos.handlers.EventoRelatoriosHandler;
+
 import com.google.gwt.event.shared.GwtEvent;
 
 public class EventoRelatorios extends GwtEvent<EventoRelatoriosHandler> {

@@ -2,6 +2,7 @@ package br.com.idecaph.client.eventos;
 
 import java.util.List;
 
+import br.com.idecaph.client.eventos.handlers.EventoNovaPesquisaHandler;
 import br.com.idecaph.shared.FuncionarioSelecionavel;
 
 import com.google.gwt.event.shared.GwtEvent;

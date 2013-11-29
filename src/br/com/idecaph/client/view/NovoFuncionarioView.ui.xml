@@ -8,12 +8,14 @@
 		<g:VerticalPanel ui:field="body" addStyleNames="centralizaBody">
             <g:HorizontalPanel>
 		        <g:VerticalPanel addStyleNames="colunaEsquerda" >
+                	<g:Label addStyleNames="label" text="  Id: "         ></g:Label>
                 	<g:Label addStyleNames="label" text="* Nome: "         ></g:Label>
 					<g:Label addStyleNames="label" text="* Registro na empresa: "></g:Label>
 					<g:Label addStyleNames="label" text="* Cargo: "        ></g:Label>
 					<g:Label addStyleNames="label" text="* Departamento: " ></g:Label>
         		</g:VerticalPanel>
 		        <g:VerticalPanel addStyleNames="colunaDireita" >
+                	<g:TextBox ui:field="id"></g:TextBox>
                 	<g:TextBox ui:field="nome"></g:TextBox>
 					<g:TextBox ui:field="identificacao"></g:TextBox>
 					<g:TextBox ui:field="cargo"></g:TextBox>

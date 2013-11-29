@@ -7,6 +7,8 @@ import com.google.gwt.user.client.ui.HasText;
 public interface ResponderPesquisaDisplay extends
 		TableDisplay<FuncionarioSelecionavel> {
 
+	HasText getTotalRespondido();
+
 	HasText getTituloPesquisa();
 
 }

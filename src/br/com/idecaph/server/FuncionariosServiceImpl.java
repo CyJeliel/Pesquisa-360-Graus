@@ -4,44 +4,75 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.idecaph.client.interfaces.FuncionariosService;
-import br.com.idecaph.mock.FuncionariosMock;
-import br.com.idecaph.model.Funcionarios;
-import br.com.idecaph.model.batch.FuncionariosBatch;
-import br.com.idecaph.shared.Funcionario;
+import br.com.idecaph.dao.FuncionarioDAO;
+import br.com.idecaph.model.Funcionario;
+import br.com.idecaph.shared.FuncionarioClient;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 		FuncionariosService {
 	private static final long serialVersionUID = 1L;
-	private static final boolean devel = Devel.IS_DEVEL;
 
 	@Override
-	public List<Funcionario> getFuncionarios() {
-		List<Funcionarios> funcionariosModel;
-		if (devel){
-			funcionariosModel = FuncionariosMock.getAll();
-		} else {
-			funcionariosModel = (new FuncionariosBatch()).getAll();
+	public List<FuncionarioClient> getFuncionarios() {
+		List<FuncionarioClient> funcionariosClient = new ArrayList<FuncionarioClient>();
+		try {
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			List<Funcionario> funcionarios = funcionarioDAO.getAll();
+			for (Funcionario funcionario : funcionarios) {
+				FuncionarioClient funcionarioClient = new FuncionarioClient(
+						funcionario.getId(), funcionario.getNome(),
+						funcionario.getIdentificacao(), funcionario.getCargo(),
+						funcionario.getDepartamento());
+				funcionariosClient.add(funcionarioClient);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			funcionariosClient = new ArrayList<FuncionarioClient>();
 		}
-		List<Funcionario> funcionarios = new ArrayList<Funcionario>();
-		for (Funcionarios funcionarioModel : funcionariosModel) {
-			Funcionario funcionario = new Funcionario(
-					funcionarioModel.getNome(),
-					funcionarioModel.getIdentificacao(),
-					funcionarioModel.getCargo(),
-					funcionarioModel.getDepartamento());
-			funcionarios.add(funcionario);
-		}
-		return funcionarios;
+		return funcionariosClient;
 	}
 
 	@Override
-	public boolean excluiFuncionario(Funcionario funcionario) {
-		Funcionarios funcionarioModel = new Funcionarios(
-				funcionario.getIdentificacao(), funcionario.getCargo(),
-				funcionario.getNome(), funcionario.getDepartamento());
-		boolean ok = funcionarioModel.delete(funcionarioModel);
+	public boolean excluiFuncionario(Long id) {
+		boolean ok = true;
+		try {
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			funcionarioDAO.deleteById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ok = false;
+		}
 		return ok;
 	}
+
+	@Override
+	public Boolean cadastraFuncionario(FuncionarioClient funcionarioClient) {
+		boolean ok = true;
+		try {
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			Funcionario funcionario = new Funcionario(funcionarioClient);
+			funcionarioDAO.insert(funcionario);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ok = false;
+		}
+		return ok;
+	}
+
+	@Override
+	public boolean atualizaFuncionario(FuncionarioClient funcionarioClient) {
+		boolean ok = true;
+		try {
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			Funcionario funcionario = new Funcionario(funcionarioClient);
+			funcionarioDAO.update(funcionario);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ok = false;
+		}
+		return ok;
+	}
+
 }

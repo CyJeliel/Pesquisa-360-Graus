@@ -1,15 +1,16 @@
 package br.com.idecaph.client.eventos;
 
-import br.com.idecaph.shared.Funcionario;
+import br.com.idecaph.client.eventos.handlers.EventoEditarFuncionarioHandler;
+import br.com.idecaph.shared.FuncionarioClient;
 
 import com.google.gwt.event.shared.GwtEvent;
 
 public class EventoEditarFuncionario extends
 		GwtEvent<EventoEditarFuncionarioHandler> {
 	public static Type<EventoEditarFuncionarioHandler> TYPE = new Type<EventoEditarFuncionarioHandler>();
-	private Funcionario funcionario;
+	private FuncionarioClient funcionario;
 
-	public EventoEditarFuncionario(Funcionario funcionario) {
+	public EventoEditarFuncionario(FuncionarioClient funcionario) {
 		this.funcionario = funcionario;
 	}
 
@@ -23,7 +24,7 @@ public class EventoEditarFuncionario extends
 		handler.onEventoEditarFuncionario(this);
 	}
 
-	public Funcionario getFuncionario() {
+	public FuncionarioClient getFuncionario() {
 		return funcionario;
 	}
 

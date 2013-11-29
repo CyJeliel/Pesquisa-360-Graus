@@ -1,15 +1,16 @@
 package br.com.idecaph.client.eventos;
 
-import br.com.idecaph.shared.Pesquisa;
+import br.com.idecaph.client.eventos.handlers.EventoPaginaPerguntasHandler;
+import br.com.idecaph.shared.PesquisaClient;
 
 import com.google.gwt.event.shared.GwtEvent;
 
 public class EventoPaginaPerguntas extends
 		GwtEvent<EventoPaginaPerguntasHandler> {
 	public static Type<EventoPaginaPerguntasHandler> TYPE = new Type<EventoPaginaPerguntasHandler>();
-	private Pesquisa pesquisa;
+	private PesquisaClient pesquisa;
 
-	public EventoPaginaPerguntas(Pesquisa pesquisa) {
+	public EventoPaginaPerguntas(PesquisaClient pesquisa) {
 		this.pesquisa = pesquisa;
 	}
 
@@ -23,7 +24,7 @@ public class EventoPaginaPerguntas extends
 		handler.onEventoPaginaPerguntas(this);
 	}
 
-	public Pesquisa getPesquisa() {
+	public PesquisaClient getPesquisa() {
 		return pesquisa;
 	}
 

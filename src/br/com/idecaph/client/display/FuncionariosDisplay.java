@@ -7,7 +7,11 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 public interface FuncionariosDisplay extends
 		TableDisplay<FuncionarioSelecionavel> {
 
-	public static final int LISTA_FUNCIONARIOS = 6;
+	public static final int LISTA_FUNCIONARIOS = 1;
+
+	public static final int EXCLUIR_FUNCIONARIO = 2;
+
+	public static final int ERRO_EXCLUIR_FUNCIONARIO = 3;
 
 	HasClickHandlers getAcaoNovoFuncionario();
 

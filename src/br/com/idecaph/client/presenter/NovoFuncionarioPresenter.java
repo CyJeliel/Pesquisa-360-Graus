@@ -1,10 +1,10 @@
 package br.com.idecaph.client.presenter;
 
 import br.com.idecaph.client.display.NovoFuncionarioDisplay;
-import br.com.idecaph.client.interfaces.NovoFuncionarioService;
-import br.com.idecaph.client.interfaces.NovoFuncionarioServiceAsync;
+import br.com.idecaph.client.interfaces.FuncionariosService;
+import br.com.idecaph.client.interfaces.FuncionariosServiceAsync;
 import br.com.idecaph.client.utils.FuncionariosHelper;
-import br.com.idecaph.shared.Funcionario;
+import br.com.idecaph.shared.FuncionarioClient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -14,9 +14,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.TextBox;
 
 public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> {
-	private NovoFuncionarioServiceAsync rpcService = GWT
-			.create(NovoFuncionarioService.class);
-	private Funcionario funcionario;
+	private FuncionariosServiceAsync rpcService = GWT
+			.create(FuncionariosService.class);
+	private FuncionarioClient funcionario;
 
 	public NovoFuncionarioPresenter(NovoFuncionarioDisplay display,
 			HandlerManager eventBus) {
@@ -24,7 +24,7 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 	}
 
 	public NovoFuncionarioPresenter(NovoFuncionarioDisplay display,
-			HandlerManager eventBus, Funcionario funcionario) {
+			HandlerManager eventBus, FuncionarioClient funcionario) {
 		super(display, eventBus);
 		this.funcionario = funcionario;
 	}
@@ -35,10 +35,11 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 		display.getAcaoSalvar().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				Funcionario novoFuncionario = display.getDadosNovoFuncionario();
+				FuncionarioClient novoFuncionario = display
+						.getDadosNovoFuncionario();
 				boolean valido = validaDadosFuncionario(novoFuncionario);
 				if (valido) {
-					if (funcionario != null) {
+					if (funcionario == null) {
 						cadastraFuncionario(novoFuncionario);
 					} else {
 						atualizaFuncionario(novoFuncionario);
@@ -55,8 +56,13 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 				helper.getFuncionarios();
 			}
 		});
+		
+		TextBox boxId = display.getId();
+		boxId.setEnabled(false);
 
 		if (funcionario != null) {
+			String id = funcionario.getId().toString();
+			boxId.setText(id);
 			String nome = funcionario.getNome();
 			display.getNome().setText(nome);
 			String identificacao = funcionario.getIdentificacao();
@@ -71,7 +77,7 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 
 	}
 
-	private boolean validaDadosFuncionario(Funcionario funcionario) {
+	private boolean validaDadosFuncionario(FuncionarioClient funcionario) {
 		boolean valido = true;
 		String nome = funcionario.getNome();
 		String identificacao = funcionario.getIdentificacao();
@@ -94,13 +100,14 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 		return valido;
 	}
 
-	private void cadastraFuncionario(Funcionario funcionario) {
+	private void cadastraFuncionario(FuncionarioClient funcionario) {
 		rpcService.cadastraFuncionario(funcionario,
 				new AsyncCallback<Boolean>() {
 
 					@Override
 					public void onSuccess(Boolean result) {
 						exibeFeedback(NovoFuncionarioDisplay.CADASTRO_FUNCIONARIO);
+						
 					}
 
 					@Override
@@ -110,13 +117,15 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 				});
 	}
 
-	private void atualizaFuncionario(Funcionario funcionario) {
+	private void atualizaFuncionario(FuncionarioClient funcionario) {
 		rpcService.atualizaFuncionario(funcionario,
 				new AsyncCallback<Boolean>() {
 
 					@Override
 					public void onSuccess(Boolean result) {
 						exibeFeedback(NovoFuncionarioDisplay.ATUALIZA_FUNCIONARIO);
+//						Window.alert();
+
 					}
 
 					@Override

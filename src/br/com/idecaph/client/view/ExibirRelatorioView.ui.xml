@@ -7,8 +7,8 @@
 	</ui:style>
 	<g:HTMLPanel>
         <g:VerticalPanel ui:field="body" addStyleNames="centralizaBody">
-        	<g:Label ui:field="nomeFuncionario" addStyleNames="tituloWizard"></g:Label>
-        	<g:Label addStyleNames="perguntaRelatorio" text="Como você avalia a habilidade de comunicação oral desse profissional?"></g:Label>
+         	<g:Label ui:field="nomeFuncionario" addStyleNames="tituloWizard"></g:Label>
+ <!--       	<g:Label addStyleNames="perguntaRelatorio" text="Como você avalia a habilidade de comunicação oral desse profissional?"></g:Label>
 			<g:Label addStyleNames="resposta" text="1 a 2 :  7%"></g:Label>
        		<g:Label addStyleNames="resposta" text="3 a 4 : 15%"></g:Label>
         	<g:Label addStyleNames="resposta" text="5 a 6 : 22%"></g:Label>
@@ -67,7 +67,7 @@
        		<g:Label addStyleNames="resposta" text="3 a 4 : 14%"></g:Label>
         	<g:Label addStyleNames="resposta" text="5 a 6 : 21%"></g:Label>
        		<g:Label addStyleNames="resposta" text="7 a 8 : 31%"></g:Label>
-       		<g:Label addStyleNames="resposta" text="9 a 10: 24%"></g:Label>
+       		<g:Label addStyleNames="resposta" text="9 a 10: 24%"></g:Label> -->
         </g:VerticalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

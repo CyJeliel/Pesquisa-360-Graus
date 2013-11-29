@@ -4,26 +4,17 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+        <display-name>idecaph</display-name>
   <!-- INICIO: Servlets de Autenticacão -->
   <servlet>
     <servlet-name>Login</servlet-name>
     <servlet-class>br.com.idecaph.login.LoginServlet</servlet-class>
   </servlet>
   
-  <servlet-mapping>
-    <servlet-name>Login</servlet-name>
-    <url-pattern>/Login</url-pattern>
-  </servlet-mapping>
-  
   <servlet>
     <servlet-name>Index</servlet-name>
     <servlet-class>br.com.idecaph.login.IndexServlet</servlet-class>
   </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>Index</servlet-name>
-    <url-pattern>/Index</url-pattern>
-  </servlet-mapping>
   <!-- FIM: Servlets de Autenticação -->
   
   <!-- INICIO: Outras Servlets -->
@@ -31,11 +22,6 @@
     <servlet-name>enviarArquivo</servlet-name>
     <servlet-class>br.com.idecaph.server.EnviarArquivoServlet</servlet-class>
   </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>enviarArquivo</servlet-name>
-    <url-pattern>/enviarArquivo</url-pattern>
-  </servlet-mapping>
   <!-- FIM: Outras Servlets -->
   
   <!-- INICIO: Servlets RPC-->
@@ -44,40 +30,20 @@
     <servlet-class>br.com.idecaph.server.ColaboradoresServiceImpl</servlet-class>
   </servlet>
   
-  <servlet-mapping>
-    <servlet-name>colaboradoresServlet</servlet-name>
-    <url-pattern>/idecaph/colaboradores</url-pattern>
-  </servlet-mapping>
-  
   <servlet>
     <servlet-name>funcionariosServlet</servlet-name>
     <servlet-class>br.com.idecaph.server.FuncionariosServiceImpl</servlet-class>
   </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>funcionariosServlet</servlet-name>
-    <url-pattern>/idecaph/funcionarios</url-pattern>
-  </servlet-mapping>
   
   <servlet>
     <servlet-name>pesquisasServlet</servlet-name>
     <servlet-class>br.com.idecaph.server.PesquisasServiceImpl</servlet-class>
   </servlet>
   
-  <servlet-mapping>
-    <servlet-name>pesquisasServlet</servlet-name>
-    <url-pattern>/idecaph/pesquisa</url-pattern>
-  </servlet-mapping>
-  
   <servlet>
-    <servlet-name>novoFuncionarioServlet</servlet-name>
-    <servlet-class>br.com.idecaph.server.NovoFuncionarioServiceImpl</servlet-class>
+    <servlet-name>relatoriosServlet</servlet-name>
+    <servlet-class>br.com.idecaph.server.RelatorioServiceImpl</servlet-class>
   </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>novoFuncionarioServlet</servlet-name>
-    <url-pattern>/idecaph/novoFuncionario</url-pattern>
-  </servlet-mapping>
   <!-- FIM: Servlets RPC-->
   
   <!-- INICIO: Servlets Filas -->
@@ -85,27 +51,70 @@
     <servlet-name>taskValidacao</servlet-name>
     <servlet-class>br.com.idecaph.server.ValidacaoServlet</servlet-class>
   </servlet>
+  <!-- FIM: Servlets Filas -->
   
+  <!-- INICIO: Servlets de Autenticacão -->
+  <servlet-mapping>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/Index</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  <!-- FIM: Servlets de Autenticação -->
+    
+  <!-- INICIO: Outras Servlets -->
+  <servlet-mapping>
+    <servlet-name>enviarArquivo</servlet-name>
+    <url-pattern>/enviarArquivo</url-pattern>
+  </servlet-mapping>
+  <!-- FIM: Outras Servlets -->
+  
+  <!-- INICIO: Servlets RPC-->
+  <servlet-mapping>
+    <servlet-name>colaboradoresServlet</servlet-name>
+    <url-pattern>/idecaph/colaboradores</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>funcionariosServlet</servlet-name>
+    <url-pattern>/idecaph/funcionarios</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>pesquisasServlet</servlet-name>
+    <url-pattern>/idecaph/pesquisa</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>relatoriosServlet</servlet-name>
+    <url-pattern>/idecaph/relatorio</url-pattern>
+  </servlet-mapping>
+  <!-- FIM: Servlets RPC-->
+  <!-- INICIO: Servlets Filas -->
   <servlet-mapping>
     <servlet-name>taskValidacao</servlet-name>
     <url-pattern>/tasks/validacao</url-pattern>
   </servlet-mapping>
   <!-- FIM: Servlets Filas -->
   
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>Login</welcome-file>
+  </welcome-file-list>
+  
   <!-- INICIO: Protecao das urls das tasks -->
   <security-constraint>
-  	<web-resource-collection>
-    	<url-pattern>/tasks/*</url-pattern>
+          <web-resource-collection>
+                  <web-resource-name>Resourse</web-resource-name>
+            <url-pattern>/tasks/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
         <role-name>admin</role-name>
     </auth-constraint>
   </security-constraint>
   <!-- FIM: Protecao das urls das tasks -->
-  
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>Login</welcome-file>
-  </welcome-file-list>
 
 </web-app>

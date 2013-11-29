@@ -12,8 +12,8 @@ public class AvaliadoColunas extends FuncionarioColunas {
 	public List<Coluna<FuncionarioSelecionavel>> getColunas() {
 		return getDefinicoesColunas();
 	}
-	
-	protected void add(Coluna<FuncionarioSelecionavel> coluna){
+
+	protected void add(Coluna<FuncionarioSelecionavel> coluna) {
 		super.add(coluna);
 	}
 

@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.jdo.Query;
 
-import br.com.idecaph.model.Funcionarios;
-import br.com.idecaph.model.Pesquisas;
+import br.com.idecaph.model.Funcionario;
+import br.com.idecaph.model.Pesquisa;
 
-public class PesquisaBatch extends Batch<Pesquisas>{
-	public List<Pesquisas> getAll() {
-		Query query = pm.newQuery(Funcionarios.class);
+public class PesquisaBatch extends Batch<Pesquisa>{
+	public List<Pesquisa> getAll() {
+		Query query = pm.newQuery(Funcionario.class);
 		@SuppressWarnings("unchecked")
-		List<Pesquisas> pesquisas = (List<Pesquisas>) query.execute();
+		List<Pesquisa> pesquisas = (List<Pesquisa>) query.execute();
 		return pesquisas;
 	}
 }

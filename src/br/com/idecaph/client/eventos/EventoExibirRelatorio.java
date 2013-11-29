@@ -1,19 +1,23 @@
 package br.com.idecaph.client.eventos;
 
-import br.com.idecaph.shared.Funcionario;
-import br.com.idecaph.shared.Pesquisa;
+import java.util.List;
+
+import br.com.idecaph.client.eventos.handlers.EventoExibirRelatorioHandler;
+import br.com.idecaph.shared.FuncionarioClient;
+import br.com.idecaph.shared.RelatorioClient;
 
 import com.google.gwt.event.shared.GwtEvent;
 
 public class EventoExibirRelatorio extends
 		GwtEvent<EventoExibirRelatorioHandler> {
-	private Funcionario funcionario;
-	private Pesquisa pesquisa;
+	private FuncionarioClient funcionario;
+	private List<RelatorioClient> relatorios;
 	public static Type<EventoExibirRelatorioHandler> TYPE = new Type<EventoExibirRelatorioHandler>();
 
-	public EventoExibirRelatorio(Funcionario funcionario, Pesquisa pesquisa) {
+	public EventoExibirRelatorio(FuncionarioClient funcionario,
+			List<RelatorioClient> relatorios) {
 		this.funcionario = funcionario;
-		this.pesquisa = pesquisa;
+		this.relatorios = relatorios;
 	}
 
 	@Override
@@ -26,11 +30,11 @@ public class EventoExibirRelatorio extends
 		handler.onEventoExibirRelatorio(this);
 	}
 
-	public Funcionario getFuncionario() {
+	public FuncionarioClient getFuncionario() {
 		return funcionario;
 	}
 
-	public Pesquisa getPesquisa() {
-		return pesquisa;
+	public List<RelatorioClient> getRelatorios() {
+		return relatorios;
 	}
 }

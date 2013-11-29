@@ -4,7 +4,7 @@ import javax.jdo.PersistenceManager;
 
 import br.com.idecaph.dao.PMF;
 
-public abstract class Model<T, U> {
+public abstract class Model<T> {
 	protected static PersistenceManager pm = PMF.get().getPersistenceManager();
 
 	public boolean save() {
@@ -20,7 +20,7 @@ public abstract class Model<T, U> {
 		return retorno;
 	}
 
-	public abstract boolean update(U u);
+	public abstract boolean update(T t);
 
 	public boolean delete(T t) {
 		boolean retorno = true;

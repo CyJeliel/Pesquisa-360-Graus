@@ -9,13 +9,13 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 
-public class CabecalhoAdministracaoView extends Composite implements CabecalhoAdministracaoDisplay {
+public class CabecalhoAdministracaoView extends Composite implements
+		CabecalhoAdministracaoDisplay {
 
-//	@UiField
-//	Image logoIdecaph;
+	// @UiField
+	// Image logoIdecaph;
 	@UiField
 	HorizontalPanel cabecalho;
 	@UiField
@@ -26,7 +26,7 @@ public class CabecalhoAdministracaoView extends Composite implements CabecalhoAd
 	Anchor relatorios;
 	@UiField
 	Anchor responderPesquisa;
-	
+
 	private static CabecalhoAdministracaoUiBinder uiBinder = GWT
 			.create(CabecalhoAdministracaoUiBinder.class);
 
@@ -38,9 +38,9 @@ public class CabecalhoAdministracaoView extends Composite implements CabecalhoAd
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
-//	public HasClickHandlers getLogoIdecaph () {
-//		return logoIdecaph;
-//	}
+	// public HasClickHandlers getLogoIdecaph () {
+	// return logoIdecaph;
+	// }
 
 	public HasClickHandlers getLinkFuncionarios() {
 		return funcionarios;
@@ -65,5 +65,5 @@ public class CabecalhoAdministracaoView extends Composite implements CabecalhoAd
 	public Widget asWidget() {
 		return cabecalho;
 	}
-	
+
 }

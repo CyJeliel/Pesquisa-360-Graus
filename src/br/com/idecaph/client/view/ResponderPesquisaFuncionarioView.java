@@ -1,16 +1,17 @@
 package br.com.idecaph.client.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.idecaph.client.display.ResponderPesquisaFuncionarioDisplay;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.i18n.server.testing.Gender;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
@@ -32,6 +33,10 @@ public class ResponderPesquisaFuncionarioView extends Composite implements
 	RadioButton resposta4;
 	@UiField
 	RadioButton resposta5;
+	@UiField
+	Image proximaPagina;
+	
+	List<RadioButton> respostas;
 
 	private static ResponderPesquisaFuncionarioViewUiBinder uiBinder = GWT
 			.create(ResponderPesquisaFuncionarioViewUiBinder.class);
@@ -40,40 +45,14 @@ public class ResponderPesquisaFuncionarioView extends Composite implements
 			UiBinder<Widget, ResponderPesquisaFuncionarioView> {
 	}
 
-	@UiHandler({ "resposta1", "resposta2", "resposta3", "resposta4",
-			"resposta5" })
-	void onChangeGender(ValueChangeEvent<Boolean> e) {
-		//TODO Fazer a troca de clicks
-		if (resposta1.getValue()){
-			resposta2.setValue(false);
-			resposta3.setValue(false);
-			resposta4.setValue(false);
-			resposta5.setValue(false);
-		} else if (resposta2.getValue()){
-			resposta1.setValue(false);
-			resposta3.setValue(false);
-			resposta4.setValue(false);
-			resposta5.setValue(false);
-		} else if (resposta3.getValue()){
-			resposta1.setValue(false);
-			resposta2.setValue(false);
-			resposta4.setValue(false);
-			resposta5.setValue(false);
-		} else if (resposta4.getValue()){
-			resposta1.setValue(false);
-			resposta2.setValue(false);
-			resposta3.setValue(false);
-			resposta5.setValue(false);
-		} else if (resposta5.getValue()){
-			resposta1.setValue(false);
-			resposta2.setValue(false);
-			resposta3.setValue(false);
-			resposta4.setValue(false);
-		}
-	}
-
 	public ResponderPesquisaFuncionarioView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		respostas = new ArrayList<RadioButton>();
+		respostas.add(resposta1);
+		respostas.add(resposta2);
+		respostas.add(resposta3);
+		respostas.add(resposta4);
+		respostas.add(resposta5);
 	}
 
 	@Override
@@ -84,6 +63,22 @@ public class ResponderPesquisaFuncionarioView extends Composite implements
 	@Override
 	public HasText getLabelPergunta() {
 		return pergunta;
+	}
+
+	@Override
+	public HasClickHandlers getActionNextPage() {
+		return proximaPagina;
+	}
+	
+	@Override
+	public String getResposta(){
+		String retorno = "";
+		for (RadioButton resposta: respostas){
+			if (resposta.getValue()){
+				retorno =  resposta.getText();
+			}
+		}
+		return retorno;
 	}
 
 }

@@ -13,7 +13,7 @@ import javax.jdo.annotations.PrimaryKey;
 import br.com.idecaph.dao.PMF;
 
 @PersistenceCapable
-public class ColaboradorTemp extends Model<ColaboradorTemp, ColaboradorTemp> {
+public class ColaboradorTemp extends Model<ColaboradorTemp> {
 	@NotPersistent
 	private static final Logger log = Logger.getLogger(ColaboradorTemp.class
 			.getName());

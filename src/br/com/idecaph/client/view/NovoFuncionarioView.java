@@ -1,7 +1,7 @@
 package br.com.idecaph.client.view;
 
 import br.com.idecaph.client.display.NovoFuncionarioDisplay;
-import br.com.idecaph.shared.Funcionario;
+import br.com.idecaph.shared.FuncionarioClient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -15,9 +15,12 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class NovoFuncionarioView extends Composite implements NovoFuncionarioDisplay{
+public class NovoFuncionarioView extends Composite implements
+		NovoFuncionarioDisplay {
 	@UiField
 	CellPanel body;
+	@UiField
+	TextBox id;
 	@UiField
 	TextBox nome;
 	@UiField
@@ -42,13 +45,20 @@ public class NovoFuncionarioView extends Composite implements NovoFuncionarioDis
 	}
 
 	@Override
-	public Funcionario getDadosNovoFuncionario() {
+	public FuncionarioClient getDadosNovoFuncionario() {
 		String nome = this.nome.getText();
 		String identificacao = this.identificacao.getText();
 		String cargo = this.cargo.getText();
 		String departamento = this.departamento.getText();
-		Funcionario funcionario = new Funcionario(nome, identificacao, cargo,
-				departamento);
+		String idString = this.id.getText();
+		Long id = null;
+		try {
+			id = Long.valueOf(idString);
+		} catch (NumberFormatException e) {
+			id = null;
+		}
+		FuncionarioClient funcionario = new FuncionarioClient(id, nome,
+				identificacao, cargo, departamento);
 		return funcionario;
 	}
 
@@ -79,11 +89,14 @@ public class NovoFuncionarioView extends Composite implements NovoFuncionarioDis
 			mensagemErro = "O departamento do funcionário não pode estar em branco.";
 			break;
 		case CADASTRO_FUNCIONARIO:
-			mensagemErro = "Cadastrou o funcionário.";
-			break;			
+			mensagemErro = "Funcionário cadastrado com sucesso.";
+			break;
+		case ATUALIZA_FUNCIONARIO:
+			mensagemErro = "Funcionário atualizado com sucesso.";
+			break;
 		case ERRO_CADASTRO_FUNCIONARIO:
 			mensagemErro = "Erro ao cadastrar o funcionário.";
-			break;			
+			break;
 		default:
 			break;
 		}
@@ -122,6 +135,11 @@ public class NovoFuncionarioView extends Composite implements NovoFuncionarioDis
 	@Override
 	public HasText getDepartamento() {
 		return departamento;
+	}
+
+	@Override
+	public TextBox getId() {
+		return id;
 	}
 
 }

@@ -1,5 +1,7 @@
 package br.com.idecaph.client.eventos;
 
+import br.com.idecaph.client.eventos.handlers.EventoResponderPesquisaHandler;
+
 import com.google.gwt.event.shared.GwtEvent;
 
 public class EventoResponderPesquisa extends

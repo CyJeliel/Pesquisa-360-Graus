@@ -5,8 +5,8 @@ import java.util.List;
 import br.com.idecaph.client.display.PesquisasDisplay;
 import br.com.idecaph.client.interfaces.PesquisaService;
 import br.com.idecaph.client.interfaces.PesquisaServiceAsync;
-import br.com.idecaph.shared.Pergunta;
-import br.com.idecaph.shared.Pesquisa;
+import br.com.idecaph.shared.PerguntaClient;
+import br.com.idecaph.shared.PesquisaClient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -28,7 +28,7 @@ public class PesquisasPresenter extends Presenter<PesquisasDisplay> {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Pesquisa pesquisa = display.getDadosNovaPesquisa();
+				PesquisaClient pesquisa = display.getDadosNovaPesquisa();
 				boolean valido = validaDadosPesquisa(pesquisa);
 				if (valido) {
 					cadastraPesquisa(pesquisa);
@@ -37,7 +37,7 @@ public class PesquisasPresenter extends Presenter<PesquisasDisplay> {
 		});
 	}
 
-	private void cadastraPesquisa(Pesquisa pesquisa) {
+	private void cadastraPesquisa(PesquisaClient pesquisa) {
 		rpcService.cadastraPesquisa(pesquisa, new AsyncCallback<Boolean>() {
 
 			@Override
@@ -52,7 +52,7 @@ public class PesquisasPresenter extends Presenter<PesquisasDisplay> {
 		});
 	}
 
-	private boolean validaDadosPesquisa(Pesquisa pesquisa) {
+	private boolean validaDadosPesquisa(PesquisaClient pesquisa) {
 		boolean valido = true;
 		String titulo = pesquisa.getTitulo();
 
@@ -60,8 +60,8 @@ public class PesquisasPresenter extends Presenter<PesquisasDisplay> {
 			exibeErro(PesquisasDisplay.TITULO_PESQUISA);
 			valido = false;
 		} else {
-			List<Pergunta> perguntas = pesquisa.getPerguntas();
-			for (Pergunta pergunta : perguntas) {
+			List<PerguntaClient> perguntas = pesquisa.getPerguntas();
+			for (PerguntaClient pergunta : perguntas) {
 				if (pergunta.getPergunta().isEmpty()) {
 					exibeErro(PesquisasDisplay.PERGUNTA_PESQUISA);
 				}
@@ -69,7 +69,7 @@ public class PesquisasPresenter extends Presenter<PesquisasDisplay> {
 		}
 		return valido;
 	}
-	
+
 	private void exibeErro(int tipoErro) {
 		super.getDisplay().exibeErro(PesquisasDisplay.PERGUNTA_PESQUISA);
 	}
