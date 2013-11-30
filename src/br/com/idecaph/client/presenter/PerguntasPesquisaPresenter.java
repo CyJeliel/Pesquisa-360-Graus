@@ -136,6 +136,7 @@ public class PerguntasPesquisaPresenter extends
 		rpcService.cadastraPesquisa(pesquisa, new AsyncCallback<Boolean>() {
 			@Override
 			public void onSuccess(Boolean sucesso) {
+				perguntas = null;
 				if (sucesso) {
 					display.exibeFeedback(PerguntasPesquisaDisplay.PESQUISA_CADASTRADA);
 				} else {
@@ -145,6 +146,7 @@ public class PerguntasPesquisaPresenter extends
 
 			@Override
 			public void onFailure(Throwable caught) {
+				perguntas = null;
 				caught.printStackTrace();
 				display.exibeFeedback(PerguntasPesquisaDisplay.PESQUISA_CADASTRADA);
 			}
