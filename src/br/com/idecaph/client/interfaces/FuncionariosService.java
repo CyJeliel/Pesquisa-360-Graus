@@ -18,4 +18,6 @@ public interface FuncionariosService extends RemoteService {
 
 	boolean atualizaFuncionario(FuncionarioClient funcionario);
 
+	FuncionarioClient getFuncionarioById(FuncionarioClient funcionario);
+
 }

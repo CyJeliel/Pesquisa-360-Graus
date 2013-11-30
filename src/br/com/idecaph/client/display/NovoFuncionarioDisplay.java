@@ -24,6 +24,14 @@ public interface NovoFuncionarioDisplay extends Display {
 
 	public static final int ERRO_ATUALIZA_FUNCIONARIO = 7;
 
+	public static final int LOGIN_FUNCIONARIO = 8;
+
+	public static final int SENHA_FUNCIONARIO = 9;
+
+	public static final int CONFIRMACAO_SENHA_FUNCIONARIO = 10;
+
+	public static final int SENHA_NAO_CONFERE_FUNCIONARIO = 11;
+
 	FuncionarioClient getDadosNovoFuncionario();
 
 	HasClickHandlers getAcaoSalvar();
@@ -43,5 +51,11 @@ public interface NovoFuncionarioDisplay extends Display {
 	HasText getDepartamento();
 
 	TextBox getId();
+
+	HasText getLogin();
+
+	HasText getSenha();
+
+	HasText getConfirmacaoSenha();
 
 }

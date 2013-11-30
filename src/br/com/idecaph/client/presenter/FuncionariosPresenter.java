@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.idecaph.client.display.FuncionariosDisplay;
-import br.com.idecaph.client.eventos.EventoCarregaFuncionarios;
 import br.com.idecaph.client.eventos.EventoEditarFuncionario;
 import br.com.idecaph.client.eventos.EventoExibeFuncionarios;
 import br.com.idecaph.client.eventos.EventoNovaPesquisa;
@@ -55,7 +54,7 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 			@Override
 			public void onClick(ClickEvent event) {
 				if (selectionModel.isEmpty() || selectionModel.size() < 2) {
-					Window.alert("Selecione dois ou mais funcionários para iniciar uma nova pesquisa");
+					Window.alert("Selecione dois ou mais funcionÃ¡rios para iniciar uma nova pesquisa");
 				} else {
 					List<FuncionarioSelecionavel> funcionariosSelecionados = new ArrayList<FuncionarioSelecionavel>();
 					for (FuncionarioClient funcionario : selectionModel
@@ -81,8 +80,7 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 					FuncionarioClient funcionario = funcionarios
 							.get(linhaSelecionada - 1);
 					if (colunaSelecionada == COLUNA_EDITAR) {
-						eventBus.fireEvent(new EventoEditarFuncionario(
-								funcionario));
+						editarFuncionario(funcionario);
 					} else if (colunaSelecionada == COLUNA_EXCLUIR) {
 						excluiFuncionario(funcionario);
 					} else if (colunaSelecionada == COLUNA_SELECIONAR) {
@@ -95,8 +93,8 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 		FuncionarioEditavelColunas funcionarioColunas = new FuncionarioEditavelColunas();
 		display.setColunas(funcionarioColunas.getColunas());
 		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(null,
-				"<b>FUNCIONÁRIOS</b>", "<b>IDENTIFICAÇÃO</b>", "<b>CARGO</b>",
-				"<b>DEPARTAMENTO</b>", false);
+				"<b>FUNCIONÃ�RIOS</b>", "<b>IDENTIFICAÃ‡ÃƒO</b>",
+				"<b>CARGO</b>", "<b>DEPARTAMENTO</b>", false);
 		Widget listaVazia = new FuncionarioEditavelColunas()
 				.getColunaListaVazia();
 		List<FuncionarioSelecionavel> funcionariosSelecionaveis = new ArrayList<FuncionarioSelecionavel>();
@@ -117,6 +115,24 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 		});
 	}
 
+	private void editarFuncionario(FuncionarioClient funcionario) {
+
+		rpcService.getFuncionarioById(funcionario,
+				new AsyncCallback<FuncionarioClient>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Erro ao carregar o funcionário. Tente novamente mais tarde.");
+					}
+
+					@Override
+					public void onSuccess(FuncionarioClient result) {
+
+						eventBus.fireEvent(new EventoEditarFuncionario(result));
+					}
+				});
+	}
+
 	private void excluiFuncionario(FuncionarioClient funcionario) {
 		final FuncionariosDisplay display = super.getDisplay();
 		rpcService.excluiFuncionario(funcionario.getId(),
@@ -135,18 +151,19 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 	}
 
 	private void atualizaListaFuncionarios() {
-		rpcService.getFuncionarios(new AsyncCallback<List<FuncionarioClient>>() {
+		rpcService
+				.getFuncionarios(new AsyncCallback<List<FuncionarioClient>>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-			}
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+					}
 
-			@Override
-			public void onSuccess(List<FuncionarioClient> result) {
-				eventBus.fireEvent(new EventoExibeFuncionarios(result));
-			}
-		});
+					@Override
+					public void onSuccess(List<FuncionarioClient> result) {
+						eventBus.fireEvent(new EventoExibeFuncionarios(result));
+					}
+				});
 	}
 
 	private void itemSelecionado(FuncionarioClient funcionario) {

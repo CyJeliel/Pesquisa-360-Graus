@@ -52,6 +52,7 @@ public class ResponderPesquisaFuncionarioPresenter extends
 
 	@Override
 	public void bind() {
+		Window.alert("Entrei no bind da ResponderPesquisaFuncionarioPresenter");
 		final ResponderPesquisaFuncionarioDisplay display = super.getDisplay();
 		display.getNomeFuncionario().setText(funcionario.getDisplayNome());
 		String perguntaDescricao = pergunta.getPergunta();

@@ -1,15 +1,36 @@
 package br.com.idecaph.shared;
 
+import java.io.Serializable;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class FuncionarioClient implements IsSerializable {
+public class FuncionarioClient implements IsSerializable, Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
+	private String login;
+	private String senha;
+	private String confirmacaoSenha;
 	private String identificacao;
 	private String nome;
 	private String cargo;
 	private String departamento;
 
 	public FuncionarioClient() {
+	}
+
+	public FuncionarioClient(Long id, String login, String senha,
+			String confirmacaoSenha, String nome, String identificacao,
+			String cargo, String departamento) {
+		this(id, login, senha, nome, identificacao, cargo, departamento);
+		this.confirmacaoSenha = confirmacaoSenha;
+	}
+
+	public FuncionarioClient(Long id, String login, String senha, String nome,
+			String identificacao, String cargo, String departamento) {
+		this(id, nome, identificacao, cargo, departamento);
+		this.login = login;
+		this.senha = senha;
 	}
 
 	public FuncionarioClient(Long id, String nome, String identificacao,
@@ -75,5 +96,29 @@ public class FuncionarioClient implements IsSerializable {
 
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
+	}
+
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
 	}
 }

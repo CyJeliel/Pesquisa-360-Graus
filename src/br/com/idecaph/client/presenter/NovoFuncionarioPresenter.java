@@ -63,6 +63,11 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 		if (funcionario != null) {
 			String id = funcionario.getId().toString();
 			boxId.setText(id);
+			String login = funcionario.getLogin();
+			display.getLogin().setText(login);
+			String senha = funcionario.getSenha();
+			display.getSenha().setText(senha);
+			display.getConfirmacaoSenha().setText(senha);
 			String nome = funcionario.getNome();
 			display.getNome().setText(nome);
 			String identificacao = funcionario.getIdentificacao();
@@ -79,11 +84,30 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 
 	private boolean validaDadosFuncionario(FuncionarioClient funcionario) {
 		boolean valido = true;
+		String login = funcionario.getLogin();
+		String senha = funcionario.getNome();
+		String confirmacaoSenha = funcionario.getNome();
 		String nome = funcionario.getNome();
 		String identificacao = funcionario.getIdentificacao();
 		String cargo = funcionario.getCargo();
 		String departamento = funcionario.getDepartamento();
 
+		if (login.isEmpty()) {
+			exibeErro(NovoFuncionarioDisplay.LOGIN_FUNCIONARIO);
+			valido = false;
+		}
+		if (senha.isEmpty()) {
+			exibeErro(NovoFuncionarioDisplay.SENHA_FUNCIONARIO);
+			valido = false;
+		}
+		if (confirmacaoSenha.isEmpty()) {
+			exibeErro(NovoFuncionarioDisplay.CONFIRMACAO_SENHA_FUNCIONARIO);
+			valido = false;
+		}
+		if (!senha.isEmpty() && !confirmacaoSenha.isEmpty() && !senha.equals(confirmacaoSenha)) {
+			exibeErro(NovoFuncionarioDisplay.SENHA_NAO_CONFERE_FUNCIONARIO);
+			valido = false;
+		}
 		if (nome.isEmpty()) {
 			exibeErro(NovoFuncionarioDisplay.NOME_FUNCIONARIO);
 			valido = false;
@@ -124,8 +148,6 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 					@Override
 					public void onSuccess(Boolean result) {
 						exibeFeedback(NovoFuncionarioDisplay.ATUALIZA_FUNCIONARIO);
-//						Window.alert();
-
 					}
 
 					@Override

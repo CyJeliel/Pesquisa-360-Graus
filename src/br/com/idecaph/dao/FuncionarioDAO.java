@@ -1,5 +1,9 @@
 package br.com.idecaph.dao;
 
+import java.util.List;
+
+import javax.jdo.Query;
+
 import br.com.idecaph.model.Funcionario;
 
 import com.google.appengine.api.datastore.Key;
@@ -25,8 +29,27 @@ public class FuncionarioDAO extends GenericDAO<Funcionario> {
 		}
 	}
 
-	public Funcionario getByEmail(String email) {
-		// TODO Alterar para pegar participante atual
-		return new Funcionario(5l, null, null, null, null);
+	public Funcionario findByLoginSenha(String login, String senha) {
+
+		Funcionario funcionario = null;
+		String filter = "login == loginParam && senha == senhaParam";
+		try {
+			init();
+			Query query = pm.newQuery(Funcionario.class, filter);
+			query.declareParameters("String loginParam, String senhaParam");
+			@SuppressWarnings("unchecked")
+			List<Funcionario> funcionarios = (List<Funcionario>) query.execute(
+					login, senha);
+
+			if (funcionarios != null && !funcionarios.isEmpty()) {
+				funcionario = funcionarios.get(0);
+			}
+			query.closeAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			end();
+		}
+		return funcionario;
 	}
 }

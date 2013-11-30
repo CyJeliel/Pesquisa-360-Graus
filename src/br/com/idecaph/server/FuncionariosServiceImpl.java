@@ -22,7 +22,8 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 			List<Funcionario> funcionarios = funcionarioDAO.getAll();
 			for (Funcionario funcionario : funcionarios) {
 				FuncionarioClient funcionarioClient = new FuncionarioClient(
-						funcionario.getId(), funcionario.getNome(),
+						funcionario.getId(), funcionario.getLogin(),
+						funcionario.getSenha(), funcionario.getNome(),
 						funcionario.getIdentificacao(), funcionario.getCargo(),
 						funcionario.getDepartamento());
 				funcionariosClient.add(funcionarioClient);
@@ -73,6 +74,23 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 			ok = false;
 		}
 		return ok;
+	}
+
+	@Override
+	public FuncionarioClient getFuncionarioById(
+			FuncionarioClient funcionarioClient) {
+		try {
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			Funcionario funcionario = funcionarioDAO.findById(funcionarioClient
+					.getId());
+			funcionarioClient = new FuncionarioClient(funcionario.getId(),
+					funcionario.getLogin(), funcionario.getSenha(),
+					funcionario.getNome(), funcionario.getIdentificacao(),
+					funcionario.getCargo(), funcionario.getDepartamento());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return funcionarioClient;
 	}
 
 }

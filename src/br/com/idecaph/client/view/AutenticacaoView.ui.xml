@@ -1,0 +1,26 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:VerticalPanel ui:field="body" addStyleNames="centralizaBody">
+            <g:HorizontalPanel>
+		        <g:VerticalPanel addStyleNames="colunaEsquerda" >
+                	<g:Label addStyleNames="label" text="Login: "         ></g:Label>
+                	<g:Label addStyleNames="label" text="Senha: "         ></g:Label>
+        		</g:VerticalPanel>
+		        <g:VerticalPanel addStyleNames="colunaDireita" >
+                	<g:TextBox ui:field="login"></g:TextBox>
+                	<g:TextBox ui:field="senha"></g:TextBox>
+        		</g:VerticalPanel>
+			</g:HorizontalPanel>
+            <g:HorizontalPanel>
+                <g:Button ui:field="botaoLogar"   text="Login"></g:Button>
+            </g:HorizontalPanel>
+		</g:VerticalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

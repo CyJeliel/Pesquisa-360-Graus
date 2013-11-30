@@ -110,7 +110,7 @@ public class ResponderPesquisaPresenter extends
 			@Override
 			public void onSuccess(Long result) {
 				if (result == null || result < 0){
-					Window.alert("NÃ£o hÃ¡ mais perguntas a responder para esse avaliado.");
+					Window.alert("Não há mais perguntas a responder para esse avaliado.");
 				} else {
 					pesquisa.setIdUltimaPerguntaRespondida(result);
 					eventBus.fireEvent(new EventoResponderPesquisaFuncionario(

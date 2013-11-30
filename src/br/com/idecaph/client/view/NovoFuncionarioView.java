@@ -17,22 +17,40 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class NovoFuncionarioView extends Composite implements
 		NovoFuncionarioDisplay {
+	
 	@UiField
 	CellPanel body;
+	
 	@UiField
 	TextBox id;
+	
+	@UiField
+	TextBox login;
+	
+	@UiField
+	TextBox senha;
+	
+	@UiField
+	TextBox confirmacaoSenha;
+	
 	@UiField
 	TextBox nome;
+	
 	@UiField
 	TextBox identificacao;
+	
 	@UiField
 	TextBox cargo;
+	
 	@UiField
 	TextBox departamento;
+	
 	@UiField
 	Button botaoSalvar;
+	
 	@UiField
 	Button botaoCancelar;
+	
 	private static NovoFuncionarioViewUiBinder uiBinder = GWT
 			.create(NovoFuncionarioViewUiBinder.class);
 
@@ -46,6 +64,9 @@ public class NovoFuncionarioView extends Composite implements
 
 	@Override
 	public FuncionarioClient getDadosNovoFuncionario() {
+		String login = this.login.getText();
+		String senha = this.senha.getText();
+		String confirmacaoSenha = this.confirmacaoSenha.getText();
 		String nome = this.nome.getText();
 		String identificacao = this.identificacao.getText();
 		String cargo = this.cargo.getText();
@@ -57,7 +78,7 @@ public class NovoFuncionarioView extends Composite implements
 		} catch (NumberFormatException e) {
 			id = null;
 		}
-		FuncionarioClient funcionario = new FuncionarioClient(id, nome,
+		FuncionarioClient funcionario = new FuncionarioClient(id, login, senha, confirmacaoSenha, nome,
 				identificacao, cargo, departamento);
 		return funcionario;
 	}
@@ -76,26 +97,38 @@ public class NovoFuncionarioView extends Composite implements
 	public void exibeErro(int tipoErro) {
 		String mensagemErro = "";
 		switch (tipoErro) {
+		case LOGIN_FUNCIONARIO:
+			mensagemErro = "O login do funcionário não pode estar em branco.";
+			break;
+		case SENHA_FUNCIONARIO:
+			mensagemErro = "A senha do funcionário não pode estar em branco.";
+			break;
+		case CONFIRMACAO_SENHA_FUNCIONARIO:
+			mensagemErro = "A confirmação da senha não pode estar em branco.";
+			break;
+		case SENHA_NAO_CONFERE_FUNCIONARIO:
+			mensagemErro = "A senha e a confirmação não conferem.";
+			break;
 		case NOME_FUNCIONARIO:
-			mensagemErro = "O nome do funcionÃ¡rio nÃ£o pode estar em branco.";
+			mensagemErro = "O nome do funcionário não pode estar em branco.";
 			break;
 		case IDENTIFICACAO_FUNCIONARIO:
-			mensagemErro = "A identificaÃ§Ã£o do funcionÃ¡rio nÃ£o pode estar em branco.";
+			mensagemErro = "A identificação do funcionário não pode estar em branco.";
 			break;
 		case CARGO_FUNCIONARIO:
-			mensagemErro = "O cargo do funcionÃ¡rio nÃ£o pode estar em branco.";
+			mensagemErro = "O cargo do funcionário não pode estar em branco.";
 			break;
 		case DEPARTAMENTO_FUNCIONARIO:
-			mensagemErro = "O departamento do funcionÃ¡rio nÃ£o pode estar em branco.";
+			mensagemErro = "O departamento do funcionário não pode estar em branco.";
 			break;
 		case CADASTRO_FUNCIONARIO:
-			mensagemErro = "FuncionÃ¡rio cadastrado com sucesso.";
+			mensagemErro = "Funcionário cadastrado com sucesso.";
 			break;
 		case ATUALIZA_FUNCIONARIO:
-			mensagemErro = "FuncionÃ¡rio atualizado com sucesso.";
+			mensagemErro = "Funcionário atualizado com sucesso.";
 			break;
 		case ERRO_CADASTRO_FUNCIONARIO:
-			mensagemErro = "Erro ao cadastrar o funcionÃ¡rio.";
+			mensagemErro = "Erro ao cadastrar o funcionário.";
 			break;
 		default:
 			break;
@@ -115,6 +148,21 @@ public class NovoFuncionarioView extends Composite implements
 	@Override
 	public CellPanel asWidget() {
 		return body;
+	}
+
+	@Override
+	public HasText getLogin() {
+		return login;
+	}
+
+	@Override
+	public HasText getSenha() {
+		return senha;
+	}
+
+	@Override
+	public HasText getConfirmacaoSenha() {
+		return confirmacaoSenha;
 	}
 
 	@Override

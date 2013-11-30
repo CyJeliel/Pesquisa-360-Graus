@@ -17,6 +17,12 @@ public class Funcionario implements Entity {
 	private Long id;
 
 	@Persistent
+	private String login;
+
+	@Persistent
+	private String senha;
+
+	@Persistent
 	private String identificacao;
 
 	@Persistent
@@ -39,6 +45,8 @@ public class Funcionario implements Entity {
 
 	public Funcionario(FuncionarioClient funcionarioClient) {
 		this.id = funcionarioClient.getId();
+		this.login = funcionarioClient.getLogin();
+		this.senha = funcionarioClient.getSenha();
 		this.identificacao = funcionarioClient.getIdentificacao();
 		this.cargo = funcionarioClient.getCargo();
 		this.nome = funcionarioClient.getNome();
@@ -104,5 +112,21 @@ public class Funcionario implements Entity {
 	public FuncionarioSelecionavel getFuncionarioSelecionavel() {
 		FuncionarioSelecionavel funcionarioSelecionavel = new FuncionarioSelecionavel(id, nome, identificacao, cargo, departamento, false);
 		return funcionarioSelecionavel;
+	}
+
+	public String getLogin() {
+		return this.login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
 }

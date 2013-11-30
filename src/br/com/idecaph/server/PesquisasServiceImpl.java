@@ -3,6 +3,8 @@ package br.com.idecaph.server;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import br.com.idecaph.client.interfaces.PesquisaService;
 import br.com.idecaph.dao.AvaliadoPesquisaDAO;
 import br.com.idecaph.dao.FuncionarioDAO;
@@ -16,14 +18,12 @@ import br.com.idecaph.model.ParticipantePesquisa;
 import br.com.idecaph.model.Pergunta;
 import br.com.idecaph.model.Pesquisa;
 import br.com.idecaph.model.Resposta;
+import br.com.idecaph.shared.FuncionarioClient;
 import br.com.idecaph.shared.FuncionarioSelecionavel;
 import br.com.idecaph.shared.PerguntaClient;
 import br.com.idecaph.shared.PesquisaClient;
 import br.com.idecaph.shared.RespostaClient;
 
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class PesquisasServiceImpl extends RemoteServiceServlet implements
@@ -210,16 +210,6 @@ public class PesquisasServiceImpl extends RemoteServiceServlet implements
 		return pesquisaClient;
 	}
 
-	private Long getIdFuncionarioLogado() {
-		UserService userService = UserServiceFactory.getUserService();
-		User usuario = userService.getCurrentUser();
-		String email = usuario.getEmail();
-		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-		Funcionario participante = funcionarioDAO.getByEmail(email);
-		Long idParticipante = participante.getId();
-		return idParticipante;
-	}
-
 	@Override
 	public Boolean salvarResposta(RespostaClient respostaClient) {
 		boolean ok = true;
@@ -249,12 +239,19 @@ public class PesquisasServiceImpl extends RemoteServiceServlet implements
 			List<Resposta> respostasAvaliado = respostaDAO
 					.getRespostasAvaliado(idPesquisa, idAvaliado);
 			if (perguntas != null && respostasAvaliado != null) {
-				if (respostasAvaliado.size() >= perguntas.size()){
+				if (respostasAvaliado.size() >= perguntas.size()) {
 					idUltimaPerguntaRespondida = -999l;
 				}
 			}
 		}
 
 		return idUltimaPerguntaRespondida;
+	}
+
+	private Long getIdFuncionarioLogado() {
+		HttpServletRequest request = getThreadLocalRequest();
+		FuncionarioClient participante = (FuncionarioClient) request.getSession()
+				.getAttribute("funcionario");
+		return participante.getId();
 	}
 }
