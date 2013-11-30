@@ -26,6 +26,8 @@ public class CabecalhoAdministracaoView extends Composite implements
 	Anchor relatorios;
 	@UiField
 	Anchor responderPesquisa;
+	@UiField
+	Anchor logout;
 
 	private static CabecalhoAdministracaoUiBinder uiBinder = GWT
 			.create(CabecalhoAdministracaoUiBinder.class);
@@ -64,6 +66,11 @@ public class CabecalhoAdministracaoView extends Composite implements
 	@Override
 	public Widget asWidget() {
 		return cabecalho;
+	}
+
+	@Override
+	public HasClickHandlers getLinkLogout() {
+		return logout;
 	}
 
 }

@@ -1,6 +1,7 @@
 package br.com.idecaph.client.presenter;
 
 import br.com.idecaph.client.display.CabecalhoAdministracaoDisplay;
+import br.com.idecaph.client.eventos.EventoLogout;
 import br.com.idecaph.client.eventos.EventoNovaPesquisa;
 import br.com.idecaph.client.eventos.EventoRelatorios;
 import br.com.idecaph.client.eventos.EventoResponderPesquisa;
@@ -53,6 +54,15 @@ public class CabecalhoAdministracaoPresenter extends
 			@Override
 			public void onClick(ClickEvent event) {
 				eventBus.fireEvent(new EventoResponderPesquisa());
+			}
+		});
+		
+		HasClickHandlers logout = display.getLinkLogout();
+		logout.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				eventBus.fireEvent(new EventoLogout());
 			}
 		});
 	}

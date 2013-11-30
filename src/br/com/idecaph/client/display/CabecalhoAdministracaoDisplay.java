@@ -12,4 +12,6 @@ public interface CabecalhoAdministracaoDisplay extends Display {
 	HasClickHandlers getLinkRelatorios();
 
 	HasClickHandlers getLinkResponderPesquisa();
+
+	public HasClickHandlers getLinkLogout();
 }

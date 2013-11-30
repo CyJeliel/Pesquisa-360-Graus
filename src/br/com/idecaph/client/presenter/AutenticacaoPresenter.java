@@ -1,6 +1,8 @@
 package br.com.idecaph.client.presenter;
 
 import br.com.idecaph.client.display.AutenticacaoDisplay;
+import br.com.idecaph.client.eventos.EventoLogout;
+import br.com.idecaph.client.eventos.handlers.EventoLogoutHandler;
 import br.com.idecaph.client.interfaces.AutenticacaoService;
 import br.com.idecaph.client.interfaces.AutenticacaoServiceAsync;
 import br.com.idecaph.client.view.CabecalhoAdministracaoView;
@@ -49,6 +51,29 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 			}
 		});
 
+		eventBus.addHandler(EventoLogout.TYPE, new EventoLogoutHandler() {
+
+			@Override
+			public void onEventoLogout(EventoLogout eventoLogout) {
+				logout();
+			}
+		});
+
+	}
+
+	private void logout() {
+		rpcService.logout(new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				carregaPaginaLogin();
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				carregaPaginaLogin();
+			}
+		});
 	}
 
 	public void carregaPaginaInicial(final Boolean primeiraVez) {
@@ -62,9 +87,7 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 					Window.alert("Usuário ou senha incorretos.");
 				}
 
-				RootPanel.get().clear();
-
-				go(RootPanel.get());
+				carregaPaginaLogin();
 			}
 
 			@Override
@@ -79,14 +102,18 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 					if (!primeiraVez) {
 						Window.alert("Usuário ou senha incorretos.");
 					}
-					RootPanel.get().clear();
-
-					go(RootPanel.get());
+					carregaPaginaLogin();
 				}
 
 			}
 		});
 
+	}
+
+	private void carregaPaginaLogin() {
+		RootPanel.get().clear();
+
+		go(RootPanel.get());
 	}
 
 	private void carregaTelaInicial() {
@@ -124,9 +151,7 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 
 					Window.alert("Usuário ou senha incorretos.");
 
-					RootPanel.get().clear();
-
-					go(RootPanel.get());
+					carregaPaginaLogin();
 				}
 			}
 		});

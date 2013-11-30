@@ -9,4 +9,6 @@ public interface AutenticacaoService extends RemoteService {
 	boolean isLogado();
 
 	boolean login(String login, String senha);
+
+	void logout();
 }

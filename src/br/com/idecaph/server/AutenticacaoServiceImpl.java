@@ -58,4 +58,14 @@ public class AutenticacaoServiceImpl extends RemoteServiceServlet implements
 		
 	}
 
+	@Override
+	public void logout() {
+
+		HttpServletRequest request = getThreadLocalRequest();
+
+		HttpSession session = request.getSession();
+		
+		session.setAttribute("funcionario", null);
+	}
+
 }

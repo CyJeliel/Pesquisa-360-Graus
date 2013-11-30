@@ -10,7 +10,7 @@
 					<g:Anchor ui:field="pesquisas" text="Pesquisas"></g:Anchor>
 					<g:Anchor ui:field="relatorios" text="Relatórios"></g:Anchor>
 					<g:Anchor ui:field="responderPesquisa" text="Responder Pesquisa"></g:Anchor>
-					<!--<g:Anchor ui:field="logout" text="Sair"></g:Anchor>-->
+					<g:Anchor ui:field="logout" text="Sair"></g:Anchor>
 				</g:HorizontalPanel>
 			</g:HorizontalPanel>
 		</g:HorizontalPanel>
