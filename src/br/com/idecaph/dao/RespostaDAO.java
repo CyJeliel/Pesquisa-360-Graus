@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.jdo.Query;
 
+import br.com.idecaph.model.Pergunta;
 import br.com.idecaph.model.Resposta;
 
 import com.google.appengine.api.datastore.Key;
@@ -52,15 +53,15 @@ public class RespostaDAO extends GenericDAO<Resposta> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Resposta> getRespostasAvaliado(Long idPesquisa, Long idAvaliado) {
+	public List<Resposta> getRespostasAvaliado(Long idPesquisa, Long idAvaliado, Long idParticipante) {
 		List<Resposta> respostas = null;
-		String filter = "idPesquisa == idPesquisaParam && idAvaliado == idAvaliadoParam";
+		String filter = "idPesquisa == idPesquisaParam && idParticipante == idParticipanteParam && idAvaliado == idAvaliadoParam";
 		try {
 			init();
 			Query query = pm.newQuery(Resposta.class, filter);
-			query.declareParameters("Long idPesquisaParam, Long idAvaliadoParam");
+			query.declareParameters("Long idPesquisaParam, Long idParticipanteParam, Long idAvaliadoParam");
 			query.setOrdering("idPergunta asc");
-			respostas = (List<Resposta>) query.execute(idPesquisa, idAvaliado);
+			respostas = (List<Resposta>) query.execute(idPesquisa, idParticipante, idAvaliado);
 			respostas.size();
 			query.closeAll();
 		} catch (Exception e) {
@@ -72,29 +73,37 @@ public class RespostaDAO extends GenericDAO<Resposta> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Long getUltimaPerguntaRespondida(Long idPesquisa,
+	public Integer getUltimaPerguntaRespondida(Long idPesquisa,
 			Long idParticipante, Long idAvaliado) {
 		String filter = "idPesquisa == idPesquisaParam && idParticipante == idParticipanteParam && idAvaliado == idAvaliadoParam";
 		List<Resposta> respostas = null;
-		Long retorno = 0l;
+		Integer retorno = 0;
 		try {
 			init();
 			Query query = pm.newQuery(Resposta.class, filter);
 			query.declareParameters("Long idPesquisaParam, Long idParticipanteParam, Long idAvaliadoParam");
-			query.setOrdering("idPergunta desc");
 			respostas = (List<Resposta>) query.execute(idPesquisa,
 					idParticipante, idAvaliado);
+			Integer posicao = Integer.MIN_VALUE;
 			if (respostas != null && !respostas.isEmpty()){
-				retorno = respostas.get(0).getIdPergunta();
+				for (Resposta resposta: respostas){
+					Long idPergunta = resposta.getIdPergunta();
+					PerguntaDAO perguntaDAO = new PerguntaDAO();
+					Pergunta pergunta = perguntaDAO.findById(idPergunta);
+					if(pergunta != null && pergunta.getPosicao() != null && pergunta.getPosicao() >= posicao){ 
+						posicao = pergunta.getPosicao();
+					}
+				}
+				retorno = posicao;
 			}
 		} catch (Exception e) {
-			retorno  = 0l;
+			retorno  = 0;
 			e.printStackTrace();
 		} finally {
 			end();
 		}
 		if (retorno == null){
-			retorno = 0l;
+			retorno = 0;
 		}
 		return retorno;
 	}

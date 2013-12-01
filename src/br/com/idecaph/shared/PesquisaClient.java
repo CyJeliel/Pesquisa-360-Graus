@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class PesquisaClient extends InformacaoTabela implements IsSerializable {
 	private Long id;
-	private Long idUltimaPerguntaRespondida;
+	private Integer posicaoUltimaPerguntaRespondida;
 	private String titulo;
 	private List<FuncionarioSelecionavel> participantes;
 	private List<FuncionarioSelecionavel> avaliados;
@@ -86,12 +86,12 @@ public class PesquisaClient extends InformacaoTabela implements IsSerializable {
 		this.porcentagemPesquisaRespondida = porcentagemPesquisaRespondida;
 	}
 
-	public Long getIdUltimaPerguntaRespondida() {
-		return idUltimaPerguntaRespondida;
+	public Integer getPosicaoUltimaPerguntaRespondida() {
+		return posicaoUltimaPerguntaRespondida;
 	}
 
-	public void setIdUltimaPerguntaRespondida(Long idUltimaPerguntaRespondida) {
-		this.idUltimaPerguntaRespondida = idUltimaPerguntaRespondida;
+	public void setPosicaoUltimaPerguntaRespondida(Integer posicaoUltimaPerguntaRespondida) {
+		this.posicaoUltimaPerguntaRespondida = posicaoUltimaPerguntaRespondida;
 	}
 
 }

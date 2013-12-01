@@ -8,13 +8,15 @@ public class PerguntaClient extends InformacaoTabela implements IsSerializable {
 	private String pergunta;
 	private boolean selecionada;
 	private Long id;
+	private Integer posicao;
 
 	public PerguntaClient() {
 	}
 
-	public PerguntaClient(Long id, String pergunta) {
+	public PerguntaClient(Long id, String pergunta, Integer posicao) {
 		this.id = id;
 		this.pergunta = pergunta;
+		this.posicao = posicao;
 	}
 
 	public String getPergunta() {
@@ -51,6 +53,14 @@ public class PerguntaClient extends InformacaoTabela implements IsSerializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Integer getPosicao() {
+		return posicao;
+	}
+
+	public void setPosicao(Integer posicao) {
+		this.posicao = posicao;
 	}
 
 }

@@ -226,26 +226,26 @@ public class PesquisasServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public long getIdUltimaPerguntaRespondida(Long idPesquisa, Long idAvaliado) {
+	public Integer getPosicaoUltimaPerguntaRespondida(Long idPesquisa, Long idAvaliado) {
 		RespostaDAO respostaDAO = new RespostaDAO();
 		Long idParticipante = getIdFuncionarioLogado();
-		Long idUltimaPerguntaRespondida = respostaDAO
+		Integer posicaoUltimaPerguntaRespondida = respostaDAO
 				.getUltimaPerguntaRespondida(idPesquisa, idParticipante,
 						idAvaliado);
-		if (idUltimaPerguntaRespondida > 0) {
+		if (posicaoUltimaPerguntaRespondida > 0) {
 			PerguntaDAO perguntaDAO = new PerguntaDAO();
 			List<Pergunta> perguntas = perguntaDAO
 					.getPerguntasPorPesquisa(idPesquisa);
 			List<Resposta> respostasAvaliado = respostaDAO
-					.getRespostasAvaliado(idPesquisa, idAvaliado);
+					.getRespostasAvaliado(idPesquisa, idAvaliado, idParticipante);
 			if (perguntas != null && respostasAvaliado != null) {
 				if (respostasAvaliado.size() >= perguntas.size()) {
-					idUltimaPerguntaRespondida = -999l;
+					posicaoUltimaPerguntaRespondida = -999;
 				}
 			}
 		}
 
-		return idUltimaPerguntaRespondida;
+		return posicaoUltimaPerguntaRespondida;
 	}
 
 	private Long getIdFuncionarioLogado() {

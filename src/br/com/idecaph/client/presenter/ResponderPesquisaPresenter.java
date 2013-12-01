@@ -101,18 +101,18 @@ public class ResponderPesquisaPresenter extends
 	}
 
 	private void carregarUltimaPerguntaRespondida(final FuncionarioClient funcionario) {
-		rpcService.getIdUltimaPerguntaRespondida(pesquisa.getId(), funcionario.getId(), new AsyncCallback<Long>() {
+		rpcService.getPosicaoUltimaPerguntaRespondida(pesquisa.getId(), funcionario.getId(), new AsyncCallback<Integer>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
 			}
 
 			@Override
-			public void onSuccess(Long result) {
+			public void onSuccess(Integer result) {
 				if (result == null || result < 0){
 					Window.alert("Não há mais perguntas a responder para esse avaliado.");
 				} else {
-					pesquisa.setIdUltimaPerguntaRespondida(result);
+					pesquisa.setPosicaoUltimaPerguntaRespondida(result);
 					eventBus.fireEvent(new EventoResponderPesquisaFuncionario(
 							funcionario, pesquisa));
 				}

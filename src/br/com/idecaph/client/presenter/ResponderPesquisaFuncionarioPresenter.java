@@ -22,7 +22,6 @@ public class ResponderPesquisaFuncionarioPresenter extends
 
 	private PerguntaClient pergunta;
 	private FuncionarioClient funcionario;
-	private Long perguntaAtual = 0l;
 	private int posicaoPerguntaAtual;
 
 	private PesquisaServiceAsync rpcService = GWT.create(PesquisaService.class);
@@ -34,27 +33,10 @@ public class ResponderPesquisaFuncionarioPresenter extends
 			PesquisaClient pesquisa) {
 		super(display, eventBus);
 		this.funcionario = funcionario;
-		this.perguntaAtual = pesquisa.getIdUltimaPerguntaRespondida();
-		int i = 0;
-		for (PerguntaClient perguntaClient : pesquisa.getPerguntas()) {
-			if (perguntaAtual == 0){
-				
-				posicaoPerguntaAtual = 0;
-				
-				pergunta = pesquisa.getPerguntas().get(posicaoPerguntaAtual);
+		this.posicaoPerguntaAtual = pesquisa
+				.getPosicaoUltimaPerguntaRespondida();
 
-				break;
-				
-			} else if (perguntaClient.getId().equals(perguntaAtual)) {
-		
-				posicaoPerguntaAtual = i + 1;
-				
-				pergunta = pesquisa.getPerguntas().get(posicaoPerguntaAtual);
-				
-				break;
-			}
-			++i;
-		}
+		pergunta = pesquisa.getPerguntas().get(posicaoPerguntaAtual);
 		if (pergunta == null) {
 			pergunta = pesquisa.getPerguntas().get(0);
 		}
@@ -73,7 +55,11 @@ public class ResponderPesquisaFuncionarioPresenter extends
 			@Override
 			public void onClick(ClickEvent event) {
 				String resposta = display.getResposta();
-				salvarResposta(resposta);
+				if (resposta != null && !resposta.isEmpty()){
+					salvarResposta(resposta);
+				} else {
+					Window.alert("Não é possível ir para a próxima questão sem responder à questão atual.");
+				}
 			}
 		});
 
@@ -105,8 +91,8 @@ public class ResponderPesquisaFuncionarioPresenter extends
 	}
 
 	private void carregarProximaPergunta() {
-		rpcService.getIdUltimaPerguntaRespondida(pesquisa.getId(),
-				funcionario.getId(), new AsyncCallback<Long>() {
+		rpcService.getPosicaoUltimaPerguntaRespondida(pesquisa.getId(),
+				funcionario.getId(), new AsyncCallback<Integer>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -115,8 +101,8 @@ public class ResponderPesquisaFuncionarioPresenter extends
 					}
 
 					@Override
-					public void onSuccess(Long result) {
-						pesquisa.setIdUltimaPerguntaRespondida(result);
+					public void onSuccess(Integer result) {
+						pesquisa.setPosicaoUltimaPerguntaRespondida(result);
 						eventBus.fireEvent(new EventoResponderPesquisaFuncionario(
 								funcionario, pesquisa));
 					}

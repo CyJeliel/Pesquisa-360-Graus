@@ -20,8 +20,8 @@ public interface PesquisaServiceAsync {
 	void salvarResposta(RespostaClient respostaClient,
 			AsyncCallback<Boolean> callback);
 
-	void getIdUltimaPerguntaRespondida(Long idPesquisa,
-			Long idAvaliado, AsyncCallback<Long> callback);
+	void getPosicaoUltimaPerguntaRespondida(Long idPesquisa, Long idAvaliado,
+			AsyncCallback<Integer> callback);
 
 	void getPesquisasPorParticipante(AsyncCallback<List<PesquisaClient>> callback);
 

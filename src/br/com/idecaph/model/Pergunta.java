@@ -19,10 +19,14 @@ public class Pergunta implements Entity {
 	
 	@Persistent
 	private Long idPesquisa;
+	
+	@Persistent
+	private Integer posicao;
 
 	public Pergunta(PerguntaClient perguntaClient, Long idPesquisa) {
 		this.pergunta = perguntaClient.getPergunta();
 		this.setIdPesquisa(idPesquisa);
+		this.posicao = perguntaClient.getPosicao();
 	}
 
 	public Long getId() {
@@ -49,8 +53,16 @@ public class Pergunta implements Entity {
 		this.idPesquisa = idPesquisa;
 	}
 
+	public Integer getPosicao() {
+		return posicao;
+	}
+
+	public void setPosicao(Integer posicao) {
+		this.posicao = posicao;
+	}
+
 	public PerguntaClient getPerguntaClient() {
-		return new PerguntaClient(id, pergunta);
+		return new PerguntaClient(id, pergunta, posicao);
 	}
 
 }

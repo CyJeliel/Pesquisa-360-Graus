@@ -19,8 +19,8 @@ public interface PesquisaService extends RemoteService {
 
 	Boolean salvarResposta(RespostaClient respostaClient);
 
-	long getIdUltimaPerguntaRespondida(Long idPesquisa, Long idAvaliado);
-
 	List<PesquisaClient> getPesquisasPorParticipante();
+
+	Integer getPosicaoUltimaPerguntaRespondida(Long idPesquisa, Long idAvaliado);
 
 }

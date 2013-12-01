@@ -69,9 +69,11 @@ public class PerguntasPesquisaPresenter extends
 					Window.alert("Selecione uma ou mais perguntas para participar da pesquisa");
 				} else {
 					List<PerguntaClient> perguntasSelecionadas = new ArrayList<PerguntaClient>();
+					Integer posicao = 1;
 					for (PerguntaClient pergunta : selectionModel.getSelectedItems()) {
 						if (selectionModel.isSelected(pergunta)) {
 							pergunta.seleciona();
+							pergunta.setPosicao(posicao++);
 						}
 						perguntasSelecionadas.add(pergunta);
 					}
@@ -110,7 +112,7 @@ public class PerguntasPesquisaPresenter extends
 				HasText hasText = display.getTextNovaPergunta();
 				String pergunta = hasText.getText();
 				if (validaPergunta(pergunta)) {
-					PerguntaClient novaPergunta = new PerguntaClient(null, pergunta);
+					PerguntaClient novaPergunta = new PerguntaClient(null, pergunta, null);
 					addPergunta(novaPergunta);
 					selectionModel.addSelection(novaPergunta);
 					atualizaTabela();
@@ -175,7 +177,7 @@ public class PerguntasPesquisaPresenter extends
 	}
 
 	private void atualizaTabela() {
-		PerguntaClient titulo = new PerguntaClient(null, "<b>PERGUNTAS</b>");
+		PerguntaClient titulo = new PerguntaClient(null, "<b>PERGUNTAS</b>", null);
 		Widget listaVazia = new PerguntaColunas().getColunaListaVazia();
 		PerguntasPesquisaDisplay display = super.getDisplay();
 		display.atualizaTabela(perguntas, titulo, listaVazia);
@@ -209,7 +211,7 @@ public class PerguntasPesquisaPresenter extends
 			retorno = false;
 			exibeErro(PerguntasPesquisaDisplay.PERGUNTA_INVALIDA);
 		} else if (perguntas != null
-				&& perguntas.contains(new PerguntaClient(null, pergunta))) {
+				&& perguntas.contains(new PerguntaClient(null, pergunta, null))) {
 			retorno = false;
 			exibeErro(PerguntasPesquisaDisplay.PERGUNTA_EXISTENTE);
 		}
