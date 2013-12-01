@@ -15,7 +15,7 @@
         		</g:VerticalPanel>
 		        <g:VerticalPanel addStyleNames="colunaDireita" >
                 	<g:TextBox ui:field="login"></g:TextBox>
-                	<g:TextBox ui:field="senha"></g:TextBox>
+                	<g:PasswordTextBox ui:field="senha"></g:PasswordTextBox>
         		</g:VerticalPanel>
 			</g:HorizontalPanel>
             <g:HorizontalPanel>

@@ -21,8 +21,8 @@
 		        <g:VerticalPanel addStyleNames="colunaDireita" >
                 	<g:TextBox ui:field="id"></g:TextBox>
                 	<g:TextBox ui:field="login"></g:TextBox>
-                	<g:TextBox ui:field="senha"></g:TextBox>
-                	<g:TextBox ui:field="confirmacaoSenha"></g:TextBox>
+                	<g:PasswordTextBox ui:field="senha"></g:PasswordTextBox>
+                	<g:PasswordTextBox ui:field="confirmacaoSenha"></g:PasswordTextBox>
                 	<g:TextBox ui:field="nome"></g:TextBox>
 					<g:TextBox ui:field="identificacao"></g:TextBox>
 					<g:TextBox ui:field="cargo"></g:TextBox>

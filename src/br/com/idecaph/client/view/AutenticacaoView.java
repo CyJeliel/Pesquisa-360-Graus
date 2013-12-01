@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CellPanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -22,7 +23,7 @@ public class AutenticacaoView extends Composite implements AutenticacaoDisplay {
 	TextBox login;
 	
 	@UiField
-	TextBox senha;
+	PasswordTextBox senha;
 	
 	@UiField
 	Button botaoLogar;

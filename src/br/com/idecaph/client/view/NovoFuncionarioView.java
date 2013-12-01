@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -30,10 +31,10 @@ public class NovoFuncionarioView extends Composite implements
 	TextBox login;
 	
 	@UiField
-	TextBox senha;
+	PasswordTextBox senha;
 	
 	@UiField
-	TextBox confirmacaoSenha;
+	PasswordTextBox confirmacaoSenha;
 	
 	@UiField
 	TextBox nome;
