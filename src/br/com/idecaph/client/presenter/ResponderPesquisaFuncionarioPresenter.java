@@ -36,11 +36,15 @@ public class ResponderPesquisaFuncionarioPresenter extends
 		this.posicaoPerguntaAtual = pesquisa
 				.getPosicaoUltimaPerguntaRespondida();
 
-		pergunta = pesquisa.getPerguntas().get(posicaoPerguntaAtual);
-		if (pergunta == null) {
-			pergunta = pesquisa.getPerguntas().get(0);
+		if (posicaoPerguntaAtual >= 0) {
+			pergunta = pesquisa.getPerguntas().get(posicaoPerguntaAtual);
+			if (pergunta == null) {
+				pergunta = pesquisa.getPerguntas().get(0);
+			}
+			this.pesquisa = pesquisa;
+		} else {
+			eventBus.fireEvent(new EventoResponderPesquisa(pesquisa));
 		}
-		this.pesquisa = pesquisa;
 	}
 
 	@Override
@@ -55,7 +59,7 @@ public class ResponderPesquisaFuncionarioPresenter extends
 			@Override
 			public void onClick(ClickEvent event) {
 				String resposta = display.getResposta();
-				if (resposta != null && !resposta.isEmpty()){
+				if (resposta != null && !resposta.isEmpty()) {
 					salvarResposta(resposta);
 				} else {
 					Window.alert("Não é possível ir para a próxima questão sem responder à questão atual.");

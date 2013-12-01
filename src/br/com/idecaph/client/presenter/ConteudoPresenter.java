@@ -233,7 +233,7 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 					@Override
 					public void onEventoResponderPesquisa(
 							EventoResponderPesquisa eventoResponderPesquisa) {
-						carregaTelaResponderPesquisa();
+						carregaTelaResponderPesquisa(eventoResponderPesquisa.getPesquisa());
 					}
 				});
 
@@ -271,8 +271,9 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 		carregaTela(TELA_LISTAR_PESQUISA, null, null, null, null, pesquisas);
 	}
 
-	private void carregaTelaResponderPesquisa() {
-		carregaTela(TELA_RESPONDER_PESQUISA);
+	private void carregaTelaResponderPesquisa(PesquisaClient pesquisa) {
+		carregaTela(TELA_RESPONDER_PESQUISA, null, null, pesquisa, null,
+				null);
 	}
 
 	private void carregaTelaExibirRelatorio(FuncionarioClient funcionario,
@@ -400,7 +401,7 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 			break;
 		case TELA_RESPONDER_PESQUISA:
 			Presenter<ResponderPesquisaDisplay> responderPesquisaPresenter = new ResponderPesquisaPresenter(
-					new ResponderPesquisaView(), eventBus);
+					new ResponderPesquisaView(), eventBus, pesquisa);
 			responderPesquisaPresenter.go(this.bodyPanel);
 			break;
 		case TELA_RESPONDER_PESQUISA_FUNCIONARIO:

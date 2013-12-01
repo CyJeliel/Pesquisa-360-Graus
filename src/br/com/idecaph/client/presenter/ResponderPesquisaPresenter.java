@@ -25,35 +25,21 @@ public class ResponderPesquisaPresenter extends
 	private PesquisaClient pesquisa;
 
 	public ResponderPesquisaPresenter(ResponderPesquisaDisplay display,
-			HandlerManager eventBus) {
+			HandlerManager eventBus, PesquisaClient pesquisa) {
 		super(display, eventBus);
+		this.pesquisa = pesquisa;
 	}
 
 	@Override
 	public void bind() {
-
-		rpcService.getPesquisaAtual(new AsyncCallback<PesquisaClient>() {
-
-			@Override
-			public void onSuccess(PesquisaClient result) {
-				pesquisa = result;
-				
-				if (result!= null){
-					atualizaTitulo();
-					atualizaTabela();
-					atualizaTotalRespondido();
-					addHandlers();
-				} else {
-					Window.alert("Não há pesquisas cadastradas no sistema.");
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+		if (pesquisa != null){
+			atualizaTitulo();
+			atualizaTabela();
+			atualizaTotalRespondido();
+			addHandlers();
+		} else {
+			Window.alert("Não há pesquisas cadastradas no sistema.");
+		}
 	}
 
 	private void atualizaTotalRespondido() {

@@ -267,11 +267,13 @@ public class PesquisasServiceImpl extends RemoteServiceServlet implements
 
 			if (pesquisasParticipante != null
 					&& !pesquisasParticipante.isEmpty()) {
+				
 				PesquisaDAO pesquisaDAO = new PesquisaDAO();
 				for (ParticipantePesquisa pesquisaParticipante : pesquisasParticipante) {
 					Pesquisa pesquisa = pesquisaDAO
 							.findById(pesquisaParticipante.getIdPesquisa());
-					PesquisaClient pesquisaClient = buildPesquisaClient(pesquisa);
+					PesquisaClient pesquisaClient = buscarAvaliados(pesquisa.getId());
+					//PesquisaClient pesquisaClient = buildPesquisaClient(pesquisa);
 					pesquisasClient.add(pesquisaClient);
 				}
 			}
