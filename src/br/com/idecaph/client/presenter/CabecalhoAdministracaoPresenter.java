@@ -91,7 +91,7 @@ public class CabecalhoAdministracaoPresenter extends
 
 	private void listarPesquisas() {
 		rpcService
-				.getPesquisasExistentes(new AsyncCallback<List<PesquisaClient>>() {
+				.getPesquisasPorParticipante(new AsyncCallback<List<PesquisaClient>>() {
 
 					@Override
 					public void onSuccess(List<PesquisaClient> result) {

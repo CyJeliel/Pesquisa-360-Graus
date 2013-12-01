@@ -34,24 +34,52 @@ public class ParticipantePesquisaDAO extends GenericDAO<ParticipantePesquisa> {
 	public boolean existePesquisaFuncionario(Long id) {
 
 		boolean existe = false;
+		List<ParticipantePesquisa> participantes = getPesquisasFuncionario(id);
+
+		if (participantes != null && !participantes.isEmpty()) {
+			existe = true;
+		}
+		return existe;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<ParticipantePesquisa> getPesquisasFuncionario(Long id) {
+		List<ParticipantePesquisa> participantes = null;
 		String filter = "idFuncionario == idFuncionarioParam";
 		try {
 			init();
 			Query query = pm.newQuery(ParticipantePesquisa.class, filter);
 			query.declareParameters("Long idFuncionarioParam");
-			@SuppressWarnings("unchecked")
-			List<ParticipantePesquisa> participantes = (List<ParticipantePesquisa>) query
-					.execute(id);
-
-			if (participantes != null && !participantes.isEmpty()) {
-				existe = true;
-			}
+			participantes = (List<ParticipantePesquisa>) query.execute(id);
+			participantes.size();
 			query.closeAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			end();
 		}
-		return existe;
+
+		return participantes;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<ParticipantePesquisa> getParticipantesPesquisa(Long idPesquisa) {
+		List<ParticipantePesquisa> participantes = null;
+		String filter = "idPesquisa == idPesquisaParam";
+		try {
+			init();
+			Query query = pm.newQuery(ParticipantePesquisa.class, filter);
+			query.declareParameters("Long idPesquisaParam");
+			participantes = (List<ParticipantePesquisa>) query
+					.execute(idPesquisa);
+			participantes.size();
+			query.closeAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			end();
+		}
+
+		return participantes;
 	}
 }

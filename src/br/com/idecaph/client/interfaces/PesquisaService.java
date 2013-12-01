@@ -21,4 +21,6 @@ public interface PesquisaService extends RemoteService {
 
 	long getIdUltimaPerguntaRespondida(Long idPesquisa, Long idAvaliado);
 
+	List<PesquisaClient> getPesquisasPorParticipante();
+
 }

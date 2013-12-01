@@ -250,8 +250,83 @@ public class PesquisasServiceImpl extends RemoteServiceServlet implements
 
 	private Long getIdFuncionarioLogado() {
 		HttpServletRequest request = getThreadLocalRequest();
-		FuncionarioClient participante = (FuncionarioClient) request.getSession()
-				.getAttribute("funcionario");
+		FuncionarioClient participante = (FuncionarioClient) request
+				.getSession().getAttribute("funcionario");
 		return participante.getId();
+	}
+
+	@Override
+	public List<PesquisaClient> getPesquisasPorParticipante() {
+
+		Long idFuncionario = getIdFuncionarioLogado();
+		List<PesquisaClient> pesquisasClient = new ArrayList<PesquisaClient>();
+		ParticipantePesquisaDAO participantePesquisaDAO = new ParticipantePesquisaDAO();
+		try {
+			List<ParticipantePesquisa> pesquisasParticipante = participantePesquisaDAO
+					.getPesquisasFuncionario(idFuncionario);
+
+			if (pesquisasParticipante != null
+					&& !pesquisasParticipante.isEmpty()) {
+				PesquisaDAO pesquisaDAO = new PesquisaDAO();
+				for (ParticipantePesquisa pesquisaParticipante : pesquisasParticipante) {
+					Pesquisa pesquisa = pesquisaDAO
+							.findById(pesquisaParticipante.getIdPesquisa());
+					PesquisaClient pesquisaClient = buildPesquisaClient(pesquisa);
+					pesquisasClient.add(pesquisaClient);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pesquisasClient;
+	}
+
+	private PesquisaClient buildPesquisaClient(Pesquisa pesquisa) {
+		List<Funcionario> funcionariosParticipantesPesquisa = buildParticipantesPesquisa(pesquisa);
+
+		List<Funcionario> avaliadosPesquisa = buildAvaliadosPesquisa(pesquisa);
+		List<Pergunta> perguntasPesquisa = buildPerguntasPesquisa(pesquisa);
+		PesquisaClient pesquisaClient = pesquisa.getPesquisaClient(
+				funcionariosParticipantesPesquisa, avaliadosPesquisa,
+				perguntasPesquisa);
+		return pesquisaClient;
+	}
+
+	private List<Funcionario> buildParticipantesPesquisa(Pesquisa pesquisa) {
+
+		ParticipantePesquisaDAO participantePesquisaDAO = new ParticipantePesquisaDAO();
+		List<ParticipantePesquisa> participantesPesquisa = participantePesquisaDAO
+				.getParticipantesPesquisa(pesquisa.getId());
+		List<Funcionario> funcionariosParticipantesPesquisa = new ArrayList<Funcionario>();
+		if (participantesPesquisa != null && !participantesPesquisa.isEmpty()) {
+			for (ParticipantePesquisa participantePesquisa : participantesPesquisa) {
+				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+				funcionariosParticipantesPesquisa.add(funcionarioDAO
+						.findById(participantePesquisa.getIdFuncionario()));
+			}
+		}
+		return funcionariosParticipantesPesquisa;
+	}
+
+	private List<Funcionario> buildAvaliadosPesquisa(Pesquisa pesquisa) {
+		AvaliadoPesquisaDAO avaliadoPesquisaDAO = new AvaliadoPesquisaDAO();
+		List<AvaliadoPesquisa> avaliadosPesquisa = avaliadoPesquisaDAO
+				.getAvaliadosPesquisa(pesquisa.getId());
+		List<Funcionario> funcionariosParticipantesPesquisa = new ArrayList<Funcionario>();
+		if (avaliadosPesquisa != null && !avaliadosPesquisa.isEmpty()) {
+			for (AvaliadoPesquisa avaliadoPesquisa : avaliadosPesquisa) {
+				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+				funcionariosParticipantesPesquisa.add(funcionarioDAO
+						.findById(avaliadoPesquisa.getIdFuncionario()));
+			}
+		}
+		return funcionariosParticipantesPesquisa;
+	}
+
+	private List<Pergunta> buildPerguntasPesquisa(Pesquisa pesquisa) {
+		PerguntaDAO perguntaDAO = new PerguntaDAO();
+		List<Pergunta> perguntasPesquisa = perguntaDAO
+				.getPerguntasPorPesquisa(pesquisa.getId());
+		return perguntasPesquisa;
 	}
 }

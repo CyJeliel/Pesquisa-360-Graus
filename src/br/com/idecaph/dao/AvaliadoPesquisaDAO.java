@@ -5,7 +5,6 @@ import java.util.List;
 import javax.jdo.Query;
 
 import br.com.idecaph.model.AvaliadoPesquisa;
-import br.com.idecaph.model.ParticipantePesquisa;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -52,24 +51,32 @@ public class AvaliadoPesquisaDAO extends GenericDAO<AvaliadoPesquisa> {
 	public boolean existePesquisaFuncionario(Long id) {
 
 		boolean existe = false;
-		String filter = "idFuncionario == idFuncionarioParam";
+
+		List<AvaliadoPesquisa> avaliadosPesquisa = getAvaliadosPesquisa(id);
+		
+		if (avaliadosPesquisa != null && !avaliadosPesquisa.isEmpty()) {
+			existe = true;
+		}
+		return existe;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AvaliadoPesquisa> getAvaliadosPesquisa(Long idPesquisa) {
+		List<AvaliadoPesquisa> avaliados = null;
+		String filter = "idPesquisa == idPesquisaParam";
 		try {
 			init();
-			Query query = pm.newQuery(ParticipantePesquisa.class, filter);
-			query.declareParameters("Long idFuncionarioParam");
-			@SuppressWarnings("unchecked")
-			List<ParticipantePesquisa> participantes = (List<ParticipantePesquisa>) query
-					.execute(id);
-
-			if (participantes != null && !participantes.isEmpty()) {
-				existe = true;
-			}
+			Query query = pm.newQuery(AvaliadoPesquisa.class, filter);
+			query.declareParameters("Long idPesquisaParam");
+			avaliados = (List<AvaliadoPesquisa>) query.execute(idPesquisa);
+			avaliados.size();
 			query.closeAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			end();
 		}
-		return existe;
+
+		return avaliados;
 	}
 }

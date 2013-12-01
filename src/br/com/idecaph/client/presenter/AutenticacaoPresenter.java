@@ -153,7 +153,7 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 
 	private void showTelaInicialFuncionarios() {
 		
-		rpcPesquisaService.getPesquisasExistentes(new AsyncCallback<List<PesquisaClient>>() {
+		rpcPesquisaService.getPesquisasPorParticipante(new AsyncCallback<List<PesquisaClient>>() {
 			
 			@Override
 			public void onSuccess(List<PesquisaClient> result) {
