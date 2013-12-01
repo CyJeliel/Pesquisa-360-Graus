@@ -12,7 +12,7 @@ public interface FuncionariosService extends RemoteService {
 
 	List<FuncionarioClient> getFuncionarios();
 
-	boolean excluiFuncionario(Long id);
+	String excluiFuncionario(Long id);
 
 	Boolean cadastraFuncionario(FuncionarioClient funcionario);
 

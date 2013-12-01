@@ -5,6 +5,7 @@ import java.util.List;
 import javax.jdo.Query;
 
 import br.com.idecaph.model.AvaliadoPesquisa;
+import br.com.idecaph.model.ParticipantePesquisa;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -46,5 +47,29 @@ public class AvaliadoPesquisaDAO extends GenericDAO<AvaliadoPesquisa> {
 			end();
 		}
 		return avaliados;
+	}
+
+	public boolean existePesquisaFuncionario(Long id) {
+
+		boolean existe = false;
+		String filter = "idFuncionario == idFuncionarioParam";
+		try {
+			init();
+			Query query = pm.newQuery(ParticipantePesquisa.class, filter);
+			query.declareParameters("Long idFuncionarioParam");
+			@SuppressWarnings("unchecked")
+			List<ParticipantePesquisa> participantes = (List<ParticipantePesquisa>) query
+					.execute(id);
+
+			if (participantes != null && !participantes.isEmpty()) {
+				existe = true;
+			}
+			query.closeAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			end();
+		}
+		return existe;
 	}
 }

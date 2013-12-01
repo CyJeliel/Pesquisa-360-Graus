@@ -136,11 +136,15 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 	private void excluiFuncionario(FuncionarioClient funcionario) {
 		final FuncionariosDisplay display = super.getDisplay();
 		rpcService.excluiFuncionario(funcionario.getId(),
-				new AsyncCallback<Boolean>() {
+				new AsyncCallback<String>() {
 
 					@Override
-					public void onSuccess(Boolean result) {
-						atualizaListaFuncionarios();
+					public void onSuccess(String result) {
+						if (result == null){
+							atualizaListaFuncionarios();
+						} else {
+							Window.alert(result);
+						}
 					}
 
 					@Override

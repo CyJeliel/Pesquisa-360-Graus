@@ -9,7 +9,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface FuncionariosServiceAsync {
 	void getFuncionarios(AsyncCallback<List<FuncionarioClient>> asyncCallback);
 
-	void excluiFuncionario(Long id, AsyncCallback<Boolean> asyncCallback);
+	void excluiFuncionario(Long id, AsyncCallback<String> asyncCallback);
 
 	void cadastraFuncionario(FuncionarioClient funcionario,
 			AsyncCallback<Boolean> callback);
