@@ -37,7 +37,9 @@ public class SelectionModel<T> {
 	}
 
 	public void addTodos(List<T> itens) {
-		selectedItems.addAll(itens);
+		for (T item: itens){
+			addSelection(item);
+		}
 	}
 
 	public boolean isEmpty() {
