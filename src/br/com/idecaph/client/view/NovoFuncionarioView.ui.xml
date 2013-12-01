@@ -19,15 +19,15 @@
 					<g:Label addStyleNames="label" text="* Aministrador: " ></g:Label>
 				</g:VerticalPanel>
 		        <g:VerticalPanel addStyleNames="colunaDireita" >
-                	<g:TextBox ui:field="id"></g:TextBox>
-                	<g:TextBox ui:field="login"></g:TextBox>
-                	<g:PasswordTextBox ui:field="senha"></g:PasswordTextBox>
-                	<g:PasswordTextBox ui:field="confirmacaoSenha"></g:PasswordTextBox>
-                	<g:TextBox ui:field="nome"></g:TextBox>
-					<g:TextBox ui:field="identificacao"></g:TextBox>
-					<g:TextBox ui:field="cargo"></g:TextBox>
-					<g:TextBox ui:field="departamento"></g:TextBox>
-					<g:CheckBox ui:field="admin"></g:CheckBox>
+                	<g:TextBox addStyleNames="textBox" ui:field="id"></g:TextBox>
+                	<g:TextBox addStyleNames="textBox" ui:field="login"></g:TextBox>
+                	<g:PasswordTextBox addStyleNames="textBox" ui:field="senha"></g:PasswordTextBox>
+                	<g:PasswordTextBox addStyleNames="textBox" ui:field="confirmacaoSenha"></g:PasswordTextBox>
+                	<g:TextBox addStyleNames="textBox" ui:field="nome"></g:TextBox>
+					<g:TextBox addStyleNames="textBox" ui:field="identificacao"></g:TextBox>
+					<g:TextBox addStyleNames="textBox" ui:field="cargo"></g:TextBox>
+					<g:TextBox addStyleNames="textBox" ui:field="departamento"></g:TextBox>
+					<g:CheckBox addStyleNames="textBox" ui:field="admin"></g:CheckBox>
 				</g:VerticalPanel>
 			</g:HorizontalPanel>
 			<g:Label text="* Campos obrigatórios"></g:Label>
