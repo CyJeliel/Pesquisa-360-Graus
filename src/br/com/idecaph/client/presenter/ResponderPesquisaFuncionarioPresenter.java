@@ -80,7 +80,7 @@ public class ResponderPesquisaFuncionarioPresenter extends
 					Window.alert("Erro ao cadastrar resposta. Por favor, contate o administrador do sistema.");
 				} else {
 					if (posicaoPerguntaAtual == pesquisa.getPerguntas().size() - 1) {
-						eventBus.fireEvent(new EventoResponderPesquisa());
+						eventBus.fireEvent(new EventoResponderPesquisa(pesquisa));
 					} else {
 						carregarProximaPergunta();
 					}

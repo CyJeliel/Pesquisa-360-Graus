@@ -18,6 +18,10 @@ public class PesquisaClient extends InformacaoTabela implements IsSerializable {
 	public PesquisaClient() {
 	}
 
+	public PesquisaClient(String titulo) {
+		this.titulo = titulo;
+	}
+
 	public PesquisaClient(Long id, String titulo,
 			List<FuncionarioSelecionavel> participantes,
 			List<FuncionarioSelecionavel> avaliados,

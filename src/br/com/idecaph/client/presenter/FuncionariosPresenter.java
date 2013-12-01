@@ -27,7 +27,8 @@ import com.google.gwt.user.client.ui.Widget;
 public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 	private static final int COLUNA_EDITAR = 5;
 	private static final int COLUNA_EXCLUIR = 6;
-	protected static final int COLUNA_SELECIONAR = 0;
+	private static final int COLUNA_SELECIONAR = 0;
+	private static final int COLUNA_NOME = 1;
 
 	private FuncionariosServiceAsync rpcService = GWT
 			.create(FuncionariosService.class);
@@ -79,7 +80,7 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 				if (linhaSelecionada > 0) {
 					FuncionarioClient funcionario = funcionarios
 							.get(linhaSelecionada - 1);
-					if (colunaSelecionada == COLUNA_EDITAR) {
+					if (colunaSelecionada == COLUNA_EDITAR || colunaSelecionada == COLUNA_NOME) {
 						editarFuncionario(funcionario);
 					} else if (colunaSelecionada == COLUNA_EXCLUIR) {
 						excluiFuncionario(funcionario);

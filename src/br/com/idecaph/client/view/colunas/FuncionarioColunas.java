@@ -13,7 +13,7 @@ public abstract class FuncionarioColunas extends ListaColunas {
 	private List<Coluna<FuncionarioSelecionavel>> definicoesColunas = new ArrayList<Coluna<FuncionarioSelecionavel>>();
 
 	protected FuncionarioColunas() {
-		super("N√£o h√° funcion√°rios cadastrados.");
+		super("N„o h· funcion·rios cadastrados.");
 		definicoesColunas.add(new Coluna<FuncionarioSelecionavel>() {
 			boolean selecionado = false;
 

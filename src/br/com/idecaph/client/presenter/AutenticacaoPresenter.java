@@ -1,14 +1,19 @@
 package br.com.idecaph.client.presenter;
 
+import java.util.List;
+
 import br.com.idecaph.client.display.AutenticacaoDisplay;
 import br.com.idecaph.client.eventos.EventoLogout;
 import br.com.idecaph.client.eventos.handlers.EventoLogoutHandler;
 import br.com.idecaph.client.interfaces.AutenticacaoService;
 import br.com.idecaph.client.interfaces.AutenticacaoServiceAsync;
+import br.com.idecaph.client.interfaces.PesquisaService;
+import br.com.idecaph.client.interfaces.PesquisaServiceAsync;
 import br.com.idecaph.client.view.CabecalhoAdministracaoView;
 import br.com.idecaph.client.view.CabecalhoView;
 import br.com.idecaph.client.view.ConteudoView;
 import br.com.idecaph.shared.FuncionarioClient;
+import br.com.idecaph.shared.PesquisaClient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -25,6 +30,9 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 
 	private AutenticacaoServiceAsync rpcService = GWT
 			.create(AutenticacaoService.class);
+
+	private PesquisaServiceAsync rpcPesquisaService = GWT
+			.create(PesquisaService.class);
 
 	private ConteudoPresenter conteudoPresenter;
 
@@ -132,15 +140,31 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 			if (isAdmin) {
 				conteudoPresenter.go(RootPanel.get());
 			} else {
-				conteudoPresenter.showTelaInicialFuncionarios();
+				showTelaInicialFuncionarios();
 			}
 		} else {
 			if (isAdmin) {
 				conteudoPresenter.showTelaInicialAdministracao();
 			} else {
-				conteudoPresenter.showTelaInicialFuncionarios();
+				showTelaInicialFuncionarios();
 			}
 		}
+	}
+
+	private void showTelaInicialFuncionarios() {
+		
+		rpcPesquisaService.getPesquisasExistentes(new AsyncCallback<List<PesquisaClient>>() {
+			
+			@Override
+			public void onSuccess(List<PesquisaClient> result) {
+				conteudoPresenter.goFuncionarios(RootPanel.get(), result);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Erro ao buscar pesquisas. Por favor, contate o administrador do sistema.");
+			}
+		});
 	}
 
 	private void showCabecalhoPresenter(Boolean isAdmin) {

@@ -7,6 +7,7 @@ import br.com.idecaph.client.display.AvaliadosPesquisaDisplay;
 import br.com.idecaph.client.display.ConteudoDisplay;
 import br.com.idecaph.client.display.ExibirRelatorioDisplay;
 import br.com.idecaph.client.display.FuncionariosDisplay;
+import br.com.idecaph.client.display.ListarPesquisasDisplay;
 import br.com.idecaph.client.display.NovaPesquisaDisplay;
 import br.com.idecaph.client.display.NovoFuncionarioDisplay;
 import br.com.idecaph.client.display.ParticipantesPesquisaDisplay;
@@ -19,6 +20,7 @@ import br.com.idecaph.client.eventos.EventoCarregaPesquisa;
 import br.com.idecaph.client.eventos.EventoEditarFuncionario;
 import br.com.idecaph.client.eventos.EventoExibeFuncionarios;
 import br.com.idecaph.client.eventos.EventoExibirRelatorio;
+import br.com.idecaph.client.eventos.EventoListarPesquisas;
 import br.com.idecaph.client.eventos.EventoLogout;
 import br.com.idecaph.client.eventos.EventoNovaPesquisa;
 import br.com.idecaph.client.eventos.EventoNovoFuncionario;
@@ -33,6 +35,7 @@ import br.com.idecaph.client.eventos.handlers.EventoCarregaPesquisaHandler;
 import br.com.idecaph.client.eventos.handlers.EventoEditarFuncionarioHandler;
 import br.com.idecaph.client.eventos.handlers.EventoExibeFuncionariosHandler;
 import br.com.idecaph.client.eventos.handlers.EventoExibirRelatorioHandler;
+import br.com.idecaph.client.eventos.handlers.EventoListarPesquisasHandler;
 import br.com.idecaph.client.eventos.handlers.EventoLogoutHandler;
 import br.com.idecaph.client.eventos.handlers.EventoNovaPesquisaHandler;
 import br.com.idecaph.client.eventos.handlers.EventoNovoFuncionarioHandler;
@@ -45,6 +48,7 @@ import br.com.idecaph.client.eventos.handlers.EventoResponderPesquisaHandler;
 import br.com.idecaph.client.utils.FuncionariosHelper;
 import br.com.idecaph.client.view.ExibirRelatorioView;
 import br.com.idecaph.client.view.FuncionariosView;
+import br.com.idecaph.client.view.ListarPesquisasView;
 import br.com.idecaph.client.view.NovoFuncionarioView;
 import br.com.idecaph.client.view.PerguntasPesquisaView;
 import br.com.idecaph.client.view.RelatoriosView;
@@ -75,6 +79,7 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 	private static final int TELA_EXIBIR_RELATORIO = 8;
 	private static final int TELA_RESPONDER_PESQUISA = 9;
 	private static final int TELA_RESPONDER_PESQUISA_FUNCIONARIO = 10;
+	private static final int TELA_LISTAR_PESQUISA = 11;
 	private ComplexPanel bodyPanel = new VerticalPanel();
 	private List<FuncionarioClient> funcionarios;
 
@@ -211,6 +216,17 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 					}
 				});
 
+		eventBus.addHandler(EventoListarPesquisas.TYPE,
+				new EventoListarPesquisasHandler() {
+
+					@Override
+					public void onEventoListarPesquisas(
+							EventoListarPesquisas eventoListarPesquisas) {
+						carregaTelaListarPesquisas(eventoListarPesquisas
+								.getPesquisas());
+					}
+				});
+
 		eventBus.addHandler(EventoResponderPesquisa.TYPE,
 				new EventoResponderPesquisaHandler() {
 
@@ -235,21 +251,24 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 					}
 				});
 
-		eventBus.addHandler(EventoLogout.TYPE,
-				new EventoLogoutHandler() {
-					
-					@Override
-					public void onEventoLogout(EventoLogout eventoLogout) {
-						container.remove(bodyPanel);
-						bodyPanel.clear();
-					}
-				});
+		eventBus.addHandler(EventoLogout.TYPE, new EventoLogoutHandler() {
+
+			@Override
+			public void onEventoLogout(EventoLogout eventoLogout) {
+				container.remove(bodyPanel);
+				bodyPanel.clear();
+			}
+		});
 	}
 
 	private void carregaTelaResponderPesquisaFuncionario(
 			FuncionarioClient funcionario, PesquisaClient pesquisa) {
 		carregaTela(TELA_RESPONDER_PESQUISA_FUNCIONARIO, funcionario, null,
-				pesquisa, null);
+				pesquisa, null, null);
+	}
+
+	private void carregaTelaListarPesquisas(List<PesquisaClient> pesquisas) {
+		carregaTela(TELA_LISTAR_PESQUISA, null, null, null, null, pesquisas);
 	}
 
 	private void carregaTelaResponderPesquisa() {
@@ -258,11 +277,12 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 
 	private void carregaTelaExibirRelatorio(FuncionarioClient funcionario,
 			List<RelatorioClient> relatorios) {
-		carregaTela(TELA_EXIBIR_RELATORIO, funcionario, null, null, relatorios);
+		carregaTela(TELA_EXIBIR_RELATORIO, funcionario, null, null, relatorios,
+				null);
 	}
 
 	private void carregaTelaRelatorios() {
-		carregaTela(TELA_RELATORIOS, null, null, null, null);
+		carregaTela(TELA_RELATORIOS, null, null, null, null, null);
 
 	}
 
@@ -301,24 +321,27 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 	}
 
 	private void carregaTelaParticipantesPesquisa(PesquisaClient pesquisa) {
-		carregaTela(TELA_PARTICIPANTES_PESQUISA, null, null, pesquisa, null);
+		carregaTela(TELA_PARTICIPANTES_PESQUISA, null, null, pesquisa, null,
+				null);
 	}
 
 	private void carregaTelaAvaliadosPesquisa(PesquisaClient pesquisa) {
-		carregaTela(TELA_AVALIADOS_PESQUISA, null, null, pesquisa, null);
+		carregaTela(TELA_AVALIADOS_PESQUISA, null, null, pesquisa, null, null);
 	}
 
 	private void carregaTelaPerguntasPesquisa(PesquisaClient pesquisa) {
-		carregaTela(TELA_PERGUNTAS_PESQUISA, null, null, pesquisa, null);
+		carregaTela(TELA_PERGUNTAS_PESQUISA, null, null, pesquisa, null, null);
 	}
 
 	private void carregaTela(int tela, FuncionarioClient funcionario,
 			List<FuncionarioSelecionavel> funcionarios) {
-		carregaTela(tela, funcionario, funcionarios, null, null);
+		carregaTela(tela, funcionario, funcionarios, null, null, null);
 	}
 
 	private void carregaTela(int tela, FuncionarioClient funcionario,
-			List<FuncionarioSelecionavel> funcionarios, PesquisaClient pesquisa, List<RelatorioClient> relatorios) {
+			List<FuncionarioSelecionavel> funcionarios,
+			PesquisaClient pesquisa, List<RelatorioClient> relatorios,
+			List<PesquisaClient> pesquisas) {
 		this.container.remove(bodyPanel);
 		this.bodyPanel.clear();
 		switch (tela) {
@@ -338,8 +361,8 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 			editarFuncionarioPresenter.go(this.bodyPanel);
 			break;
 		case TELA_NOVA_PESQUISA:
-			pesquisa = new PesquisaClient(null, null, funcionarios, funcionarios,
-					null);
+			pesquisa = new PesquisaClient(null, null, funcionarios,
+					funcionarios, null);
 			Presenter<NovaPesquisaDisplay> novaPesquisaPresenter = new NovaPesquisaPresenter(
 					new NovaPesquisaView(), eventBus, pesquisa);
 			novaPesquisaPresenter.go(this.bodyPanel);
@@ -366,8 +389,14 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 			break;
 		case TELA_EXIBIR_RELATORIO:
 			Presenter<ExibirRelatorioDisplay> exibirRelatorioPresenter = new ExibirRelatorioPresenter(
-					new ExibirRelatorioView(), eventBus, funcionario, relatorios);
+					new ExibirRelatorioView(), eventBus, funcionario,
+					relatorios);
 			exibirRelatorioPresenter.go(this.bodyPanel);
+			break;
+		case TELA_LISTAR_PESQUISA:
+			Presenter<ListarPesquisasDisplay> listarPesquisasPresenter = new ListarPesquisasPresenter(
+					new ListarPesquisasView(), eventBus, pesquisas);
+			listarPesquisasPresenter.go(this.bodyPanel);
 			break;
 		case TELA_RESPONDER_PESQUISA:
 			Presenter<ResponderPesquisaDisplay> responderPesquisaPresenter = new ResponderPesquisaPresenter(
@@ -375,7 +404,8 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 			responderPesquisaPresenter.go(this.bodyPanel);
 			break;
 		case TELA_RESPONDER_PESQUISA_FUNCIONARIO:
-			Presenter<ResponderPesquisaFuncionarioDisplay> responderPesquisaFuncionarioPresenter = new ResponderPesquisaFuncionarioPresenter(new ResponderPesquisaFuncionarioView(), eventBus,
+			Presenter<ResponderPesquisaFuncionarioDisplay> responderPesquisaFuncionarioPresenter = new ResponderPesquisaFuncionarioPresenter(
+					new ResponderPesquisaFuncionarioView(), eventBus,
 					funcionario, pesquisa);
 			responderPesquisaFuncionarioPresenter.go(this.bodyPanel);
 			break;
@@ -392,12 +422,14 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 		showTelaInicialAdministracao();
 	}
 
-	public void showTelaInicialAdministracao(){
+	public void showTelaInicialAdministracao() {
 		carregaTelaFuncionarios();
 	}
 
-	public void showTelaInicialFuncionarios(){
-		carregaTelaResponderPesquisa();
+	public void goFuncionarios(HasWidgets container,
+			List<PesquisaClient> pesquisas) {
+		super.go(container);
+		carregaTelaListarPesquisas(pesquisas);
 	}
-	
+
 }
