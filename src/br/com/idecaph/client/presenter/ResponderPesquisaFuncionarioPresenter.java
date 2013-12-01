@@ -37,9 +37,20 @@ public class ResponderPesquisaFuncionarioPresenter extends
 		this.perguntaAtual = pesquisa.getIdUltimaPerguntaRespondida();
 		int i = 0;
 		for (PerguntaClient perguntaClient : pesquisa.getPerguntas()) {
-			if (perguntaClient.getId() == perguntaAtual) {
-				posicaoPerguntaAtual = i + 1;
+			if (perguntaAtual == 0){
+				
+				posicaoPerguntaAtual = 0;
+				
 				pergunta = pesquisa.getPerguntas().get(posicaoPerguntaAtual);
+
+				break;
+				
+			} else if (perguntaClient.getId().equals(perguntaAtual)) {
+		
+				posicaoPerguntaAtual = i + 1;
+				
+				pergunta = pesquisa.getPerguntas().get(posicaoPerguntaAtual);
+				
 				break;
 			}
 			++i;
@@ -52,7 +63,6 @@ public class ResponderPesquisaFuncionarioPresenter extends
 
 	@Override
 	public void bind() {
-		Window.alert("Entrei no bind da ResponderPesquisaFuncionarioPresenter");
 		final ResponderPesquisaFuncionarioDisplay display = super.getDisplay();
 		display.getNomeFuncionario().setText(funcionario.getDisplayNome());
 		String perguntaDescricao = pergunta.getPergunta();

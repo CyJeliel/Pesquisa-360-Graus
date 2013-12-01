@@ -410,7 +410,7 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 			responderPesquisaFuncionarioPresenter.go(this.bodyPanel);
 			break;
 		default:
-			throw new UnsupportedOperationException("Link inv√°lido");
+			throw new UnsupportedOperationException("Link inv·lido");
 		}
 
 		super.container.add(bodyPanel);

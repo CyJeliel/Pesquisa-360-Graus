@@ -34,6 +34,7 @@ public class PerguntaDAO extends GenericDAO<Pergunta> {
 			Query query = pm.newQuery(Pergunta.class);
 			query.setFilter("idPesquisa == idPesquisaParam");
 			query.declareParameters("Long idPesquisaParam");
+			query.setOrdering("id asc");
 			perguntas = (List<Pergunta>) query.execute(idPesquisa);
 			perguntas.size();
 			query.closeAll();
