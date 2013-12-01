@@ -24,6 +24,10 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 	private AutenticacaoServiceAsync rpcService = GWT
 			.create(AutenticacaoService.class);
 
+	private ConteudoPresenter conteudoPresenter;
+
+	private CabecalhoAdministracaoPresenter cabecalhoPresenter;
+
 	public AutenticacaoPresenter(AutenticacaoDisplay display,
 			HandlerManager eventBus) {
 		super(display, eventBus);
@@ -76,59 +80,11 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 		});
 	}
 
-	public void carregaPaginaInicial(final Boolean primeiraVez) {
-
-		rpcService.isLogado(new AsyncCallback<Boolean>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-
-				if (!primeiraVez) {
-					Window.alert("Usuário ou senha incorretos.");
-				}
-
-				carregaPaginaLogin();
-			}
-
-			@Override
-			public void onSuccess(Boolean result) {
-
-				if (result) {
-
-					carregaTelaInicial();
-
-				} else {
-
-					if (!primeiraVez) {
-						Window.alert("Usuário ou senha incorretos.");
-					}
-					carregaPaginaLogin();
-				}
-
-			}
-		});
-
-	}
-
 	private void carregaPaginaLogin() {
+		
 		RootPanel.get().clear();
 
-		go(RootPanel.get());
-	}
-
-	private void carregaTelaInicial() {
-
-		RootPanel.get().clear();
-
-		CabecalhoAdministracaoPresenter cabecalhoPresenter = new CabecalhoAdministracaoPresenter(
-				new CabecalhoAdministracaoView(), eventBus);
-
-		cabecalhoPresenter.go(RootPanel.get());
-
-		ConteudoPresenter conteudoPresenter = new ConteudoPresenter(
-				new ConteudoView(), eventBus);
-
-		conteudoPresenter.go(RootPanel.get());
+		show(RootPanel.get());
 	}
 
 	private void login(String login, String senha) {
@@ -149,12 +105,49 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 
 				} else {
 
-					Window.alert("Usuário ou senha incorretos.");
-
-					carregaPaginaLogin();
+					Window.alert("Login ou senha incorretos.");
 				}
 			}
 		});
+	}
+
+	private void carregaTelaInicial() {
+
+		RootPanel.get().clear();
+
+		showCabecalhoPresenter();
+
+		showConteudoPresenter();
+	}
+
+	private void showConteudoPresenter() {
+		
+		if (conteudoPresenter == null) {
+		
+			conteudoPresenter = new ConteudoPresenter(new ConteudoView(),
+					eventBus);
+			
+			conteudoPresenter.go(RootPanel.get());
+		
+		} else {
+		
+			conteudoPresenter.carregaTelaFuncionarios();
+		}
+	}
+
+	private void showCabecalhoPresenter() {
+		
+		if (cabecalhoPresenter == null) {
+		
+			cabecalhoPresenter = new CabecalhoAdministracaoPresenter(
+					new CabecalhoAdministracaoView(), eventBus);
+			
+			cabecalhoPresenter.go(RootPanel.get());
+		
+		} else {
+		
+			cabecalhoPresenter.show(RootPanel.get());
+		}
 	}
 
 }

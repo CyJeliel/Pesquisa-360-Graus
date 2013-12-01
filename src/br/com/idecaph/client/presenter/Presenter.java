@@ -19,6 +19,10 @@ public abstract class Presenter<T extends Display> {
 
 	public void go(HasWidgets container) {
 		bind();
+		show(container);
+	}
+
+	public void show(HasWidgets container) {
 		this.container = container;
 		this.container.add(display.asWidget());
 	}

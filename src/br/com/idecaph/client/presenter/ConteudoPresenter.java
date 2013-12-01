@@ -19,6 +19,7 @@ import br.com.idecaph.client.eventos.EventoCarregaPesquisa;
 import br.com.idecaph.client.eventos.EventoEditarFuncionario;
 import br.com.idecaph.client.eventos.EventoExibeFuncionarios;
 import br.com.idecaph.client.eventos.EventoExibirRelatorio;
+import br.com.idecaph.client.eventos.EventoLogout;
 import br.com.idecaph.client.eventos.EventoNovaPesquisa;
 import br.com.idecaph.client.eventos.EventoNovoFuncionario;
 import br.com.idecaph.client.eventos.EventoPaginaAvaliados;
@@ -32,6 +33,7 @@ import br.com.idecaph.client.eventos.handlers.EventoCarregaPesquisaHandler;
 import br.com.idecaph.client.eventos.handlers.EventoEditarFuncionarioHandler;
 import br.com.idecaph.client.eventos.handlers.EventoExibeFuncionariosHandler;
 import br.com.idecaph.client.eventos.handlers.EventoExibirRelatorioHandler;
+import br.com.idecaph.client.eventos.handlers.EventoLogoutHandler;
 import br.com.idecaph.client.eventos.handlers.EventoNovaPesquisaHandler;
 import br.com.idecaph.client.eventos.handlers.EventoNovoFuncionarioHandler;
 import br.com.idecaph.client.eventos.handlers.EventoPaginaAvaliadosHandler;
@@ -232,6 +234,16 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 										.getPesquisa());
 					}
 				});
+
+		eventBus.addHandler(EventoLogout.TYPE,
+				new EventoLogoutHandler() {
+					
+					@Override
+					public void onEventoLogout(EventoLogout eventoLogout) {
+						container.remove(bodyPanel);
+						bodyPanel.clear();
+					}
+				});
 	}
 
 	private void carregaTelaResponderPesquisaFuncionario(
@@ -270,7 +282,7 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 		carregaTela(tela, null, null);
 	}
 
-	private void carregaTelaFuncionarios() {
+	public void carregaTelaFuncionarios() {
 		FuncionariosHelper funcionariosHelper = new FuncionariosHelper(
 				eventBus, true);
 		funcionariosHelper.getFuncionarios();

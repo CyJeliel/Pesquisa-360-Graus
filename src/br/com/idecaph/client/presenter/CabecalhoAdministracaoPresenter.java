@@ -11,9 +11,12 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.HandlerRegistration;
 
 public class CabecalhoAdministracaoPresenter extends
 		Presenter<CabecalhoAdministracaoDisplay> {
+	private static HandlerRegistration handler;
+
 	public CabecalhoAdministracaoPresenter(
 			CabecalhoAdministracaoDisplay display, HandlerManager eventBus) {
 		super(display, eventBus);
@@ -57,8 +60,12 @@ public class CabecalhoAdministracaoPresenter extends
 			}
 		});
 		
+		if (handler != null){
+			handler.removeHandler();
+		}
+		
 		HasClickHandlers logout = display.getLinkLogout();
-		logout.addClickHandler(new ClickHandler() {
+		handler = logout.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {

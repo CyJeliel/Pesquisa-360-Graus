@@ -5,6 +5,7 @@ import br.com.idecaph.client.view.AutenticacaoView;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -16,7 +17,8 @@ public class Idecaph implements EntryPoint {
 		AutenticacaoPresenter autenticacaoPresenter = new AutenticacaoPresenter(
 				new AutenticacaoView(), eventBus);
 
-		autenticacaoPresenter.carregaPaginaInicial(true);
+		autenticacaoPresenter.go(RootPanel.get());
+		//.carregaPaginaInicial(true);
 
 		// ColaboradoresPresenter presenter = new ColaboradoresPresenter(
 		// new ColaboradoresView());
