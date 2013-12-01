@@ -43,8 +43,25 @@ public class ResponderPesquisaFuncionarioPresenter extends
 			}
 			this.pesquisa = pesquisa;
 		} else {
-			eventBus.fireEvent(new EventoResponderPesquisa(pesquisa));
+			finalizarRespostasFuncionario(eventBus, pesquisa);
 		}
+	}
+
+	private void finalizarRespostasFuncionario(final HandlerManager eventBus, PesquisaClient pesquisa) {
+		
+		rpcService.getPesquisaPorId(pesquisa.getId(), new AsyncCallback<PesquisaClient>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(PesquisaClient result) {
+				eventBus.fireEvent(new EventoResponderPesquisa(result));
+			}
+		});
 	}
 
 	@Override
@@ -80,7 +97,7 @@ public class ResponderPesquisaFuncionarioPresenter extends
 					Window.alert("Erro ao cadastrar resposta. Por favor, contate o administrador do sistema.");
 				} else {
 					if (posicaoPerguntaAtual == pesquisa.getPerguntas().size() - 1) {
-						eventBus.fireEvent(new EventoResponderPesquisa(pesquisa));
+						finalizarRespostasFuncionario(eventBus, pesquisa);
 					} else {
 						carregarProximaPergunta();
 					}

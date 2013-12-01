@@ -226,7 +226,8 @@ public class PesquisasServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public Integer getPosicaoUltimaPerguntaRespondida(Long idPesquisa, Long idAvaliado) {
+	public Integer getPosicaoUltimaPerguntaRespondida(Long idPesquisa,
+			Long idAvaliado) {
 		RespostaDAO respostaDAO = new RespostaDAO();
 		Long idParticipante = getIdFuncionarioLogado();
 		Integer posicaoUltimaPerguntaRespondida = respostaDAO
@@ -237,7 +238,8 @@ public class PesquisasServiceImpl extends RemoteServiceServlet implements
 			List<Pergunta> perguntas = perguntaDAO
 					.getPerguntasPorPesquisa(idPesquisa);
 			List<Resposta> respostasAvaliado = respostaDAO
-					.getRespostasAvaliado(idPesquisa, idAvaliado, idParticipante);
+					.getRespostasAvaliado(idPesquisa, idAvaliado,
+							idParticipante);
 			if (perguntas != null && respostasAvaliado != null) {
 				if (respostasAvaliado.size() >= perguntas.size()) {
 					posicaoUltimaPerguntaRespondida = -999;
@@ -267,13 +269,13 @@ public class PesquisasServiceImpl extends RemoteServiceServlet implements
 
 			if (pesquisasParticipante != null
 					&& !pesquisasParticipante.isEmpty()) {
-				
+
 				PesquisaDAO pesquisaDAO = new PesquisaDAO();
 				for (ParticipantePesquisa pesquisaParticipante : pesquisasParticipante) {
 					Pesquisa pesquisa = pesquisaDAO
 							.findById(pesquisaParticipante.getIdPesquisa());
-					PesquisaClient pesquisaClient = buscarAvaliados(pesquisa.getId());
-					//PesquisaClient pesquisaClient = buildPesquisaClient(pesquisa);
+					PesquisaClient pesquisaClient = buscarAvaliados(pesquisa
+							.getId());
 					pesquisasClient.add(pesquisaClient);
 				}
 			}
@@ -281,6 +283,20 @@ public class PesquisasServiceImpl extends RemoteServiceServlet implements
 			e.printStackTrace();
 		}
 		return pesquisasClient;
+	}
+
+	@Override
+	public PesquisaClient getPesquisaPorId(Long id) {
+
+		PesquisaClient pesquisaClient = null;
+		try {
+			PesquisaDAO pesquisaDAO = new PesquisaDAO();
+			Pesquisa pesquisa = pesquisaDAO.findById(id);
+			pesquisaClient = buscarAvaliados(pesquisa.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pesquisaClient;
 	}
 
 }

@@ -25,4 +25,6 @@ public interface PesquisaServiceAsync {
 
 	void getPesquisasPorParticipante(AsyncCallback<List<PesquisaClient>> callback);
 
+	void getPesquisaPorId(Long id, AsyncCallback<PesquisaClient> asyncCallback);
+
 }
