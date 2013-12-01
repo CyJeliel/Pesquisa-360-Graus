@@ -10,8 +10,10 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CellPanel;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -51,6 +53,9 @@ public class NovoFuncionarioView extends Composite implements
 	@UiField
 	Button botaoCancelar;
 	
+	@UiField
+	CheckBox admin;
+	
 	private static NovoFuncionarioViewUiBinder uiBinder = GWT
 			.create(NovoFuncionarioViewUiBinder.class);
 
@@ -72,6 +77,7 @@ public class NovoFuncionarioView extends Composite implements
 		String cargo = this.cargo.getText();
 		String departamento = this.departamento.getText();
 		String idString = this.id.getText();
+		Boolean admin = this.admin.getValue();
 		Long id = null;
 		try {
 			id = Long.valueOf(idString);
@@ -79,7 +85,7 @@ public class NovoFuncionarioView extends Composite implements
 			id = null;
 		}
 		FuncionarioClient funcionario = new FuncionarioClient(id, login, senha, confirmacaoSenha, nome,
-				identificacao, cargo, departamento);
+				identificacao, cargo, departamento, admin);
 		return funcionario;
 	}
 
@@ -188,6 +194,11 @@ public class NovoFuncionarioView extends Composite implements
 	@Override
 	public TextBox getId() {
 		return id;
+	}
+
+	@Override
+	public HasValue<Boolean> getAdmin() {
+		return admin;
 	}
 
 }

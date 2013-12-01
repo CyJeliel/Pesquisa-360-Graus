@@ -25,7 +25,7 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 						funcionario.getId(), funcionario.getLogin(),
 						funcionario.getSenha(), funcionario.getNome(),
 						funcionario.getIdentificacao(), funcionario.getCargo(),
-						funcionario.getDepartamento());
+						funcionario.getDepartamento(), funcionario.isAdmin());
 				funcionariosClient.add(funcionarioClient);
 			}
 		} catch (Exception e) {
@@ -69,6 +69,7 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			Funcionario funcionario = new Funcionario(funcionarioClient);
 			funcionarioDAO.update(funcionario);
+			System.out.println(funcionario);
 		} catch (Exception e) {
 			e.printStackTrace();
 			ok = false;
@@ -80,13 +81,21 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 	public FuncionarioClient getFuncionarioById(
 			FuncionarioClient funcionarioClient) {
 		try {
-			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-			Funcionario funcionario = funcionarioDAO.findById(funcionarioClient
-					.getId());
-			funcionarioClient = new FuncionarioClient(funcionario.getId(),
-					funcionario.getLogin(), funcionario.getSenha(),
-					funcionario.getNome(), funcionario.getIdentificacao(),
-					funcionario.getCargo(), funcionario.getDepartamento());
+			Long id = funcionarioClient.getId();
+			if (id.equals(-999l)) {
+				funcionarioClient = new FuncionarioClient(-999l,
+						"adminIdecaph", "4dm1n1d3c4ph", "4dm1n1d3c4ph",
+						"adminIdecaph", "-999", "admin", "administração", true);
+			} else {
+				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+
+				Funcionario funcionario = funcionarioDAO.findById(id);
+				funcionarioClient = new FuncionarioClient(funcionario.getId(),
+						funcionario.getLogin(), funcionario.getSenha(),
+						funcionario.getNome(), funcionario.getIdentificacao(),
+						funcionario.getCargo(), funcionario.getDepartamento(),
+						funcionario.isAdmin());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

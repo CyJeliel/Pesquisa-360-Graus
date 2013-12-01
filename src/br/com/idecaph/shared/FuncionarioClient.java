@@ -15,22 +15,24 @@ public class FuncionarioClient implements IsSerializable, Serializable {
 	private String nome;
 	private String cargo;
 	private String departamento;
+	private Boolean admin;
 
 	public FuncionarioClient() {
 	}
 
 	public FuncionarioClient(Long id, String login, String senha,
 			String confirmacaoSenha, String nome, String identificacao,
-			String cargo, String departamento) {
-		this(id, login, senha, nome, identificacao, cargo, departamento);
+			String cargo, String departamento, Boolean admin) {
+		this(id, login, senha, nome, identificacao, cargo, departamento, admin);
 		this.confirmacaoSenha = confirmacaoSenha;
 	}
 
 	public FuncionarioClient(Long id, String login, String senha, String nome,
-			String identificacao, String cargo, String departamento) {
+			String identificacao, String cargo, String departamento, Boolean admin) {
 		this(id, nome, identificacao, cargo, departamento);
 		this.login = login;
 		this.senha = senha;
+		this.admin = admin;
 	}
 
 	public FuncionarioClient(Long id, String nome, String identificacao,
@@ -120,5 +122,13 @@ public class FuncionarioClient implements IsSerializable, Serializable {
 
 	public void setConfirmacaoSenha(String confirmacaoSenha) {
 		this.confirmacaoSenha = confirmacaoSenha;
+	}
+
+	public Boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
 	}
 }

@@ -4,6 +4,7 @@ import br.com.idecaph.shared.FuncionarioClient;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TextBox;
 
 public interface NovoFuncionarioDisplay extends Display {
@@ -57,5 +58,7 @@ public interface NovoFuncionarioDisplay extends Display {
 	HasText getSenha();
 
 	HasText getConfirmacaoSenha();
+
+	HasValue<Boolean> getAdmin();
 
 }

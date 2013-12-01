@@ -78,6 +78,8 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 			display.getCargo().setText(cargo);
 			String departamento = funcionario.getDepartamento();
 			display.getDepartamento().setText(departamento);
+			Boolean admin = funcionario.isAdmin();
+			display.getAdmin().setValue(admin);
 		}
 
 	}

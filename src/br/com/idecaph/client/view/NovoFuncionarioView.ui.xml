@@ -16,7 +16,8 @@
 					<g:Label addStyleNames="label" text="* Registro na empresa: "></g:Label>
 					<g:Label addStyleNames="label" text="* Cargo: "        ></g:Label>
 					<g:Label addStyleNames="label" text="* Departamento: " ></g:Label>
-        		</g:VerticalPanel>
+					<g:Label addStyleNames="label" text="* Aministrador: " ></g:Label>
+				</g:VerticalPanel>
 		        <g:VerticalPanel addStyleNames="colunaDireita" >
                 	<g:TextBox ui:field="id"></g:TextBox>
                 	<g:TextBox ui:field="login"></g:TextBox>
@@ -26,7 +27,8 @@
 					<g:TextBox ui:field="identificacao"></g:TextBox>
 					<g:TextBox ui:field="cargo"></g:TextBox>
 					<g:TextBox ui:field="departamento"></g:TextBox>
-        		</g:VerticalPanel>
+					<g:CheckBox ui:field="admin"></g:CheckBox>
+				</g:VerticalPanel>
 			</g:HorizontalPanel>
 			<g:Label text="* Campos obrigatórios"></g:Label>
             <g:HorizontalPanel>

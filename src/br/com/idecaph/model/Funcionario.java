@@ -33,15 +33,9 @@ public class Funcionario implements Entity {
 
 	@Persistent
 	private String departamento;
-
-	public Funcionario(Long id, String nome, String identificacao,
-			String cargo, String departamento) {
-		this.id = id;
-		this.identificacao = identificacao;
-		this.cargo = cargo;
-		this.nome = nome;
-		this.departamento = departamento;
-	}
+	
+	@Persistent
+	private Boolean admin;
 
 	public Funcionario(FuncionarioClient funcionarioClient) {
 		this.id = funcionarioClient.getId();
@@ -51,6 +45,7 @@ public class Funcionario implements Entity {
 		this.cargo = funcionarioClient.getCargo();
 		this.nome = funcionarioClient.getNome();
 		this.departamento = funcionarioClient.getDepartamento();
+		this.admin = funcionarioClient.isAdmin();
 	}
 
 	public String getCargo() {
@@ -109,11 +104,6 @@ public class Funcionario implements Entity {
 		this.cargo = cargo;
 	}
 
-	public FuncionarioSelecionavel getFuncionarioSelecionavel() {
-		FuncionarioSelecionavel funcionarioSelecionavel = new FuncionarioSelecionavel(id, nome, identificacao, cargo, departamento, false);
-		return funcionarioSelecionavel;
-	}
-
 	public String getLogin() {
 		return this.login;
 	}
@@ -128,5 +118,18 @@ public class Funcionario implements Entity {
 
 	public void setLogin(String login) {
 		this.login = login;
+	}
+
+	public Boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
+
+	public FuncionarioSelecionavel getFuncionarioSelecionavel() {
+		FuncionarioSelecionavel funcionarioSelecionavel = new FuncionarioSelecionavel(id, nome, identificacao, cargo, departamento, false);
+		return funcionarioSelecionavel;
 	}
 }
