@@ -1,5 +1,2 @@
 # Module idecaph
 # RPC service class, partial path of RPC policy file
-br.com.idecaph.client.interfaces.FuncionariosService, 5D23B6D66BAEB51882790D889800A91E.gwt.rpc
-br.com.idecaph.client.interfaces.PesquisaService, 660A4D8CADA9A09C1610DD9861130E9E.gwt.rpc
-br.com.idecaph.client.interfaces.RelatorioService, F3717766086DC6C1F842567F20A8E089.gwt.rpc

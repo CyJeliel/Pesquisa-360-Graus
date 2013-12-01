@@ -5,14 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import br.com.idecaph.client.interfaces.RelatorioService;
 import br.com.idecaph.dao.PerguntaDAO;
 import br.com.idecaph.dao.RespostaDAO;
 import br.com.idecaph.model.Pergunta;
 import br.com.idecaph.model.Resposta;
-import br.com.idecaph.shared.FuncionarioClient;
 import br.com.idecaph.shared.RelatorioClient;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -31,8 +28,8 @@ public class RelatorioServiceImpl extends RemoteServiceServlet implements
 			return null;
 		}
 		RespostaDAO respostaDAO = new RespostaDAO();
-		Long idParticipante = getIdFuncionarioLogado();
-		List<Resposta> respostas = respostaDAO.getRespostasAvaliado(idPesquisa, idParticipante,	idAvaliado);
+		List<Resposta> respostas = respostaDAO.getTodasRespostasAvaliado(
+				idPesquisa, idAvaliado);
 
 		List<RelatorioClient> relatorios = new ArrayList<RelatorioClient>();
 		for (Pergunta pergunta : perguntasPorPesquisa) {
@@ -40,7 +37,8 @@ public class RelatorioServiceImpl extends RemoteServiceServlet implements
 			int qtdRespostas = 0;
 			for (Resposta resposta : respostas) {
 				if (pergunta.getId().equals(resposta.getIdPergunta())) {
-					Integer porcentagem = porcentagensRespostas.get(resposta.getDescricao());
+					Integer porcentagem = porcentagensRespostas.get(resposta
+							.getDescricao());
 					if (porcentagem == null) {
 						porcentagem = 0;
 					}
@@ -48,7 +46,6 @@ public class RelatorioServiceImpl extends RemoteServiceServlet implements
 					++qtdRespostas;
 					porcentagensRespostas.put(resposta.getDescricao(),
 							porcentagem);
-					break;
 				}
 			}
 			for (String resposta : porcentagensRespostas.keySet()) {
@@ -66,12 +63,4 @@ public class RelatorioServiceImpl extends RemoteServiceServlet implements
 
 		return relatorios;
 	}
-
-	private Long getIdFuncionarioLogado() {
-		HttpServletRequest request = getThreadLocalRequest();
-		FuncionarioClient participante = (FuncionarioClient) request
-				.getSession().getAttribute("funcionario");
-		return participante.getId();
-	}
-
 }

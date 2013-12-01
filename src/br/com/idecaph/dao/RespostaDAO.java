@@ -107,4 +107,25 @@ public class RespostaDAO extends GenericDAO<Resposta> {
 		}
 		return retorno;
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Resposta> getTodasRespostasAvaliado(Long idPesquisa,
+			Long idAvaliado) {
+		List<Resposta> respostas = null;
+		String filter = "idPesquisa == idPesquisaParam && idAvaliado == idAvaliadoParam";
+		try {
+			init();
+			Query query = pm.newQuery(Resposta.class, filter);
+			query.declareParameters("Long idPesquisaParam, Long idAvaliadoParam");
+			query.setOrdering("idPergunta asc");
+			respostas = (List<Resposta>) query.execute(idPesquisa, idAvaliado);
+			respostas.size();
+			query.closeAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			end();
+		}
+		return respostas;
+	}
 }
