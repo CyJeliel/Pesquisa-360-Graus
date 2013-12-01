@@ -40,11 +40,11 @@ public class ExibirRelatorioPresenter extends Presenter<ExibirRelatorioDisplay> 
 				Map<String, Integer> porcentagensRespostas = relatorioClient
 						.getPorcentagensRespostas();
 				if (porcentagensRespostas != null && !porcentagensRespostas.isEmpty()){
-				for (String resposta : porcentagensRespostas.keySet()) {
-					String valor = resposta + ": "
-							+ porcentagensRespostas.get(resposta) + "%";
-					display.add(valor, resultado, "resposta");
-				}
+					for (String resposta : porcentagensRespostas.keySet()) {
+						String valor = resposta + ": "
+								+ porcentagensRespostas.get(resposta) + "%";
+						display.add(valor, resultado, "resposta");
+					}
 				} else {
 					display.add("Não há respostas a essa pergunta para esse funcionário.", resultado, "resposta");
 				}

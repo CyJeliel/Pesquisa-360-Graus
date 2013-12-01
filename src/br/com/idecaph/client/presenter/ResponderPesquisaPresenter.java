@@ -57,7 +57,7 @@ public class ResponderPesquisaPresenter extends
 		AvaliadoPorcentagemColunas colunas = new AvaliadoPorcentagemColunas();
 		display.setColunas(colunas.getColunas());
 		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(null,
-				"<b>FUNCIONÃ�RIOS AVALIADOS</b>", "<b>IDENTIFICAÃ‡ÃƒO</b>",
+				"<b>FUNCIONÁRIOS AVALIADOS</b>", "<b>IDENTIFICAÇÃO</b>",
 				"<b>CARGO</b>", "<b>DEPARTAMENTO</b>", false);
 		Widget listaVazia = new AvaliadoPorcentagemColunas()
 				.getColunaListaVazia();

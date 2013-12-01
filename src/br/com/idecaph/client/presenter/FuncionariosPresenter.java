@@ -94,7 +94,7 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 		FuncionarioEditavelColunas funcionarioColunas = new FuncionarioEditavelColunas();
 		display.setColunas(funcionarioColunas.getColunas());
 		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(null,
-				"<b>FUNCIONÃ�RIOS</b>", "<b>IDENTIFICAÃ‡ÃƒO</b>",
+				"<b>FUNCIONÁRIOS</b>", "<b>IDENTIFICAÇÃO</b>",
 				"<b>CARGO</b>", "<b>DEPARTAMENTO</b>", false);
 		Widget listaVazia = new FuncionarioEditavelColunas()
 				.getColunaListaVazia();

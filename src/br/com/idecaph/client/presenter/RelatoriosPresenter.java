@@ -119,7 +119,7 @@ public class RelatoriosPresenter extends Presenter<RelatoriosDisplay> {
 		AvaliadoColunas colunas = new AvaliadoColunas();
 		display.setColunas(colunas.getColunas());
 		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(null,
-				"<b>FUNCIONÃ�RIOS AVALIADOS</b>", "<b>IDENTIFICAÃ‡ÃƒO</b>",
+				"<b>FUNCIONÁRIOS AVALIADOS</b>", "<b>IDENTIFICAÇÃO</b>",
 				"<b>CARGO</b>", "<b>DEPARTAMENTO</b>", false);
 		Widget listaVazia = new AvaliadoColunas().getColunaListaVazia();
 		List<FuncionarioSelecionavel> funcionariosSelecionaveis = new ArrayList<FuncionarioSelecionavel>();
