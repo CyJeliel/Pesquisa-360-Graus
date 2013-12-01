@@ -276,6 +276,7 @@ public class PesquisasServiceImpl extends RemoteServiceServlet implements
 							.findById(pesquisaParticipante.getIdPesquisa());
 					PesquisaClient pesquisaClient = buscarAvaliados(pesquisa
 							.getId());
+					removerFuncionarioLogado(pesquisaClient, idFuncionario);
 					pesquisasClient.add(pesquisaClient);
 				}
 			}
@@ -283,6 +284,16 @@ public class PesquisasServiceImpl extends RemoteServiceServlet implements
 			e.printStackTrace();
 		}
 		return pesquisasClient;
+	}
+
+	private void removerFuncionarioLogado(PesquisaClient pesquisaClient,
+			Long idFuncionario) {
+		for (FuncionarioSelecionavel avaliado: pesquisaClient.getAvaliados()){
+			if (avaliado.getId().equals(idFuncionario)){
+				pesquisaClient.getAvaliados().remove(avaliado);
+				break;
+			}
+		}
 	}
 
 	@Override
