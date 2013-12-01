@@ -14,7 +14,7 @@ import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 
 public class CabecalhoAdministracaoPresenter extends
-		Presenter<CabecalhoAdministracaoDisplay> {
+		Presenter<CabecalhoAdministracaoDisplay> implements CabecalhoPresenter{
 	private static HandlerRegistration handler;
 
 	public CabecalhoAdministracaoPresenter(

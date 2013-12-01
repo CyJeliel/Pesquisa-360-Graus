@@ -6,7 +6,9 @@ import br.com.idecaph.client.eventos.handlers.EventoLogoutHandler;
 import br.com.idecaph.client.interfaces.AutenticacaoService;
 import br.com.idecaph.client.interfaces.AutenticacaoServiceAsync;
 import br.com.idecaph.client.view.CabecalhoAdministracaoView;
+import br.com.idecaph.client.view.CabecalhoView;
 import br.com.idecaph.client.view.ConteudoView;
+import br.com.idecaph.shared.FuncionarioClient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -26,7 +28,7 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 
 	private ConteudoPresenter conteudoPresenter;
 
-	private CabecalhoAdministracaoPresenter cabecalhoPresenter;
+	private CabecalhoPresenter cabecalhoPresenter;
 
 	public AutenticacaoPresenter(AutenticacaoDisplay display,
 			HandlerManager eventBus) {
@@ -81,14 +83,14 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 	}
 
 	private void carregaPaginaLogin() {
-		
+
 		RootPanel.get().clear();
 
 		show(RootPanel.get());
 	}
 
 	private void login(String login, String senha) {
-		rpcService.login(login, senha, new AsyncCallback<Boolean>() {
+		rpcService.login(login, senha, new AsyncCallback<FuncionarioClient>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -97,11 +99,11 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 			}
 
 			@Override
-			public void onSuccess(Boolean result) {
+			public void onSuccess(FuncionarioClient result) {
 
-				if (result) {
+				if (result != null) {
 
-					carregaTelaInicial();
+					carregaTelaInicial(result.isAdmin());
 
 				} else {
 
@@ -111,42 +113,66 @@ public class AutenticacaoPresenter extends Presenter<AutenticacaoDisplay> {
 		});
 	}
 
-	private void carregaTelaInicial() {
+	private void carregaTelaInicial(Boolean isAdmin) {
 
 		RootPanel.get().clear();
 
-		showCabecalhoPresenter();
+		showCabecalhoPresenter(isAdmin);
 
-		showConteudoPresenter();
+		showConteudoPresenter(isAdmin);
 	}
 
-	private void showConteudoPresenter() {
-		
+	private void showConteudoPresenter(Boolean isAdmin) {
+
 		if (conteudoPresenter == null) {
-		
+
 			conteudoPresenter = new ConteudoPresenter(new ConteudoView(),
 					eventBus);
-			
-			conteudoPresenter.go(RootPanel.get());
-		
+
+			if (isAdmin) {
+				conteudoPresenter.go(RootPanel.get());
+			} else {
+				conteudoPresenter.showTelaInicialFuncionarios();
+			}
 		} else {
-		
-			conteudoPresenter.carregaTelaFuncionarios();
+			if (isAdmin) {
+				conteudoPresenter.showTelaInicialAdministracao();
+			} else {
+				conteudoPresenter.showTelaInicialFuncionarios();
+			}
 		}
 	}
 
-	private void showCabecalhoPresenter() {
-		
+	private void showCabecalhoPresenter(Boolean isAdmin) {
+
 		if (cabecalhoPresenter == null) {
-		
+
+			buildCabecalhoPresenter(isAdmin);
+
+			cabecalhoPresenter.go(RootPanel.get());
+
+		} else {
+
+			if ((isAdmin && !(cabecalhoPresenter instanceof CabecalhoAdministracaoPresenter))
+					|| (!isAdmin && !(cabecalhoPresenter instanceof CabecalhoFuncionarioPresenter))) {
+				
+				buildCabecalhoPresenter(isAdmin);
+			}
+		}
+
+		cabecalhoPresenter.go(RootPanel.get());
+	}
+
+	private void buildCabecalhoPresenter(Boolean isAdmin) {
+
+		if (isAdmin) {
 			cabecalhoPresenter = new CabecalhoAdministracaoPresenter(
 					new CabecalhoAdministracaoView(), eventBus);
-			
-			cabecalhoPresenter.go(RootPanel.get());
-		
+
 		} else {
-		
-			cabecalhoPresenter.show(RootPanel.get());
+
+			cabecalhoPresenter = new CabecalhoFuncionarioPresenter(
+					new CabecalhoView(), eventBus);
 		}
 	}
 

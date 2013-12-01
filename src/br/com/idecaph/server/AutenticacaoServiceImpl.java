@@ -33,13 +33,13 @@ public class AutenticacaoServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public boolean login(String login, String senha) {
+	public FuncionarioClient login(String login, String senha) {
 
 		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-
+		
+		FuncionarioClient funcionarioClient = null;
 		try {
 
-			FuncionarioClient funcionarioClient = null;
 			if (login.equals("adminIdecaph") && senha.equals("4dm1n1d3c4ph")) {
 				funcionarioClient = new FuncionarioClient(-999l,
 						"adminIdecaph", "4dm1n1d3c4ph", "4dm1n1d3c4ph",
@@ -62,12 +62,12 @@ public class AutenticacaoServiceImpl extends RemoteServiceServlet implements
 
 			session.setAttribute("funcionario", funcionarioClient);
 
-			return true;
-
 		} catch (Exception e) {
 
-			return false;
+			funcionarioClient = null;
 		}
+
+		return funcionarioClient;
 
 	}
 

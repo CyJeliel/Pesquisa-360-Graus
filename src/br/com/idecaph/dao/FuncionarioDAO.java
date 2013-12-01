@@ -22,6 +22,7 @@ public class FuncionarioDAO extends GenericDAO<Funcionario> {
 			funcionarioModel.setNome(funcionario.getNome());
 			funcionarioModel.setCargo(funcionario.getCargo());
 			funcionarioModel.setDepartamento(funcionario.getDepartamento());
+			funcionarioModel.setAdmin(funcionario.isAdmin());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

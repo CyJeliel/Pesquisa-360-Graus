@@ -389,7 +389,15 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 	@Override
 	public void go(HasWidgets container) {
 		super.go(container);
+		showTelaInicialAdministracao();
+	}
+
+	public void showTelaInicialAdministracao(){
 		carregaTelaFuncionarios();
 	}
 
+	public void showTelaInicialFuncionarios(){
+		carregaTelaResponderPesquisa();
+	}
+	
 }
