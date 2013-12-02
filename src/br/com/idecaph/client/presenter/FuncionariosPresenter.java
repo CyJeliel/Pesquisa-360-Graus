@@ -55,7 +55,7 @@ public class FuncionariosPresenter extends Presenter<FuncionariosDisplay> {
 			@Override
 			public void onClick(ClickEvent event) {
 				if (selectionModel.isEmpty() || selectionModel.size() < 2) {
-					Window.alert("Selecione dois ou mais funcionÃ¡rios para iniciar uma nova pesquisa");
+					Window.alert("Selecione dois ou mais funcionários para iniciar uma nova pesquisa");
 				} else {
 					List<FuncionarioSelecionavel> funcionariosSelecionados = new ArrayList<FuncionarioSelecionavel>();
 					for (FuncionarioClient funcionario : selectionModel

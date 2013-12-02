@@ -14,7 +14,7 @@ public class PerguntaColunas extends ListaColunas {
 	private List<Coluna<PerguntaClient>> definicoesColunas = new ArrayList<Coluna<PerguntaClient>>();
 
 	public PerguntaColunas() {
-		super("Não há perguntas cadastradas.");
+		super("NÃ£o hÃ¡ perguntas cadastradas.");
 		definicoesColunas.add(new Coluna<PerguntaClient>() {
 			boolean selecionado = false;
 

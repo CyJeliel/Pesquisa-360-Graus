@@ -52,7 +52,7 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 					.getAttribute("funcionario");
 
 			if (funcionarioLogado.getId().equals(id)) {
-				return "N„o È possÌvel excluir funcion·rio logado.";
+				return "N√£o √© poss√≠vel excluir funcion√°rio logado.";
 			}
 
 			ParticipantePesquisaDAO participantePesquisaDAO = new ParticipantePesquisaDAO();
@@ -60,7 +60,7 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 					.existePesquisaFuncionario(id);
 
 			if (existePesquisaParticipante) {
-				return "N„o È possÌvel excluir esse funcion·rio, pois j· est· cadastrado em pelo menos uma pesquisa.";
+				return "N√£o √© poss√≠vel excluir esse funcion√°rio, pois j√° est√° cadastrado em pelo menos uma pesquisa.";
 			} else {
 
 				AvaliadoPesquisaDAO avaliadoPesquisaDAO = new AvaliadoPesquisaDAO();
@@ -68,7 +68,7 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 						.existePesquisaFuncionario(id);
 
 				if (existePesquisaAvaliado) {
-					return "N„o È possÌvel excluir esse funcion·rio, pois j· est· cadastrado em pelo menos uma pesquisa.";
+					return "N√£o √© poss√≠vel excluir esse funcion√°rio, pois j√° est√° cadastrado em pelo menos uma pesquisa.";
 				} else {
 
 					FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
@@ -77,7 +77,7 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "Ocorreu um erro ao excluir o funcion·rio. Por favor, contate o administrador do sistema.";
+			return "Ocorreu um erro ao excluir o funcion√°rio. Por favor, contate o administrador do sistema.";
 		}
 		return null;
 	}
@@ -119,7 +119,7 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 			if (id.equals(-999l)) {
 				funcionarioClient = new FuncionarioClient(-999l,
 						"adminIdecaph", "4dm1n1d3c4ph", "4dm1n1d3c4ph",
-						"adminIdecaph", "-999", "admin", "administraÁ„o", true);
+						"adminIdecaph", "-999", "admin", "administra√ß√£o", true);
 			} else {
 				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 

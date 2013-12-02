@@ -46,7 +46,7 @@ public class ExibirRelatorioPresenter extends Presenter<ExibirRelatorioDisplay> 
 						display.add(valor, resultado, "resposta");
 					}
 				} else {
-					display.add("N„o h· respostas a essa pergunta para esse funcion·rio.", resultado, "resposta");
+					display.add("N√£o h√° respostas a essa pergunta para esse funcion√°rio.", resultado, "resposta");
 				}
 				display.addResultado(resultado);
 			}

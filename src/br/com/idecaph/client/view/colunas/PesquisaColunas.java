@@ -13,7 +13,7 @@ public class PesquisaColunas extends ListaColunas {
 	private List<Coluna<PesquisaClient>> definicoesColunas = new ArrayList<Coluna<PesquisaClient>>();
 
 	public PesquisaColunas() {
-		super("Não há pesquisas cadastradas para esse usuário.");
+		super("NÃ£o hÃ¡ pesquisas cadastradas para esse funcionÃ¡rio.");
 
 		definicoesColunas.add(new Coluna<PesquisaClient>() {
 

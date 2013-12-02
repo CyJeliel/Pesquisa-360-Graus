@@ -18,10 +18,5 @@ public class Idecaph implements EntryPoint {
 				new AutenticacaoView(), eventBus);
 
 		autenticacaoPresenter.go(RootPanel.get());
-		//.carregaPaginaInicial(true);
-
-		// ColaboradoresPresenter presenter = new ColaboradoresPresenter(
-		// new ColaboradoresView());
-		// presenter.go(RootPanel.get());
 	}
 }
