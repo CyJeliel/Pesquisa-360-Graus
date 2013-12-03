@@ -10,6 +10,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -132,8 +133,7 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 
 					@Override
 					public void onSuccess(String result) {
-						exibeFeedback(NovoFuncionarioDisplay.CADASTRO_FUNCIONARIO);
-						
+						Window.alert(result);
 					}
 
 					@Override
@@ -145,11 +145,11 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 
 	private void atualizaFuncionario(FuncionarioClient funcionario) {
 		rpcService.atualizaFuncionario(funcionario,
-				new AsyncCallback<Boolean>() {
+				new AsyncCallback<String>() {
 
 					@Override
-					public void onSuccess(Boolean result) {
-						exibeFeedback(NovoFuncionarioDisplay.ATUALIZA_FUNCIONARIO);
+					public void onSuccess(String result) {
+						Window.alert(result);
 					}
 
 					@Override

@@ -1,5 +1,7 @@
 package br.com.idecaph.model;
 
+import java.util.List;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -131,5 +133,22 @@ public class Funcionario implements Entity {
 	public FuncionarioSelecionavel getFuncionarioSelecionavel() {
 		FuncionarioSelecionavel funcionarioSelecionavel = new FuncionarioSelecionavel(id, nome, identificacao, cargo, departamento, false);
 		return funcionarioSelecionavel;
+	}
+
+	public String valido(List<Funcionario> all, String confirmacaoSenha) {
+		if (all != null && !all.isEmpty()){
+			for (Funcionario funcionario: all){
+				if (login.equals(funcionario.getLogin())){
+					if (id != null && !id.equals(funcionario.getId())){
+						return "Já existe um funcionário cadastrado com esse login.";
+					}
+				}
+			}
+		}
+		
+		if (!senha.equals(confirmacaoSenha)){
+			return "A senha e a confirmação não conferem.";
+		}
+		return null;
 	}
 }

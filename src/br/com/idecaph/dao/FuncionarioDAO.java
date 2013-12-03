@@ -19,10 +19,14 @@ public class FuncionarioDAO extends GenericDAO<Funcionario> {
 					funcionario.getId());
 			Funcionario funcionarioModel = pm.getObjectById(Funcionario.class,
 					key);
+			funcionarioModel.setLogin(funcionario.getLogin());
+			funcionarioModel.setSenha(funcionario.getSenha());
 			funcionarioModel.setNome(funcionario.getNome());
 			funcionarioModel.setCargo(funcionario.getCargo());
 			funcionarioModel.setDepartamento(funcionario.getDepartamento());
 			funcionarioModel.setAdmin(funcionario.isAdmin());
+			pm.makePersistent(funcionario);
+			end();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

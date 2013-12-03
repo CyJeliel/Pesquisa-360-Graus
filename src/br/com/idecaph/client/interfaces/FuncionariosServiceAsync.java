@@ -15,7 +15,7 @@ public interface FuncionariosServiceAsync {
 			AsyncCallback<String> callback);
 
 	void atualizaFuncionario(FuncionarioClient funcionario,
-			AsyncCallback<Boolean> asyncCallback);
+			AsyncCallback<String> asyncCallback);
 
 	void getFuncionarioById(FuncionarioClient funcionario,
 			AsyncCallback<FuncionarioClient> asyncCallback);

@@ -84,32 +84,46 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public String cadastraFuncionario(FuncionarioClient funcionarioClient) {
-		boolean ok = true;
+		String retorno = "";
 		try {
+
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			List<Funcionario> all = funcionarioDAO.getAll();
 			Funcionario funcionario = new Funcionario(funcionarioClient);
-			funcionarioDAO.insert(funcionario);
+			retorno = funcionario.valido(all,
+					funcionarioClient.getConfirmacaoSenha());
+			if (retorno != null) {
+				funcionarioDAO = new FuncionarioDAO();
+				funcionarioDAO.insert(funcionario);
+				retorno = "Funcion·rio cadastrado com sucesso.";
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			ok = false;
+			retorno = "Ocorreu um erro ao cadastrar o funcion·rio. Por favor, contate o administrador do sistema.";
 		}
-		//return ok;
 		return "";
 	}
 
 	@Override
-	public boolean atualizaFuncionario(FuncionarioClient funcionarioClient) {
-		boolean ok = true;
+	public String atualizaFuncionario(FuncionarioClient funcionarioClient) {
+		String retorno = "";
 		try {
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			List<Funcionario> all = funcionarioDAO.getAll();
 			Funcionario funcionario = new Funcionario(funcionarioClient);
-			funcionarioDAO.update(funcionario);
-			System.out.println(funcionario);
+			retorno = funcionario.valido(all,
+					funcionarioClient.getConfirmacaoSenha());
+			if (retorno != null) {
+				funcionarioDAO = new FuncionarioDAO();
+				funcionarioDAO.update(funcionario);
+				retorno = "Funcion·rio atualizado com sucesso.";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			ok = false;
+			retorno = "Ocorreu um erro ao atualizar o funcion·rio. Por favor, contate o administrador do sistema.";
 		}
-		return ok;
+		return retorno;
 	}
 
 	@Override
@@ -120,7 +134,8 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 			if (id.equals(-999l)) {
 				funcionarioClient = new FuncionarioClient(-999l,
 						"adminIdecaph", "4dm1n1d3c4ph", "4dm1n1d3c4ph",
-						"adminIdecaph", "-999", "admin", "administra√ß√£o", true);
+						"adminIdecaph", "-999", "admin", "administra√ß√£o",
+						true);
 			} else {
 				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
