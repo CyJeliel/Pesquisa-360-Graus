@@ -71,14 +71,19 @@ public class RelatoriosPresenter extends Presenter<RelatoriosDisplay> {
 			public void onClick(ClickEvent event) {
 				String tituloEscolhido = display.getBoxTituloPesquisa()
 						.getText();
+				boolean existePesquisa = false;
 				for (PesquisaClient pesquisa : pesquisas) {
 					String tituloCandidado = pesquisa.getDisplayTitulo();
 					if (tituloCandidado.equals(tituloEscolhido)) {
 						avaliados = pesquisa.getAvaliados();
 						pesquisaAtual = pesquisa;
 						atualizaTabela();
+						existePesquisa = true;
 						break;
 					}
+				}
+				if (!existePesquisa){
+					Window.alert("Não foi encontrada nenhuma pesquisa com o título " + tituloEscolhido);
 				}
 			}
 		});
