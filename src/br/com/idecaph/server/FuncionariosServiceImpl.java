@@ -92,7 +92,7 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 			Funcionario funcionario = new Funcionario(funcionarioClient);
 			retorno = funcionario.valido(all,
 					funcionarioClient.getConfirmacaoSenha());
-			if (retorno != null) {
+			if (retorno == null) {
 				funcionarioDAO = new FuncionarioDAO();
 				funcionarioDAO.insert(funcionario);
 				retorno = "Funcionário cadastrado com sucesso.";
@@ -102,7 +102,7 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 			e.printStackTrace();
 			retorno = "Ocorreu um erro ao cadastrar o funcionário. Por favor, contate o administrador do sistema.";
 		}
-		return "";
+		return retorno;
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 			Funcionario funcionario = new Funcionario(funcionarioClient);
 			retorno = funcionario.valido(all,
 					funcionarioClient.getConfirmacaoSenha());
-			if (retorno != null) {
+			if (retorno == null) {
 				funcionarioDAO = new FuncionarioDAO();
 				funcionarioDAO.update(funcionario);
 				retorno = "Funcionário atualizado com sucesso.";

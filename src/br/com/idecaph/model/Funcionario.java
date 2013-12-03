@@ -139,7 +139,7 @@ public class Funcionario implements Entity {
 		if (all != null && !all.isEmpty()){
 			for (Funcionario funcionario: all){
 				if (login.equals(funcionario.getLogin())){
-					if (id != null && !id.equals(funcionario.getId())){
+					if (id == null || !id.equals(funcionario.getId())){
 						return "Já existe um funcionário cadastrado com esse login.";
 					}
 				}

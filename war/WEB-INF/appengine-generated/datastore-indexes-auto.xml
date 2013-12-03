@@ -1,11 +1,4 @@
-<!-- Indices written at Sun, 1 Dec 2013 20:30:46 BRST -->
+<!-- Indices written at Tue, 3 Dec 2013 19:54:07 BRST -->
 
-<datastore-indexes>
+<datastore-indexes/>
 
-    <!-- Used 21 times in query history -->
-    <datastore-index kind="Pergunta" ancestor="false" source="auto">
-        <property name="idPesquisa" direction="asc"/>
-        <property name="posicao" direction="asc"/>
-    </datastore-index>
-
-</datastore-indexes>
