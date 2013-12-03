@@ -14,7 +14,7 @@ public interface FuncionariosService extends RemoteService {
 
 	String excluiFuncionario(Long id);
 
-	Boolean cadastraFuncionario(FuncionarioClient funcionario);
+	String cadastraFuncionario(FuncionarioClient funcionario);
 
 	boolean atualizaFuncionario(FuncionarioClient funcionario);
 

@@ -83,7 +83,7 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public Boolean cadastraFuncionario(FuncionarioClient funcionarioClient) {
+	public String cadastraFuncionario(FuncionarioClient funcionarioClient) {
 		boolean ok = true;
 		try {
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
@@ -93,7 +93,8 @@ public class FuncionariosServiceImpl extends RemoteServiceServlet implements
 			e.printStackTrace();
 			ok = false;
 		}
-		return ok;
+		//return ok;
+		return "";
 	}
 
 	@Override

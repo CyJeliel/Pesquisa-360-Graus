@@ -128,10 +128,10 @@ public class NovoFuncionarioPresenter extends Presenter<NovoFuncionarioDisplay> 
 
 	private void cadastraFuncionario(FuncionarioClient funcionario) {
 		rpcService.cadastraFuncionario(funcionario,
-				new AsyncCallback<Boolean>() {
+				new AsyncCallback<String>() {
 
 					@Override
-					public void onSuccess(Boolean result) {
+					public void onSuccess(String result) {
 						exibeFeedback(NovoFuncionarioDisplay.CADASTRO_FUNCIONARIO);
 						
 					}

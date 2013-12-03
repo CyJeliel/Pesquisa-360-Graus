@@ -12,7 +12,7 @@ public interface FuncionariosServiceAsync {
 	void excluiFuncionario(Long id, AsyncCallback<String> asyncCallback);
 
 	void cadastraFuncionario(FuncionarioClient funcionario,
-			AsyncCallback<Boolean> callback);
+			AsyncCallback<String> callback);
 
 	void atualizaFuncionario(FuncionarioClient funcionario,
 			AsyncCallback<Boolean> asyncCallback);
