@@ -43,7 +43,7 @@ public class AutenticacaoServiceImpl extends RemoteServiceServlet implements
 			if (login.equals("adminIdecaph") && senha.equals("4dm1n1d3c4ph")) {
 				funcionarioClient = new FuncionarioClient(-999l,
 						"adminIdecaph", "4dm1n1d3c4ph", "4dm1n1d3c4ph",
-						"adminIdecaph", "-999", "admin", "administração", true);
+						"adminIdecaph", "-999", "admin", "administraÃ§Ã£o", true);
 			} else {
 
 				Funcionario funcionario = funcionarioDAO.findByLoginSenha(

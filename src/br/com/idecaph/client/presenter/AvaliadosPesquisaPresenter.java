@@ -26,9 +26,10 @@ public class AvaliadosPesquisaPresenter extends
 	private static final int COLUNA_SELECIONAR = 0;
 
 	public AvaliadosPesquisaPresenter(AvaliadosPesquisaDisplay display,
-			HandlerManager eventBus, PesquisaClient pesquisa) {
+			HandlerManager eventBus, PesquisaClient pesquisa, List<FuncionarioSelecionavel> funcionarios) {
 		super(display, eventBus);
 		this.pesquisa = pesquisa;
+		this.funcionarios = funcionarios;
 	}
 
 	@Override
@@ -36,7 +37,6 @@ public class AvaliadosPesquisaPresenter extends
 		final AvaliadosPesquisaDisplay display = super.getDisplay();
 		FuncionarioSelecionavelColunas funcionarioColunas = new FuncionarioSelecionavelColunas();
 		display.setColunas(funcionarioColunas.getDefinicoesColunas());
-		funcionarios = pesquisa.getParticipantes();
 		FuncionarioSelecionavel titulo = new FuncionarioSelecionavel(null, 
 				"<b>FUNCIONÁRIOS</b>", "<b>IDENTIFICAÇÃO</b>", "<b>CARGO</b>",
 				"<b>DEPARTAMENTO</b>", false);
@@ -70,8 +70,8 @@ public class AvaliadosPesquisaPresenter extends
 							.todosItens()) {
 						if (selectionModel.isSelected(funcionario)) {
 							funcionario.seleciona();
+							funcionariosSelecionados.add(funcionario);
 						}
-						funcionariosSelecionados.add(funcionario);
 					}
 					pesquisa.setAvaliados(funcionariosSelecionados);
 					eventBus.fireEvent(new EventoPaginaPerguntas(pesquisa));

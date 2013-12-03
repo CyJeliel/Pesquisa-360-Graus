@@ -55,9 +55,11 @@ public class PesquisasServiceImpl extends RemoteServiceServlet implements
 		AvaliadoPesquisaDAO avaliadoPesquisaDAO = new AvaliadoPesquisaDAO();
 		List<AvaliadoPesquisa> avaliadosPesquisa = new ArrayList<AvaliadoPesquisa>();
 		for (FuncionarioSelecionavel funcionario : avaliados) {
-			AvaliadoPesquisa avaliadoPesquisa = new AvaliadoPesquisa(
-					funcionario.getId(), idPesquisa);
-			avaliadosPesquisa.add(avaliadoPesquisa);
+			if (funcionario.isSelecionado()){
+				AvaliadoPesquisa avaliadoPesquisa = new AvaliadoPesquisa(
+						funcionario.getId(), idPesquisa);
+				avaliadosPesquisa.add(avaliadoPesquisa);
+			}
 		}
 		boolean ok = true;
 		try {

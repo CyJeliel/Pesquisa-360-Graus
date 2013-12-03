@@ -145,7 +145,7 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 					public void onEventoPaginaParticipantes(
 							EventoPaginaParticipantes eventoPaginaParticipantes) {
 						carregaTelaParticipantesPesquisa(eventoPaginaParticipantes
-								.getPesquisa());
+								.getPesquisa(), eventoPaginaParticipantes.getFuncionarios());
 					}
 				});
 
@@ -179,7 +179,7 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 					public void onEventoAvaliadosPesquisa(
 							EventoPaginaAvaliados eventoAvaliadosPesquisa) {
 						carregaTelaAvaliadosPesquisa(eventoAvaliadosPesquisa
-								.getPesquisa());
+								.getPesquisa(), eventoAvaliadosPesquisa.getFuncionarios());
 					}
 				});
 
@@ -321,13 +321,13 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 		carregaTela(TELA_NOVA_PESQUISA, null, list);
 	}
 
-	private void carregaTelaParticipantesPesquisa(PesquisaClient pesquisa) {
-		carregaTela(TELA_PARTICIPANTES_PESQUISA, null, null, pesquisa, null,
+	private void carregaTelaParticipantesPesquisa(PesquisaClient pesquisa, List<FuncionarioSelecionavel> funcionarios) {
+		carregaTela(TELA_PARTICIPANTES_PESQUISA, null, funcionarios, pesquisa, null,
 				null);
 	}
 
-	private void carregaTelaAvaliadosPesquisa(PesquisaClient pesquisa) {
-		carregaTela(TELA_AVALIADOS_PESQUISA, null, null, pesquisa, null, null);
+	private void carregaTelaAvaliadosPesquisa(PesquisaClient pesquisa, List<FuncionarioSelecionavel> funcionarios) {
+		carregaTela(TELA_AVALIADOS_PESQUISA, null, funcionarios, pesquisa, null, null);
 	}
 
 	private void carregaTelaPerguntasPesquisa(PesquisaClient pesquisa) {
@@ -365,17 +365,17 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 			pesquisa = new PesquisaClient(null, null, funcionarios,
 					funcionarios, null);
 			Presenter<NovaPesquisaDisplay> novaPesquisaPresenter = new NovaPesquisaPresenter(
-					new NovaPesquisaView(), eventBus, pesquisa);
+					new NovaPesquisaView(), eventBus, pesquisa, funcionarios);
 			novaPesquisaPresenter.go(this.bodyPanel);
 			break;
 		case TELA_PARTICIPANTES_PESQUISA:
 			Presenter<ParticipantesPesquisaDisplay> participantesPesquisaPresenter = new ParticipantesPesquisaPresenter(
-					new ParticipantesPesquisaView(), eventBus, pesquisa);
+					new ParticipantesPesquisaView(), eventBus, pesquisa, funcionarios);
 			participantesPesquisaPresenter.go(this.bodyPanel);
 			break;
 		case TELA_AVALIADOS_PESQUISA:
 			Presenter<AvaliadosPesquisaDisplay> avaliadosPesquisaPresenter = new AvaliadosPesquisaPresenter(
-					new AvaliadosPesquisaView(), eventBus, pesquisa);
+					new AvaliadosPesquisaView(), eventBus, pesquisa, funcionarios);
 			avaliadosPesquisaPresenter.go(this.bodyPanel);
 			break;
 		case TELA_PERGUNTAS_PESQUISA:
@@ -411,7 +411,7 @@ public class ConteudoPresenter extends Presenter<ConteudoDisplay> {
 			responderPesquisaFuncionarioPresenter.go(this.bodyPanel);
 			break;
 		default:
-			throw new UnsupportedOperationException("Link inválido");
+			throw new UnsupportedOperationException("Link invï¿½lido");
 		}
 
 		super.container.add(bodyPanel);
